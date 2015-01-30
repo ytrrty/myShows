@@ -14,28 +14,28 @@
 ActiveRecord::Schema.define(version: 20150130005506) do
 
   create_table "episodes", force: :cascade do |t|
-    t.string   "name",           limit: 255
-    t.string   "about",          limit: 255
+    t.string   "name",           limit: 255,               null: false
+    t.text     "about",          limit: 65535,             null: false
+    t.date     "released"
     t.float    "rate_imdb",      limit: 24
     t.float    "users_rate",     limit: 24
-    t.integer  "comments_count", limit: 4
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "comments_count", limit: 4,     default: 0
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   create_table "shows", force: :cascade do |t|
-    t.string  "status",         limit: 255, default: "", null: false
+    t.string  "status",         limit: 255,   default: "", null: false
     t.date    "start_date"
     t.date    "finish_date"
-    t.string  "country",        limit: 255, default: "", null: false
-    t.string  "channel",        limit: 255, default: "", null: false
-    t.string  "about",          limit: 255, default: "", null: false
-    t.integer "seasons_count",  limit: 4
-    t.integer "runtime",        limit: 4
+    t.string  "country",        limit: 255,   default: "", null: false
+    t.string  "channel",        limit: 255,   default: "", null: false
+    t.text    "about",          limit: 65535,              null: false
+    t.integer "seasons_count",  limit: 4,     default: 0,  null: false
+    t.integer "runtime",        limit: 4,     default: 0,  null: false
     t.float   "rate_imdb",      limit: 24
     t.float   "rate_users",     limit: 24
-    t.integer "genre_id",       limit: 4
-    t.integer "comments_count", limit: 4
+    t.integer "comments_count", limit: 4,     default: 0,  null: false
   end
 
   create_table "shows_episodes", force: :cascade do |t|
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20150130005506) do
     t.integer "episode_id",  limit: 4
     t.integer "user_id",     limit: 4
     t.string  "show_status", limit: 255
-    t.boolean "favorite",    limit: 1
+    t.boolean "favorite",    limit: 1,   default: false
   end
 
   add_index "shows_episodes", ["episode_id"], name: "index_shows_episodes_on_episode_id", using: :btree
@@ -54,14 +54,13 @@ ActiveRecord::Schema.define(version: 20150130005506) do
     t.integer "user_id",     limit: 4
     t.integer "show_id",     limit: 4
     t.string  "show_status", limit: 255
-    t.boolean "favorite",    limit: 1
+    t.boolean "favorite",    limit: 1,   default: false
   end
 
   add_index "user_shows", ["show_id"], name: "index_user_shows_on_show_id", using: :btree
   add_index "user_shows", ["user_id"], name: "index_user_shows_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",                   limit: 255, default: "", null: false
     t.string   "login",                  limit: 255, default: "", null: false
     t.string   "email",                  limit: 255, default: "", null: false
     t.string   "encrypted_password",     limit: 255, default: "", null: false

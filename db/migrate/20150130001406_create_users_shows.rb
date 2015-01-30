@@ -4,7 +4,7 @@ class CreateUsersShows < ActiveRecord::Migration
       t.references :user, index: true
       t.references :show, index: true
       t.string :show_status
-      t.boolean :favorite
+      t.boolean :favorite, default: false
     end
   end
 end

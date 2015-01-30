@@ -2,20 +2,25 @@
 <html>
 <head>
   <title>App</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-   <% if user_signed_in? %>
-       <p>Hello, <%= current_user.email %></p>
-       <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
-   <% else %>
-       <%= link_to 'Login', new_user_session_path %> or <%= link_to 'Register', new_user_registration_path %>
+<% if user_signed_in? %>
+    <td>You logined as <%= current_user.login %>. Email: <%= current_user.email %> </td>
+    <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
+    <br>
+    <td><%= link_to 'Show', current_user %></td>
+    <td><%= link_to 'Edit', edit_user_registration_path(current_user) %></td>
 
-   <% end %>
+<% else %>
+    <%= link_to 'Login', new_user_session_path %> or <%= link_to 'Register', new_user_registration_path %>
 
- <%= yield %>
+<% end %>
+
+<%= yield %>
+
 
 </body>
 </html>

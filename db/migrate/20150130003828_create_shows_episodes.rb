@@ -5,7 +5,7 @@ class CreateShowsEpisodes < ActiveRecord::Migration
       t.references :episode, index: true
       t.references :user, index: true
       t.string :show_status
-      t.boolean :favorite
+      t.boolean :favorite,  default: false
     end
   end
 end
