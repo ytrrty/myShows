@@ -11,7 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150129162123) do
+ActiveRecord::Schema.define(version: 20150130002624) do
+
+  create_table "shows", force: :cascade do |t|
+    t.string  "status",         limit: 255, default: "", null: false
+    t.date    "start_date"
+    t.date    "finish_date"
+    t.string  "country",        limit: 255, default: "", null: false
+    t.string  "channel",        limit: 255, default: "", null: false
+    t.string  "about",          limit: 255, default: "", null: false
+    t.integer "seasons_count",  limit: 4
+    t.integer "runtime",        limit: 4
+    t.float   "rate_imdb",      limit: 24
+    t.float   "rate_users",     limit: 24
+    t.integer "genre_id",       limit: 4
+    t.integer "comments_count", limit: 4
+  end
+
+  create_table "user_shows", force: :cascade do |t|
+    t.integer "user_id",     limit: 4
+    t.integer "show_id",     limit: 4
+    t.string  "show_status", limit: 255
+    t.boolean "favorite",    limit: 1
+  end
+
+  add_index "user_shows", ["show_id"], name: "index_user_shows_on_show_id", using: :btree
+  add_index "user_shows", ["user_id"], name: "index_user_shows_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",                   limit: 255, default: "", null: false
@@ -35,4 +60,6 @@ ActiveRecord::Schema.define(version: 20150129162123) do
   add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "user_shows", "shows"
+  add_foreign_key "user_shows", "users"
 end
