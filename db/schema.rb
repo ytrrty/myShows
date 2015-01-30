@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150130002624) do
+ActiveRecord::Schema.define(version: 20150130005506) do
+
+  create_table "episodes", force: :cascade do |t|
+    t.string   "name",           limit: 255
+    t.string   "about",          limit: 255
+    t.float    "rate_imdb",      limit: 24
+    t.float    "users_rate",     limit: 24
+    t.integer  "comments_count", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "shows", force: :cascade do |t|
     t.string  "status",         limit: 255, default: "", null: false
@@ -27,6 +37,18 @@ ActiveRecord::Schema.define(version: 20150130002624) do
     t.integer "genre_id",       limit: 4
     t.integer "comments_count", limit: 4
   end
+
+  create_table "shows_episodes", force: :cascade do |t|
+    t.integer "show_id",     limit: 4
+    t.integer "episode_id",  limit: 4
+    t.integer "user_id",     limit: 4
+    t.string  "show_status", limit: 255
+    t.boolean "favorite",    limit: 1
+  end
+
+  add_index "shows_episodes", ["episode_id"], name: "index_shows_episodes_on_episode_id", using: :btree
+  add_index "shows_episodes", ["show_id"], name: "index_shows_episodes_on_show_id", using: :btree
+  add_index "shows_episodes", ["user_id"], name: "index_shows_episodes_on_user_id", using: :btree
 
   create_table "user_shows", force: :cascade do |t|
     t.integer "user_id",     limit: 4
@@ -60,6 +82,9 @@ ActiveRecord::Schema.define(version: 20150130002624) do
   add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "shows_episodes", "episodes"
+  add_foreign_key "shows_episodes", "shows"
+  add_foreign_key "shows_episodes", "users"
   add_foreign_key "user_shows", "shows"
   add_foreign_key "user_shows", "users"
 end

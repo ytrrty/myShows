@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :user_shows
-  has_many :shows, through: :user_shows
+  has_many :users_shows
+  has_many :shows, through: :users_shows
+
+  has_many :shows_episodes
 end
