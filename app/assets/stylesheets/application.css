@@ -12,4 +12,12 @@
  *
  *= require_tree .
  *= require_self
+ *= require foundation_and_overrides
+
  */
+
+
+div.reg {
+    width: 270px;
+    margin: 0 auto;
+}

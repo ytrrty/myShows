@@ -7,4 +7,3 @@ class CreateForeignKeys < ActiveRecord::Migration
     add_foreign_key :shows_episodes, :users
   end
 end
-
