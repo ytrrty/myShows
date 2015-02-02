@@ -16,8 +16,28 @@
 
  */
 
+body {
+    background-color: #EEEEEE;
+}
 
 div.reg {
     width: 270px;
     margin: 0 auto;
+}
+
+.page {
+    max-width: 1100px;
+    margin: 0 auto;
+    margin-top: 10px;
+    height: 150%;
+    background-color: #FFFFFF;
+    border: 1px ridge #DDDDDD;
+}
+
+h2 {
+    text-align: center;
+}
+
+i {
+    font-size: 14px;
 }

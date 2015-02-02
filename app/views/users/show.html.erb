@@ -1,5 +1,9 @@
+<div class="page">
 <h2 align="center">It`s your profile!</h2>
 <h4>Your information:</h4>
 <strong>Login:</strong> <%= @user_profile.login %>
 <br>
 <strong>Email:</strong> <%= @user_profile.email %>
+<br>
+<a class="button radius success small" <%=link_to 'Edit your profile', edit_user_registration_path(current_user)%>
+</div>
