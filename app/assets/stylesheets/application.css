@@ -34,6 +34,11 @@ div.reg {
     border: 1px ridge #DDDDDD;
 }
 
+.avatar {
+    padding: 10px;
+    float: left;
+}
+
 h2 {
     text-align: center;
 }

@@ -1,32 +1,37 @@
 <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {:multipart => true}) do |f| %>
     <%= devise_error_messages! %>
+
     <form method="post" class="reg">
       <div class="reg">
 
-    <div class="field">
-      <%= f.text_field :login, autofocus: true, placeholder: 'Login' %>
-    </div>
+        <div class="field">
+          <%= f.text_field :login, autofocus: true, placeholder: 'Login' %>
+        </div>
 
-    <div class="field">
-      <%= f.email_field :email, placeholder: 'Email' %>
-    </div>
+        <div class="field">
+          <%= f.email_field :email, placeholder: 'Email' %>
+        </div>
 
-    <div class="field">
-      <% if @validatable %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "off", placeholder: 'Password' %>
-    </div>
+        <div class="field">
+          <% if @validatable %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br/>
+          <%= f.password_field :password, autocomplete: "off", placeholder: 'Password' %>
+        </div>
 
-    <div class="field">
-      <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Confirm password' %>
-    </div>
+        <div class="field">
+          <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Confirm password' %>
+        </div>
 
-    <button type="submit" class="button radius expand success small">Sign up!</button>
+        <div class="field">
+          <%= f.file_field :avatar %>
+        </div>
+
+        <button type="submit" class="button radius expand success small">Sign up!</button>
 
 <% end %>
 
-    </div>
+</div>
 </form>

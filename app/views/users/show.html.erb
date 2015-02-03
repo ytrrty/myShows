@@ -1,9 +1,16 @@
 <div class="page">
-<h2 align="center">It`s your profile!</h2>
-<h4>Your information:</h4>
+  <% if current_user == @user_profile %> <h2 align="center">It`s your profile!</h2>
+  <a class="button radius success tiny" <%=link_to 'Edit profile', edit_user_registration_path(current_user)%>
+  <% end %>
+<div class="avatar">
+  <%= image_tag @user_profile.avatar.url(:medium) %>
+</div>
+
+<br>
 <strong>Login:</strong> <%= @user_profile.login %>
 <br>
 <strong>Email:</strong> <%= @user_profile.email %>
 <br>
-<a class="button radius success small" <%=link_to 'Edit your profile', edit_user_registration_path(current_user)%>
+  <br>
+
 </div>
