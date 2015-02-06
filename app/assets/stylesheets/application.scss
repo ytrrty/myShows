@@ -31,9 +31,12 @@ div.reg {
     max-width: 1100px;
     margin: 0 auto;
     margin-top: 10px;
-    height: 150%;
     background-color: #FFFFFF;
     border: 1px ridge #DDDDDD;
+}
+
+.show_list {
+  align-content: center;
 }
 
 .avatar {
@@ -45,6 +48,33 @@ div.reg {
   width: 40%;
   padding: 5px;
   font-size: 12px;
+}
+
+.main-blocks {
+  float: left;
+  width: 215px;
+  height: 315px;
+  margin: 0 auto;
+}
+
+.blocks-names {
+  height: 30px;
+  background-color: #333333;
+  margin: 285px 0 0 0;
+  padding: 5px;
+  position: absolute;
+  color: #DDDDDD;
+  font-size: small;
+}
+
+ul.large-block-grid-5 {
+  display: inline-block;
+  align-items: center;
+}
+
+img.show-list {
+  width: 200px;
+  height: 300px;
 }
 
 h2 {

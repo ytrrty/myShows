@@ -3,6 +3,10 @@ class ShowsController < ApplicationController
     @show_page = Show.find(params[:id])
   end
 
+  def index
+    @all_shows = Show.all
+  end
+
   def new
 
     #for n in 1..10 do
@@ -28,27 +32,18 @@ class ShowsController < ApplicationController
             @new_show.rate_imdb = show_doc.css('.star-box-giga-star').text
             @new_show.rate_users = 0.1
             @new_show.comments_count = 0
+
+=begin
+          open(@new_show.id+'/image.png', 'wb') do |file|
+            file << open(show_doc.css('#img_primary img')[:src]).read
+          end
+
+          photo_url = show_doc.css('#img_primary img')[:src]
+=end
+          show_doc.css('#img_primary img').each do |img| @new_show.photo = img['src'] end
           @new_show.save
 
 
-
-
-=begin
-              :name => item.content,
-              :status => item[:href],
-              :start_date => '',
-              :finish_date => '',
-              :country => 1,
-              :channel => 1,
-              :about => 'element',
-              :seasons_count => 1,
-              :runtime => 1,
-              :rate_imdb => 1,
-              :rate_users => 1,
-              :comments_count => 1)
-              @new_show.save
-=end
-        #end
 
       end
     end
