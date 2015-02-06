@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150202083444) do
   end
 
   create_table "shows", force: :cascade do |t|
+    t.string  "name",           limit: 255,                null: false
     t.string  "status",         limit: 255,   default: "", null: false
     t.date    "start_date"
     t.date    "finish_date"
@@ -36,6 +37,7 @@ ActiveRecord::Schema.define(version: 20150202083444) do
     t.float   "rate_imdb",      limit: 24
     t.float   "rate_users",     limit: 24
     t.integer "comments_count", limit: 4,     default: 0,  null: false
+    t.string  "photo",          limit: 255
   end
 
   create_table "shows_episodes", force: :cascade do |t|

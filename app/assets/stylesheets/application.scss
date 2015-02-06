@@ -15,6 +15,8 @@
  *= require foundation_and_overrides
 
  */
+@import "foundation_and_overrides";
+/* Add imports of custom sass/scss files here */
 
 body {
     background-color: #EEEEEE;
@@ -37,6 +39,12 @@ div.reg {
 .avatar {
     padding: 10px;
     float: left;
+}
+
+.info-box {
+  width: 40%;
+  padding: 5px;
+  font-size: 12px;
 }
 
 h2 {
