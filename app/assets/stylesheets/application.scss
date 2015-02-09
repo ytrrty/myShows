@@ -29,8 +29,8 @@ div.reg {
 
 .page {
     max-width: 1100px;
-    margin: 0 auto;
-    margin-top: 10px;
+    min-height: 600px;
+    margin: 10px auto 10px auto;
     background-color: #FFFFFF;
     border: 1px ridge #DDDDDD;
 }
@@ -45,7 +45,7 @@ div.reg {
 }
 
 .info-box {
-  width: 40%;
+  width: 70%;
   padding: 5px;
   font-size: 12px;
 }
@@ -67,9 +67,25 @@ div.reg {
   font-size: small;
 }
 
+.user-left {
+  float: left;
+  width: 75%;
+}
+
+.user-right {
+  float: right;
+  border-left: ridge;
+  border-color: #DDDDDD;
+  border-width: 1px;
+  min-height: 600px;
+  width: 250px;
+}
+
 ul.large-block-grid-5 {
   display: inline-block;
   align-items: center;
+  margin: 2px auto;
+  line-height: 1.4;
 }
 
 img.show-list {
@@ -78,6 +94,10 @@ img.show-list {
 }
 
 h2 {
+    text-align: center;
+}
+
+h5 {
     text-align: center;
 }
 

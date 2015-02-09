@@ -1,16 +1,23 @@
 class ShowsController < ApplicationController
   def show
     @show_page = Show.find(params[:id])
-  end
+      end
 
   def index
-    @all_shows = Show.all
+    @all_shows = Show.all.page(params[:page]).per(10)
+  end
+
+  def change_status
+    @show = Show.find(params[:id])
+    @new_record = UsersShow.new
+    @new_record.user_id = current_user.id
+    @new_record.show = Show.find(params[:id])
+    @new_record.show_status = params[:status]
+    @new_record.save
   end
 
   def new
-
     #for n in 1..10 do
-    #n=1
       url = 'http://www.imdb.com/search/title?num_votes=5000%2C&sort=moviemeter&title_type=tv_series'
       doc = Nokogiri::HTML(open(url))
       doc.css('.title a').each do |item|
@@ -42,8 +49,6 @@ class ShowsController < ApplicationController
 =end
           show_doc.css('#img_primary img').each do |img| @new_show.photo = img['src'] end
           @new_show.save
-
-
 
       end
     end

@@ -26,7 +26,12 @@
   <br>
   <strong>About:</strong> <%= @show_page.about %>
   <br>
-
-
+    <button href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="tiny button dropdown">Select show status</button><br>
+    <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
+      <li><%=link_to 'Dont`t watch', change_status_path(id: @show_page.id, status: 'dont_watch') %></li>
+      <li><%=link_to 'Will watch', change_status_path(id: @show_page.id, status: 'will_watch') %></li>
+      <li><%=link_to 'Watching', change_status_path(id: @show_page.id, status: 'watching') %></li>
+      <li><%=link_to 'Stopped watch', change_status_path(id: @show_page.id, status: 'stopped_watch') %></li>
+    </ul>
     </div>
 </div>
