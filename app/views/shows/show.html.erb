@@ -26,7 +26,12 @@
   <br>
   <strong>About:</strong> <%= @show_page.about %>
   <br>
-
+    <button href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="tiny button dropdown">Select show status</button><br>
+    <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
+      <li></li>
+      <li><a href="#">Will watch</a></li>
+      <li><a href="#">Watching</a></li>
+    </ul>
 
     </div>
 </div>
