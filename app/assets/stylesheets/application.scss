@@ -67,6 +67,20 @@ div.reg {
   font-size: small;
 }
 
+.user-left {
+  float: left;
+  width: 75%;
+}
+
+.user-right {
+  float: right;
+  border-left: ridge;
+  border-color: #DDDDDD;
+  border-width: 1px;
+  min-height: 600px;
+  width: 250px;
+}
+
 ul.large-block-grid-5 {
   display: inline-block;
   align-items: center;
@@ -80,6 +94,10 @@ img.show-list {
 }
 
 h2 {
+    text-align: center;
+}
+
+h5 {
     text-align: center;
 }
 

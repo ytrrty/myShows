@@ -7,6 +7,15 @@ class ShowsController < ApplicationController
     @all_shows = Show.all.page(params[:page]).per(10)
   end
 
+  def change_status
+    @show = Show.find(params[:id])
+    @new_record = UsersShow.new
+    @new_record.user_id = current_user.id
+    @new_record.show = Show.find(params[:id])
+    @new_record.show_status = params[:status]
+    @new_record.save
+  end
+
   def new
     #for n in 1..10 do
       url = 'http://www.imdb.com/search/title?num_votes=5000%2C&sort=moviemeter&title_type=tv_series'
