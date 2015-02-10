@@ -13,23 +13,24 @@
   <strong>Email:</strong> <%= @user_profile.email %>
   <br>
   <br>
-  <a class="button radius success tiny" <%= link_to 'Parse', new_show_path %>
+  <a class="button radius success tiny" <%= link_to 'Parse shows', new_show_path %>
+  <a class="button radius success tiny" <%= link_to 'Parse genres', new_genre_path %>
   </div>
   <div class="user-right">
-    <% if !@watching.empty? %>
+    <% unless @watching.empty? %>
     <h5>Watching</h5>
     <% @watching.each {|item| %>
         <h6><%= link_to item.show.name, item.show %></h6>
     <% }
     end%>
-    <% if !@will_watch.empty? %>
+    <% unless @will_watch.empty? %>
     <h5>Will watch</h5>
     <% @will_watch.each {|item| %>
         <h6><%= link_to item.show.name, item.show %></h6>
     <% }
     end %>
 
-    <% if !@stopped_watch.empty? %>
+    <% unless @stopped_watch.empty? %>
     <h5>Stopped watch</h5>
     <% @stopped_watch.each {|item| %>
         <h6><%= link_to item.show.name, item.show %></h6>

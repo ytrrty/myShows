@@ -4,5 +4,8 @@ class Show < ActiveRecord::Base
   has_many :shows_episodes
   has_many :episodes, through: :shows_episodes
 
+  has_many :shows_genres
+  has_many :genres, through: :shows_genres
+
   end
 

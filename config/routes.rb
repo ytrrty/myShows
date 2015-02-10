@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :users
   resources :shows
+  resources :genres
+
   root to: 'users#welcome'
 
   get 'shows/:id/change_status', to: 'shows#change_status', as: :change_status

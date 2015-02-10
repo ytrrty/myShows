@@ -16,6 +16,8 @@
   <br>
   <strong>Channel:</strong> <%= @show_page.channel %>
   <br>
+    <strong>Genres:</strong> <% @show_genres.each {|genre|%> <%= genre.name + ' | ' %> <%}%>
+    <br>
   <strong>Seasons:</strong> <%= @show_page.seasons_count %>
   <br>
   <strong>Runtime:</strong> <%= @show_page.runtime %>
