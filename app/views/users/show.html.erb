@@ -1,6 +1,6 @@
 <div class="page">
   <div class="user-left">
-  <% if current_user == @user_profile %> <h2 align="center">It`s your profile!</h2>
+  <% if current_user == @user_profile %> <h2 align="center">My profile</h2>
       <a class="button radius success tiny" <%= link_to 'Edit profile', edit_user_registration_path(current_user) %>
   <% end %>
   <div class="avatar">
@@ -17,6 +17,7 @@
   <a class="button radius success tiny" <%= link_to 'Parse genres', new_genre_path %>
   </div>
   <div class="user-right">
+
     <% unless @watching.empty? %>
     <h5>Watching</h5>
     <% @watching.each {|item| %>
@@ -35,6 +36,11 @@
     <% @stopped_watch.each {|item| %>
         <h6><%= link_to item.show.name, item.show %></h6>
     <% } %>
+    <% end %>
+
+    <% if @watching.empty? && @will_watch.empty? && @stopped_watch.empty? %>
+    <h6>You don't watch anything yet :с</h6>
+        <i>Go to <%= link_to 'list', shows_path %> and add shows to your profile</i>
     <% end %>
   </div>
 </div>

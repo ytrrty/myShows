@@ -13,7 +13,7 @@ class ShowsController < ApplicationController
   end
 
   def index
-    @all_shows = Show.all.page(params[:page]).per(10)
+    @all_shows = Show.all.page(params[:page]).per(20)
   end
 
   def change_status

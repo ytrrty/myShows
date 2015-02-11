@@ -44,10 +44,15 @@ div.reg {
     float: left;
 }
 
-.info-box {
+.show-info {
   width: 70%;
   padding: 5px;
   font-size: 12px;
+}
+
+.show-text {
+  width: 70%;
+  float: right;
 }
 
 .main-blocks {
@@ -74,12 +79,15 @@ div.reg {
 
 .user-right {
   float: right;
-  border-left: ridge;
-  border-color: #DDDDDD;
-  border-width: 1px;
+  border-left: 1px ridge #DDDDDD;
   min-height: 600px;
   width: 250px;
   padding: 10px;
+}
+
+.users-list {
+  height: 300px;
+  width: 100%;
 }
 
 ul.large-block-grid-5 {
@@ -87,6 +95,10 @@ ul.large-block-grid-5 {
   align-items: center;
   margin: 2px auto;
   line-height: 1.4;
+}
+
+.large-block-grid-4 {
+  margin: 0 auto;
 }
 
 img.show-list {
@@ -103,5 +115,19 @@ h5 {
 }
 
 i {
-    font-size: 14px;
+    font-size: 13px;
+}
+
+button.show-status {
+  margin-left: 10px;
+  width: 200px;
+  float: left;
+}
+
+a {
+  font-size: 0.77778rem;
+}
+
+nav.pagination {
+  text-align: center;
 }

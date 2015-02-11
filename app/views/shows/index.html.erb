@@ -1,9 +1,8 @@
 <div class="page show-list">
     <h2>Shows list</h2>
-  <br>
 
   <%= paginate @all_shows %>
-
+<br>
   <ul class="large-block-grid-5">
             <% @all_shows.each { |show| %>
             <li>
@@ -14,5 +13,6 @@
             </li>
             <% } %>
           </ul>
-
+  <a class="paginate"><%= paginate @all_shows %></a>
+  <br><br>
 </div>
