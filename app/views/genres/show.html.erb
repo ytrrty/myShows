@@ -1,0 +1,15 @@
+<div class="page show-list">
+  <h2>Shows list</h2>
+  <br>
+  <ul class="large-block-grid-5">
+    <% @s_g.each { |show| %>
+        <li>
+          <div class="main-blocks">
+            <%= link_to image_tag(show.photo, class: 'show-list'), show %>
+          </div>
+          <div class="blocks-names"><%= link_to show.name, show %></div>
+        </li>
+    <% } %>
+  </ul>
+  <br>
+</div>

@@ -8,4 +8,8 @@ class GenresController < ApplicationController
       @new_genre.save
     end
   end
+
+  def show
+    @s_g = Genre.find(params[:id]).shows.all
+  end
 end

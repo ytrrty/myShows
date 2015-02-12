@@ -2,14 +2,6 @@ class ShowsController < ApplicationController
   def show
     @show_page = Show.find(params[:id])
     @show_genres = @show_page.genres
-
-=begin
-    @genres_array = ShowsGenre.where(:id => params[:id])
-    @show_genres = Array.new
-    @genres_array.each |genre| {
-    @show_genres.push(Genre.where(:id => genre.genre_id))
-    }
-=end
   end
 
   def index
@@ -58,7 +50,6 @@ class ShowsController < ApplicationController
           show_doc.css('#img_primary img').each do |img| @new_show.photo = img['src'] end
           @new_show.save
 
-          #@new_genre = ShowsGenre.new
           show_doc.css('.infobar .itemprop').each do |element|
             @new_genre = ShowsGenre.new
             @genre = Genre.where(:name => element.text)

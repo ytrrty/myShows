@@ -6,7 +6,7 @@
   <div class="avatar">
     <%= image_tag @show_page.photo, class: 'show-list' %>
   </div>
-<div class="show-text">
+    <div class="show-text">
   <br>
   <strong>Status:</strong> <%= @show_page.status %>
   <br>
@@ -16,8 +16,8 @@
   <br>
   <strong>Channel:</strong> <%= @show_page.channel %>
   <br>
-    <strong>Genres:</strong> <% @show_genres.each {|genre|%> <%= genre.name + ' | ' %> <%}%>
-    <br>
+  <strong>Genres:</strong> <% @show_genres.each {|genre|%> <%=link_to genre.name, genre%> <%}%>
+  <br>
   <strong>Seasons:</strong> <%= @show_page.seasons_count %>
   <br>
   <strong>Runtime:</strong> <%= @show_page.runtime %>

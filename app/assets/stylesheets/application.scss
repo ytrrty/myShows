@@ -20,6 +20,7 @@
 
 body {
     background-color: #EEEEEE;
+  #background-color: #2f4f4f;
 }
 
 div.reg {
@@ -29,7 +30,7 @@ div.reg {
 
 .page {
     max-width: 1100px;
-    min-height: 600px;
+    min-height: 550px;
     margin: 10px auto 10px auto;
     background-color: #FFFFFF;
     border: 1px ridge #DDDDDD;
@@ -80,9 +81,10 @@ div.reg {
 .user-right {
   float: right;
   border-left: 1px ridge #DDDDDD;
-  min-height: 600px;
+  min-height: 550px;
   width: 250px;
   padding: 10px;
+  #background-color: #2f4f4f;
 }
 
 .users-list {
@@ -131,3 +133,23 @@ a {
 nav.pagination {
   text-align: center;
 }
+
+
+
+/*
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -155px;
+}
+.footer, .push {
+  height: 155px;
+  background-color: #333333;
+}*/
