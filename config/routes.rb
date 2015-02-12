@@ -4,15 +4,19 @@ Rails.application.routes.draw do
 
   resources :users
   resources :shows
+  resources :genres
+
   root to: 'users#welcome'
+  #root to: 'shows#show'
 
   get 'shows/:id/change_status', to: 'shows#change_status', as: :change_status
+  get 'genres/:id', to: 'genres#show', as: :find_genres
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  # root 'welcome#show'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -1,19 +1,27 @@
 class ShowsController < ApplicationController
   def show
     @show_page = Show.find(params[:id])
-      end
+    @show_genres = @show_page.genres
+  end
 
   def index
-    @all_shows = Show.all.page(params[:page]).per(10)
+    @all_shows = Show.all.page(params[:page]).per(20)
   end
 
   def change_status
     @show = Show.find(params[:id])
-    @new_record = UsersShow.new
-    @new_record.user_id = current_user.id
-    @new_record.show = Show.find(params[:id])
-    @new_record.show_status = params[:status]
-    @new_record.save
+
+    @update_record = UsersShow.where(:user_id => current_user.id, :show_id => Show.find(params[:id]))
+    unless @update_record.empty?
+      UsersShow.update(@update_record, :show_status => params[:status])
+    else
+      @new_record = UsersShow.new
+      @new_record.user_id = current_user.id
+      @new_record.show = Show.find(params[:id])
+      @new_record.show_status = params[:status]
+      @new_record.save
+    end
+    redirect_to :back
   end
 
   def new
@@ -39,18 +47,17 @@ class ShowsController < ApplicationController
             @new_show.rate_imdb = show_doc.css('.star-box-giga-star').text
             @new_show.rate_users = 0.1
             @new_show.comments_count = 0
-
-=begin
-          open(@new_show.id+'/image.png', 'wb') do |file|
-            file << open(show_doc.css('#img_primary img')[:src]).read
-          end
-
-          photo_url = show_doc.css('#img_primary img')[:src]
-=end
           show_doc.css('#img_primary img').each do |img| @new_show.photo = img['src'] end
           @new_show.save
 
+          show_doc.css('.infobar .itemprop').each do |element|
+            @new_genre = ShowsGenre.new
+            @genre = Genre.where(:name => element.text)
+            @new_genre.show_id = @new_show.id
+            @new_genre.genre_id = @genre.ids[0]
+            @new_genre.save
+        end
       end
     end
   end
-  end
+end

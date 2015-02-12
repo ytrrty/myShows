@@ -1,12 +1,12 @@
 <div class="page">
 
   <h2 align="center"><%= @show_page.name %></h2>
-  <div class="info-box">
+  <div class="show-info">
 
   <div class="avatar">
-    <%= image_tag @show_page.photo %>
+    <%= image_tag @show_page.photo, class: 'show-list' %>
   </div>
-
+    <div class="show-text">
   <br>
   <strong>Status:</strong> <%= @show_page.status %>
   <br>
@@ -15,6 +15,8 @@
   <strong>Finish date:</strong> <%= @show_page.finish_date %>
   <br>
   <strong>Channel:</strong> <%= @show_page.channel %>
+  <br>
+  <strong>Genres:</strong> <% @show_genres.each {|genre|%> <%=link_to genre.name, genre%> <%}%>
   <br>
   <strong>Seasons:</strong> <%= @show_page.seasons_count %>
   <br>
@@ -26,7 +28,8 @@
   <br>
   <strong>About:</strong> <%= @show_page.about %>
   <br>
-    <button href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="tiny button dropdown">Select show status</button><br>
+</div>
+    <button href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="tiny button dropdown show-status">Select show status</button><br>
     <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
       <li><%=link_to 'Dont`t watch', change_status_path(id: @show_page.id, status: 'dont_watch') %></li>
       <li><%=link_to 'Will watch', change_status_path(id: @show_page.id, status: 'will_watch') %></li>
