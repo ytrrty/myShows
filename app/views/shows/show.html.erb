@@ -16,7 +16,7 @@
   <br>
   <strong>Channel:</strong> <%= @show_page.channel %>
   <br>
-  <strong>Genres:</strong> <% @show_genres.each {|genre|%> <%=link_to genre.name, genre%> <%}%>
+  <strong>Genres:</strong> <% @show_genres.each {|genre|%> <%=link_to genre.name, genre %> <%}%>
   <br>
   <strong>Seasons:</strong> <%= @show_page.seasons_count %>
   <br>
@@ -37,4 +37,5 @@
       <li><%=link_to 'Stopped watch', change_status_path(id: @show_page.id, status: 'stopped_watch') %></li>
     </ul>
     </div>
+
 </div>

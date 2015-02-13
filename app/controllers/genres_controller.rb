@@ -10,6 +10,11 @@ class GenresController < ApplicationController
   end
 
   def show
-    @s_g = Genre.find(params[:id]).shows.all
+    @show_genres= Genre.find(params[:id]).shows.all
+  end
+
+  def index
+    @all_genres = Genre.all
+
   end
 end
