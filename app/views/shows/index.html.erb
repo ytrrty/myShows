@@ -4,6 +4,13 @@
     <h2>Shows list</h2>
 
   <%= paginate @all_shows %>
+  <form method="get">
+      <p>
+        <%= text_field_tag :search, params[:search]%>
+        <%= submit_tag 'Search', :name => nil, :class => 'button tiny' %>
+      </p>
+  </form>
+
 <br>
   <ul class="large-block-grid-5">
             <% @all_shows.each { |show| %>
@@ -15,6 +22,6 @@
             </li>
             <% } %>
           </ul>
-  <a class="paginate"><%= paginate @all_shows %></a>
+  <%= paginate @all_shows %>
   <br><br>
 </div>
