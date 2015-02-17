@@ -41,8 +41,12 @@ class ShowsController < ApplicationController
           show_doc.css('.txt-block:nth-child(4) a').each do |element|
             @new_show.country = element.content
           end
+          if show_doc.css('.header .nobr').text[6] != ' '
+            @new_show.status = 'Closed'
+          else
             @new_show.status = 'Run'
-            @new_show.start_date = ''
+          end
+            @new_show.start_date = show_doc.css('.header .nobr').text[1..4]
             @new_show.finish_date = ''
             @new_show.channel = ''
             @new_show.about = show_doc.css('#titleStoryLine p').text
