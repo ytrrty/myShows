@@ -34,6 +34,7 @@ div.reg {
     margin: 10px auto 10px auto;
     background-color: #FFFFFF;
     border: 1px ridge #DDDDDD;
+  position: relative;
 }
 
 .show_list {
@@ -43,6 +44,17 @@ div.reg {
 .avatar {
     padding: 10px;
     float: left;
+}
+
+.user-avatar {
+    margin: 10px;
+    float: left;
+    border: 1px #DDDDDD ridge;
+    width: 300px;
+    height: 300px;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .show-info {
@@ -78,7 +90,18 @@ div.reg {
   width: 75%;
 }
 
+.user-info {
+  float: left;
+}
+
+.user-control-panel {
+  float: left;
+  margin-top: 320px;
+  margin-left: -310px;
+}
+
 .user-right {
+  position: relative;
   float: right;
   border-left: 1px ridge #DDDDDD;
   min-height: 550px;
@@ -90,6 +113,19 @@ div.reg {
 .users-list {
   height: 300px;
   width: 100%;
+}
+
+.user-chart {
+  float:right;
+  width: 480px;
+  margin: 10px;
+}
+
+.genres{
+  height: 400px;
+  -webkit-column-count: 3; /* Chrome, Safari, Opera */
+  -moz-column-count: 3; /* Firefox */
+  column-count: 3;
 }
 
 ul.large-block-grid-5 {
@@ -108,11 +144,16 @@ img.show-list {
   height: 300px;
 }
 
-h2 {
+.user-avatar-img{
+  max-height: 298px;
+  max-width: 298px;
+}
+
+h2{
     text-align: center;
 }
 
-h5 {
+h5{
     text-align: center;
 }
 
@@ -136,7 +177,6 @@ nav.pagination {
 
 
 
-/*
 * {
   margin: 0;
 }
@@ -147,9 +187,10 @@ html, body {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin: 0 auto -155px;
+  margin: 0 auto -60px;
 }
 .footer, .push {
-  height: 155px;
+  height: 60px;
   background-color: #333333;
-}*/
+  color: #CCCCCC;
+}

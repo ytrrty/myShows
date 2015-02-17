@@ -5,7 +5,7 @@ class ShowsController < ApplicationController
   end
 
   def index
-    @all_shows = Show.all.page(params[:page]).per(20)
+    @all_shows = Show.all.page(params[:page]).per(20).search(params[:search])
   end
 
   def change_status
@@ -13,7 +13,11 @@ class ShowsController < ApplicationController
 
     @update_record = UsersShow.where(:user_id => current_user.id, :show_id => Show.find(params[:id]))
     unless @update_record.empty?
-      UsersShow.update(@update_record, :show_status => params[:status])
+      if params[:status] == 'dont_watch'
+        UsersShow.destroy(@update_record)
+      elsif
+        UsersShow.update(@update_record, :show_status => params[:status])
+      end
     else
       @new_record = UsersShow.new
       @new_record.user_id = current_user.id
