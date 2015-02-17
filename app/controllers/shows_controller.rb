@@ -1,7 +1,8 @@
 class ShowsController < ApplicationController
+  before_action :set_show, only: [:show, :change_status]
+  
   def show
-    @show_page = Show.find(params[:id])
-    @show_genres = @show_page.genres
+    @show_genres = @show.genres
   end
 
   def index
@@ -9,8 +10,6 @@ class ShowsController < ApplicationController
   end
 
   def change_status
-    @show = Show.find(params[:id])
-
     @update_record = UsersShow.where(:user_id => current_user.id, :show_id => Show.find(params[:id]))
     unless @update_record.empty?
       if params[:status] == 'dont_watch'
@@ -64,4 +63,9 @@ class ShowsController < ApplicationController
       end
     end
   end
+  
+  private
+    def set_show
+      @show = Show.find(params[:id])
+    end
 end
