@@ -20,7 +20,20 @@
       <li class="divider"></li>
     </ul>
     <!-- Right Nav Section -->
+
     <ul class="right">
+      <li class="has-form">
+        <form method="get" action="/shows">
+          <div class="row collapse">
+            <div class="large-8 small-9 columns">
+              <%= text_field_tag :search, params[:search]%>
+            </div>
+            <div class="large-4 small-3 columns">
+              <%= submit_tag 'Search', :name => nil, :class => 'button tiny' %>
+            </div>
+          </div>
+        </form>
+      </li>
       <li class="divider"></li>
       <% if user_signed_in? %>
           <li><a href="/">Profile</a></li>
