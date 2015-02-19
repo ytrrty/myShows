@@ -22,7 +22,7 @@ class EpisodesController < ApplicationController
             @new_episode.rate_imdb = episode_doc.css('.star-box-giga-star').text
             @new_episode.users_rate = seasons_count
             @new_episode.comments_count = 0
-            @new_episode.show_id = Show.where(:name => show_name).ids[0]
+            @new_episode.show_id = Show.where(name: show_name).first
             @new_episode.season = episode_doc.css('.tv_header .nobr').text[7]
             @new_episode.number = episode_doc.css('.tv_header .nobr').text[18..20]
             unless @new_episode.released.nil? then @new_episode.save end
