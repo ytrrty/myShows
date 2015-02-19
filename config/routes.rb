@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users
   resources :shows
   resources :genres
+  resources :episodes
 
   root to: 'users#welcome'
   #root to: 'shows#show'

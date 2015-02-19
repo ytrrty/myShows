@@ -1,20 +1,19 @@
 
 
 <div class="page show-list">
-    <h2>Shows list</h2>
+  <h2>Shows list</h2>
 
   <%= paginate @all_shows %>
-<br>
-  <ul class="large-block-grid-5">
-            <% @all_shows.each { |show| %>
-            <li>
-              <div class="main-blocks">
-                <%= link_to image_tag(show.photo, class: 'show-list'), show %>
-              </div>
-              <div class="blocks-names"><%= link_to show.name, show %></div>
-            </li>
-            <% } %>
-          </ul  <%= paginate @all_shows %>>
 
-  <br><br>
+  <ul class="large-block-grid-5">
+    <% @all_shows.each { |show| %>
+        <li>
+          <div class="main-blocks">
+            <%= link_to image_tag(show.photo, class: 'show-list'), show %>
+          </div>
+          <div class="blocks-names"><%= link_to show.name, show %></div>
+        </li>
+    <% } %>
+  </ul>
+  <%= paginate @all_shows %>
 </div>

@@ -30,11 +30,12 @@ div.reg {
 
 .page {
     max-width: 1100px;
-    min-height: 550px;
+    min-height: 650px;
+    h1eight: auto;
     margin: 10px auto 10px auto;
     background-color: #FFFFFF;
     border: 1px ridge #DDDDDD;
-  position: relative;
+    position: relative;
 }
 
 .show_list {
@@ -128,6 +129,12 @@ div.reg {
   column-count: 3;
 }
 
+.episodes {
+  width: 730px;
+  margin: 10px;
+  float: left;
+}
+
 ul.large-block-grid-5 {
   display: inline-block;
   align-items: center;
@@ -171,9 +178,6 @@ a {
   font-size: 0.77778rem;
 }
 
-nav.pagination {
-  text-align: center;
-}
 
 
 

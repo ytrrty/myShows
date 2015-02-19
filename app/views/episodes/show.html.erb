@@ -1,0 +1,30 @@
+<div class="row page">
+
+  <h2 align="center"><%= @show.name%>: <%= @episode.name %></h2>
+  <div class="show-info">
+
+    <div class="avatar">
+      <%= image_tag @episode.photo, class: 'show-list' %>
+    </div>
+    <div class="show-text">
+      <strong>Episode name:</strong> <%= @episode.name %>
+      <br>
+      <strong>Show:</strong> <%= link_to @show.name, @show %>
+      <br>
+      <strong>Released:</strong> <%= @episode.released.strftime('%d.%m.%Y') %>
+      <br>
+      <strong>Rate IMDB:</strong> <%= @episode.rate_imdb %>
+      <br>
+      <strong>Users rate:</strong> <%= @episode.users_rate %>
+      <br>
+      <strong>Season:</strong> <%= @episode.season %>
+      <br>
+      <strong>Episode:</strong> <%= @episode.number %>
+      <br>
+      <strong>Runtime:</strong> <%= @show.runtime %> min.
+      <br>
+      <strong>About:</strong> <%= @episode.about %>
+      <br>
+    </div>
+    </div>
+</div>

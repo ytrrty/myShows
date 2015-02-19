@@ -1,7 +1,9 @@
 class ShowsController < ApplicationController
+  before_action :set_show, only: [:show, :change_status]
+  
   def show
-    @show_page = Show.find(params[:id])
-    @show_genres = @show_page.genres
+    @show_genres = @show.genres
+    @show_episodes = Episode.where(:show_id => @show.id).order('released desc')
   end
 
   def index
@@ -9,8 +11,6 @@ class ShowsController < ApplicationController
   end
 
   def change_status
-    @show = Show.find(params[:id])
-
     @update_record = UsersShow.where(:user_id => current_user.id, :show_id => Show.find(params[:id]))
     unless @update_record.empty?
       if params[:status] == 'dont_watch'
@@ -38,9 +38,7 @@ class ShowsController < ApplicationController
           @new_show.name = item.content
           show_url = 'http://www.imdb.com/' + item[:href]
           show_doc = Nokogiri::HTML(open(show_url))
-          show_doc.css('.txt-block:nth-child(4) a').each do |element|
-            @new_show.country = element.content
-          end
+            @new_show.name = show_doc.css('.header .itemprop').text
           if show_doc.css('.header .nobr').text[6] != ' '
             @new_show.status = 'Closed'
           else
@@ -68,4 +66,9 @@ class ShowsController < ApplicationController
       end
     end
   end
+  
+  private
+    def set_show
+      @show = Show.find(params[:id])
+    end
 end
