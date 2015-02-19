@@ -3,7 +3,7 @@ class ShowsController < ApplicationController
   
   def show
     @show_genres = @show.genres
-    @show_episodes = Episode.where(:show_id => @show.id).order('released desc')
+    @show_episodes = Episode.where(show_id: @show.id).order('released desc')
   end
 
   def index
@@ -11,12 +11,12 @@ class ShowsController < ApplicationController
   end
 
   def change_status
-    @update_record = UsersShow.where(:user_id => current_user.id, :show_id => Show.find(params[:id]))
+    @update_record = UsersShow.where(user_id: current_user.id, show_id: Show.find(params[:id]))
     unless @update_record.empty?
       if params[:status] == 'dont_watch'
         UsersShow.destroy(@update_record)
       elsif
-        UsersShow.update(@update_record, :show_status => params[:status])
+        UsersShow.update(@update_record, show_status: params[:status])
       end
     else
       @new_record = UsersShow.new
@@ -58,7 +58,7 @@ class ShowsController < ApplicationController
 
           show_doc.css('.infobar .itemprop').each do |element|
             @new_genre = ShowsGenre.new
-            @genre = Genre.where(:name => element.text)
+            @genre = Genre.where(name: element.text)
             @new_genre.show_id = @new_show.id
             @new_genre.genre_id = @genre.ids[0]
             @new_genre.save
