@@ -1,4 +1,4 @@
-<div class="page">
+<div class="row page">
 
   <h2 align="center"><%= @show.name %></h2>
   <div class="show-info">
@@ -7,7 +7,12 @@
     <%= image_tag @show.photo, class: 'show-list' %>
   </div>
     <div class="show-text">
-  <strong>Status:</strong> <%= @show.status %>
+  <strong>Status:</strong>
+      <% if @show.status == 'Run' %>
+          <span class="success label radius"><%= @show.status %></span>
+      <% else %>
+          <span class="alert label radius"><%= @show.status %></span>
+      <% end %>
   <br>
   <strong>Start date:</strong> <%= @show.start_date %>
   <br>
@@ -15,7 +20,7 @@
   <br>
   <strong>Channel:</strong> <%= @show.channel %>
   <br>
-  <strong>Genres:</strong> <% @show_genres.each {|genre|%> <%=link_to genre.name, genre %> <%}%>
+  <strong>Genres:</strong> <% @show_genres.each {|genre|%> <%=link_to genre.name, genre %> | <%}%>
   <br>
   <strong>Seasons:</strong> <%= @show.seasons_count %>
   <br>
@@ -36,5 +41,23 @@
       <li><%=link_to 'Stopped watch', change_status_path(id: @show.id, status: 'stopped_watch') %></li>
     </ul>
     </div>
+
+  <div class="episodes">
+    <table>
+      <tr>
+        <th scope="column">#</th>
+        <th scope="column">Name</th>
+        <th scope="column">Date</th>
+      </tr>
+      <% @show_episodes.each {|episode|
+      unless episode.released.nil?%>
+      <tr>
+        <td><%= episode.season.to_s + 'x' + episode.number.to_s %></td>
+        <td><%= episode.name %></td>
+        <td><%= episode.released %></td>
+      </tr>
+      <% end  } %>
+    </table>
+  </div>
 
 </div>

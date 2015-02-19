@@ -13,6 +13,8 @@
           <a class="button radius success tiny" <%= link_to 'Parse shows', new_show_path %>
           <a class="button radius success tiny" <%= link_to 'Parse genres', new_genre_path %>
           <br>
+          <a class="button radius success tiny" <%= link_to 'Parse episodes', new_episode_path %>
+          <br>
       <% end %>
       <% if current_user == @user_profile %>
           <a class="button radius success tiny" <%= link_to 'Edit profile', edit_user_registration_path(current_user) %>
