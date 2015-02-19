@@ -1,4 +1,11 @@
 class EpisodesController < ApplicationController
+
+  def show
+    @episode = Episode.find(params[:id])
+    @show = @episode.show
+  end
+
+
   def new
 
     all_url = 'http://www.imdb.com/search/title?num_votes=5000%2C&sort=moviemeter&title_type=tv_series' #showlist
@@ -25,6 +32,7 @@ class EpisodesController < ApplicationController
             @new_episode.show_id = Show.where(:name => show_name).ids[0]
             @new_episode.season = episode_doc.css('.tv_header .nobr').text[7]
             @new_episode.number = episode_doc.css('.tv_header .nobr').text[18..20]
+            episode_doc.css('#img_primary img').each do |img| @new_episode.photo = img['src'] end
             unless @new_episode.released.nil? then @new_episode.save end
           end
         end

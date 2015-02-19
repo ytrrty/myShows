@@ -24,7 +24,7 @@
   <br>
   <strong>Seasons:</strong> <%= @show.seasons_count %>
   <br>
-  <strong>Runtime:</strong> <%= @show.runtime %>
+  <strong>Runtime:</strong> <%= @show.runtime %> min.
   <br>
   <strong>Rate IMDB:</strong> <%= @show.rate_imdb %>
   <br>
@@ -53,8 +53,8 @@
       unless episode.released.nil?%>
       <tr>
         <td><%= episode.season.to_s + 'x' + episode.number.to_s %></td>
-        <td><%= episode.name %></td>
-        <td><%= episode.released %></td>
+        <td><%= link_to episode.name, episode %></td>
+        <td><%= episode.released.strftime('%d.%m.%Y') %></td>
       </tr>
       <% end  } %>
     </table>

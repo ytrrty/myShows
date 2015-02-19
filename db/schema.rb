@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210093632) do
+ActiveRecord::Schema.define(version: 20150219125043) do
 
   create_table "episodes", force: :cascade do |t|
     t.string  "name",           limit: 255,               null: false
@@ -82,14 +82,13 @@ ActiveRecord::Schema.define(version: 20150210093632) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "users_episodes", force: :cascade do |t|
-    t.integer "episode_id",  limit: 4
-    t.integer "user_id",     limit: 4
-    t.string  "show_status", limit: 255
-    t.boolean "favorite",    limit: 1,   default: false
+    t.integer "episode_id", limit: 4
+    t.integer "user_id",    limit: 4
+    t.boolean "favorite",   limit: 1, default: false
   end
 
-  add_index "users_episodes", ["episode_id"], name: "fk_rails_bed8e0f7c3", using: :btree
-  add_index "users_episodes", ["user_id"], name: "fk_rails_38e0af2f46", using: :btree
+  add_index "users_episodes", ["episode_id"], name: "fk_rails_fa48474aaa", using: :btree
+  add_index "users_episodes", ["user_id"], name: "fk_rails_dcfc8ffb04", using: :btree
 
   create_table "users_shows", force: :cascade do |t|
     t.integer "user_id",     limit: 4
