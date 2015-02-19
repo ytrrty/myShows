@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :users_shows
   has_many :shows, through: :users_shows
 
-  has_many :shows_episodes
+  has_many :users_episodes
 
   has_attached_file :avatar, :styles => { :medium => '300x300>', :thumb => '100x100>', :default_url => '/default/missing.png' }
   validates_attachment :avatar,

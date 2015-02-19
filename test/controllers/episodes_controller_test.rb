@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ShowsEpisodeTest < ActiveSupport::TestCase
+class EpisodesControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end
