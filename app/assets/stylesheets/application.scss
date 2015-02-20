@@ -31,7 +31,7 @@ div.reg {
 .page {
     max-width: 1100px;
     min-height: 650px;
-    h1eight: auto;
+    height: auto;
     margin: 10px auto 10px auto;
     background-color: #FFFFFF;
     border: 1px ridge #DDDDDD;
@@ -151,6 +151,11 @@ img.show-list {
   height: 300px;
 }
 
+img.show-list:hover{
+  -webkit-filter: opacity(.8);
+  filter: opacity(0.8);
+}
+
 .user-avatar-img{
   max-height: 298px;
   max-width: 298px;
@@ -176,6 +181,10 @@ button.show-status {
 
 a {
   font-size: 0.77778rem;
+}
+
+span.label {
+  margin: -3px;
 }
 
 

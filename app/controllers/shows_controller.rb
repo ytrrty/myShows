@@ -4,6 +4,20 @@ class ShowsController < ApplicationController
   def show
     @show_genres = @show.genres
     @show_episodes = Episode.where(show_id: @show.id).order('released desc')
+    @show_start_date = @show.episodes.first.released
+    if @show.status == 'Closed'
+      @show_finish_date = @show.episodes.last.released
+    end
+
+    if @show_finish_date.nil?
+        finish_year = '...'
+    else
+        finish_year = @show_finish_date.strftime('%Y')
+    end
+
+    @show_years = ' (' + @show_start_date.strftime('%Y') + ' - ' + finish_year + ')'
+
+
   end
 
   def index

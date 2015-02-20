@@ -13,7 +13,12 @@
       <br>
       <strong>Released:</strong> <%= @episode.released.strftime('%d.%m.%Y') %>
       <br>
-      <strong>Rate IMDB:</strong> <%= @episode.rate_imdb %>
+      <strong>Rate IMDB:</strong>
+          <% if @episode.rate_imdb == nil %>
+              Not rated yet
+          <% else %>
+              <%= @episode.rate_imdb %>
+          <% end %>
       <br>
       <strong>Users rate:</strong> <%= @episode.users_rate %>
       <br>

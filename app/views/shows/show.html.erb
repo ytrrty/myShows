@@ -1,6 +1,6 @@
 <div class="row page">
 
-  <h2 align="center"><%= @show.name %></h2>
+  <h2 align="center"><%= @show.name + @show_years%> </h2>
   <div class="show-info">
 
   <div class="avatar">
@@ -14,9 +14,14 @@
           <span class="alert label radius"><%= @show.status %></span>
       <% end %>
   <br>
-  <strong>Start date:</strong> <%= @show.start_date %>
+  <strong>Start date:</strong> <%= @show_start_date.strftime('%d.%m.%Y') %>
   <br>
-  <strong>Finish date:</strong> <%= @show.finish_date %>
+  <strong>Finish date:</strong>
+      <% if @show_finish_date.nil? %>
+          ...
+      <% else %>
+          <%= @show_finish_date.strftime('%d.%m.%Y') %>
+      <% end %>
   <br>
   <strong>Channel:</strong> <%= @show.channel %>
   <br>
@@ -26,7 +31,12 @@
   <br>
   <strong>Runtime:</strong> <%= @show.runtime %> min.
   <br>
-  <strong>Rate IMDB:</strong> <%= @show.rate_imdb %>
+  <strong>Rate IMDB:</strong>
+      <% if @show.rate_imdb == nil %>
+          Not rated yet
+      <% else %>
+          <%= @show.rate_imdb %>
+      <% end %>
   <br>
   <strong>Users rate:</strong> <%= @show.rate_users %>
   <br>
@@ -41,22 +51,38 @@
       <li><%=link_to 'Stopped watch', change_status_path(id: @show.id, status: 'stopped_watch') %></li>
     </ul>
     </div>
-
+  <% season = @show_episodes.first.season %>
   <div class="episodes">
-    <table>
-      <tr>
-        <th scope="column">#</th>
-        <th scope="column">Name</th>
-        <th scope="column">Date</th>
-      </tr>
       <% @show_episodes.each {|episode|
-      unless episode.released.nil?%>
-      <tr>
-        <td><%= episode.season.to_s + 'x' + episode.number.to_s %></td>
-        <td><%= link_to episode.name, episode %></td>
-        <td><%= episode.released.strftime('%d.%m.%Y') %></td>
-      </tr>
-      <% end  } %>
+          unless episode.released.nil? %>
+            <% if episode.season == season %>
+                  </table>
+                  <td></td>
+                  <td><h6>Season <%= season %> </h6></td>
+                  <td></td>
+                  <table>
+                    <tr>
+                      <th scope="column" width="50px">#</th>
+                      <th scope="column" width="400px">Name</th>
+                      <th scope="column" width="50px">Date</th>
+                    </tr>
+                <% season = season - 1 %>
+            <% end %>
+
+            <% if episode.released <= DateTime.now %>
+          <tr>
+            <td><%= episode.season.to_s + 'x' + episode.number.to_s %></td>
+            <td><%= link_to episode.name, episode %></td>
+            <td><span class="success label radius"><%= episode.released.strftime('%d.%m.%Y') %></span></td>
+          </tr>
+            <% else %>
+          <tr>
+            <td><%= episode.season.to_s + 'x' + episode.number.to_s %></td>
+            <td><%= link_to episode.name, episode %></td>
+            <td><span class="secondary label radius"><%= episode.released.strftime('%d.%m.%Y') %></span></td>
+          </tr>
+            <% end %>
+      <% end } %>
     </table>
   </div>
 
