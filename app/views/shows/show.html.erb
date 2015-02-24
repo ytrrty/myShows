@@ -86,4 +86,25 @@
     </table>
   </div>
 
+  <h2>Comments</h2>
+
+  <p><%= link_to 'Add a Comment', new_show_comment_path(@show) %></p>
+
+  <ul class="comment_list">
+    <%= render :partial => 'comments/comment', :collection => @show.comments %>
+  </ul>
+
+  <div class="recomendation">
+    <% @recomendation.each {|item| %>
+        <br>
+       <%= link_to item.name, item %>
+       <%    }%>
+  </div>
+
+<!--
+
+  Show.joins(:genres).where("`genres`.`name` IN ('#{Show.find(4).genres.pluck(:name).each{|v|}.join("','")}')").group_by{ |x| x}.sort_by{ |x, list| [-list.size,x]}.map(&:first)
+-->
+
+
 </div>

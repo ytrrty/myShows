@@ -7,8 +7,16 @@ Rails.application.routes.draw do
   resources :genres
   resources :episodes
 
+  resources :comments do
+    resources :comments
+  end
+
+  resources :shows do
+    resources :comments
+  end
+
   root to: 'users#welcome'
-  #root to: 'shows#show'
+  #root to: 'shows#index'
 
   get 'shows/:id/change_status', to: 'shows#change_status', as: :change_status
   get 'genres/:id', to: 'genres#show', as: :find_genres

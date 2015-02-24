@@ -1,0 +1,5 @@
+<%= form_for [@parent, @comment] do |f| %>
+    <%= f.text_area :body, placeholder: :body %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.submit 'add comment' %>
+<% end %>

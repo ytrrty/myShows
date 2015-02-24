@@ -19,7 +19,11 @@
 /* Add imports of custom sass/scss files here */
 
 body {
-    background-color: #EEEEEE;
+  background-image: url('http://cs623918.vk.me/v623918596/1a598/wNTnXr0rijA.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100%;
+  #background-color: #EEEEEE;
   #background-color: #2f4f4f;
 }
 
@@ -71,15 +75,15 @@ div.reg {
 
 .main-blocks {
   float: left;
-  width: 215px;
-  height: 315px;
+  width: 200px;
+  height: 300px;
   margin: 0 auto;
 }
 
 .blocks-names {
   height: 30px;
   background-color: #333333;
-  margin: 285px 0 0 0;
+  margin: 245px 0 0 0;
   padding: 5px;
   position: absolute;
   color: #DDDDDD;
@@ -135,6 +139,11 @@ div.reg {
   float: left;
 }
 
+.comment-head {
+  font-size: 12px;
+}
+
+
 ul.large-block-grid-5 {
   display: inline-block;
   align-items: center;
@@ -147,8 +156,8 @@ ul.large-block-grid-5 {
 }
 
 img.show-list {
-  width: 200px;
-  height: 300px;
+  width: 160px;
+  height: 250px;
 }
 
 img.show-list:hover{
@@ -159,6 +168,11 @@ img.show-list:hover{
 .user-avatar-img{
   max-height: 298px;
   max-width: 298px;
+}
+
+.comment-picture{
+  max-width: 50px;
+  max-height: 50px;
 }
 
 h2{

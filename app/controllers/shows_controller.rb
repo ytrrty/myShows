@@ -17,11 +17,12 @@ class ShowsController < ApplicationController
 
     @show_years = ' (' + @show_start_date.strftime('%Y') + ' - ' + finish_year + ')'
 
-
+    @recomendation = Show.joins(:genres).where("`genres`.`name` IN ('#{@show.genres.pluck(:name).each{|v|}.join("','")}')").group_by{ |x| x}.sort_by{ |x, list| [-list.size,x]}.map(&:first)[1..10]
   end
 
   def index
     @all_shows = Show.all.page(params[:page]).per(20).search(params[:search])
+    @search = ''
   end
 
   def change_status

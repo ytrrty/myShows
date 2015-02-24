@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219125043) do
+ActiveRecord::Schema.define(version: 20150223093830) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "body",             limit: 65535
+    t.integer  "commentable_id",   limit: 4
+    t.string   "commentable_type", limit: 255
+    t.integer  "comments_id",      limit: 4
+    t.integer  "user_id",          limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+  add_index "comments", ["comments_id"], name: "index_comments_on_comments_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "episodes", force: :cascade do |t|
     t.string  "name",           limit: 255,               null: false
@@ -100,6 +114,7 @@ ActiveRecord::Schema.define(version: 20150219125043) do
   add_index "users_shows", ["show_id"], name: "fk_rails_15d25c65a5", using: :btree
   add_index "users_shows", ["user_id"], name: "fk_rails_3d489a45a4", using: :btree
 
+  add_foreign_key "comments", "users"
   add_foreign_key "episodes", "shows"
   add_foreign_key "shows_genres", "genres"
   add_foreign_key "shows_genres", "shows"

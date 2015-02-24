@@ -26,7 +26,7 @@
         <form method="get" action="/shows">
           <div class="row collapse">
             <div class="large-8 small-9 columns">
-              <%= text_field_tag :search, params[:search]%>
+              <%= text_field_tag :search, params[:search], id: 'search_id'%>
             </div>
             <div class="large-4 small-3 columns">
               <%= submit_tag 'Search', :name => nil, :class => 'button tiny' %>
