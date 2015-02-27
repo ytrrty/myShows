@@ -9,7 +9,7 @@
     <ul class="left">
       <li class="has-dropdown not-click"><a href="#">Menu</a>
 
-        <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li><li class="parent-link show-for-small-only"><a class="parent-link js-generated" href="#">Item 1</a></li>
+        <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li><li class="parent-link show-for-small-only"></li>
           <li><label>Shows</label></li>
           <li><%= link_to 'Shows list', shows_path%></li>
           <li><%= link_to 'Genres list', genres_path%></li>
@@ -29,7 +29,7 @@
               <%= text_field_tag :search, params[:search], id: 'search_id'%>
             </div>
             <div class="large-4 small-3 columns">
-              <%= submit_tag 'Search', :name => nil, :class => 'button tiny' %>
+              <%= submit_tag 'Search', :name => nil, :class => 'button tiny success' %>
             </div>
           </div>
         </form>

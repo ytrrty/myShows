@@ -16,6 +16,10 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  resources :episodes do
+    resources :comments
+  end
+
   root to: 'users#welcome'
   #root to: 'shows#index'
 

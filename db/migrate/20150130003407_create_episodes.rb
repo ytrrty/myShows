@@ -11,6 +11,7 @@ class CreateEpisodes < ActiveRecord::Migration
       t.integer :number,            null: false
       t.integer :comments_count,    default: 0
       t.string :photo
+      t.string :photo_orig
     end
   end
 end

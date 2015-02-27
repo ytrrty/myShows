@@ -1,110 +1,109 @@
-<div class="row page">
+<% content_for :title, @show.name + @show_years %>
+<div class="page">
+  <div class="row">
 
-  <h2 align="center"><%= @show.name + @show_years%> </h2>
-  <div class="show-info">
+    <div class="show-info large-9 medium-8 columns">
+      <div class="row">
+        <div class="large-4 columns">
+          <div class="show-avatar">
+            <%= image_tag @show.photo_orig %>
+          </div>
+          <button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="tiny button dropdown show-status">Select
+            show status
+          </button>
+          <br>
+          <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
+            <li><%= link_to 'Dont`t watch', change_status_path(id: @show.id, status: 'dont_watch') %></li>
+            <li><%= link_to 'Will watch', change_status_path(id: @show.id, status: 'will_watch') %></li>
+            <li><%= link_to 'Watching', change_status_path(id: @show.id, status: 'watching') %></li>
+            <li><%= link_to 'Stopped watch', change_status_path(id: @show.id, status: 'stopped_watch') %></li>
+          </ul>
+        </div>
+        <div class="large-8 columns">
+          <strong>Status:</strong>
+          <% if @show.status == 'Run' %>
+              <span class="success label radius"><%= @show.status %></span>
+          <% else %>
+              <span class="alert label radius"><%= @show.status %></span>
+          <% end %>
+          <br>
+          <strong>Start date:</strong> <%= @show_start_date.strftime('%d.%m.%Y') %>
+          <br>
+          <strong>Finish date:</strong>
+          <% if @show_finish_date.nil? %>
+              ...
+          <% else %>
+              <%= @show_finish_date.strftime('%d.%m.%Y') %>
+          <% end %>
+          <br>
+          <strong>Channel:</strong> <%= @show.channel %>
+          <br>
+          <strong>Genres:</strong>
+          <% @show_genres.each { |genre| %> <%= link_to genre.name, genre %> | <% } %>
+          <br>
+          <strong>Seasons:</strong> <%= @show.seasons_count %>
+          <br>
+          <strong>Runtime:</strong> <%= @show.runtime %> min.
+          <br>
+          <strong>Rate IMDB:</strong>
+          <% if @show.rate_imdb == nil %>
+              Not rated yet
+          <% else %>
+              <%= @show.rate_imdb %>
+          <% end %>
+          <br>
+          <strong>Users rate:</strong> <%= @show.rate_users %>
+          <br>
+          <strong>About:</strong> <%= @show.about %>
+          <br>
+        </div>
 
-  <div class="avatar">
-    <%= image_tag @show.photo, class: 'show-list' %>
-  </div>
-    <div class="show-text">
-  <strong>Status:</strong>
-      <% if @show.status == 'Run' %>
-          <span class="success label radius"><%= @show.status %></span>
-      <% else %>
-          <span class="alert label radius"><%= @show.status %></span>
-      <% end %>
-  <br>
-  <strong>Start date:</strong> <%= @show_start_date.strftime('%d.%m.%Y') %>
-  <br>
-  <strong>Finish date:</strong>
-      <% if @show_finish_date.nil? %>
-          ...
-      <% else %>
-          <%= @show_finish_date.strftime('%d.%m.%Y') %>
-      <% end %>
-  <br>
-  <strong>Channel:</strong> <%= @show.channel %>
-  <br>
-  <strong>Genres:</strong> <% @show_genres.each {|genre|%> <%=link_to genre.name, genre %> | <%}%>
-  <br>
-  <strong>Seasons:</strong> <%= @show.seasons_count %>
-  <br>
-  <strong>Runtime:</strong> <%= @show.runtime %> min.
-  <br>
-  <strong>Rate IMDB:</strong>
-      <% if @show.rate_imdb == nil %>
-          Not rated yet
-      <% else %>
-          <%= @show.rate_imdb %>
-      <% end %>
-  <br>
-  <strong>Users rate:</strong> <%= @show.rate_users %>
-  <br>
-  <strong>About:</strong> <%= @show.about %>
-  <br>
-</div>
-    <button href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="tiny button dropdown show-status">Select show status</button><br>
-    <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
-      <li><%=link_to 'Dont`t watch', change_status_path(id: @show.id, status: 'dont_watch') %></li>
-      <li><%=link_to 'Will watch', change_status_path(id: @show.id, status: 'will_watch') %></li>
-      <li><%=link_to 'Watching', change_status_path(id: @show.id, status: 'watching') %></li>
-      <li><%=link_to 'Stopped watch', change_status_path(id: @show.id, status: 'stopped_watch') %></li>
-    </ul>
-    </div>
-  <% season = @show_episodes.first.season %>
-  <div class="episodes">
-      <% @show_episodes.each {|episode|
-          unless episode.released.nil? %>
-            <% if episode.season == season %>
-                  </table>
-                  <td></td>
-                  <td><h6>Season <%= season %> </h6></td>
-                  <td></td>
-                  <table>
-                    <tr>
-                      <th scope="column" width="50px">#</th>
-                      <th scope="column" width="400px">Name</th>
-                      <th scope="column" width="50px">Date</th>
-                    </tr>
+      </div>
+      <% season = @show_episodes.first.season %>
+
+        <ul class="seasons">
+        <% @show_episodes.each { |episode|
+          if episode.season == season %>
+            </table></li>
+              <li class="closeable close"><h6>Season <%= season %></h6>
+              <table>
+                <tr>
+                  <th scope="column" width="50px">#</th>
+                  <th scope="column" width="530px">Name</th>
+                  <th scope="column" width="50px">Date</th>
+                </tr>
                 <% season = season - 1 %>
-            <% end %>
+          <% end %>
 
             <% if episode.released <= DateTime.now %>
-          <tr>
-            <td><%= episode.season.to_s + 'x' + episode.number.to_s %></td>
-            <td><%= link_to episode.name, episode %></td>
-            <td><span class="success label radius"><%= episode.released.strftime('%d.%m.%Y') %></span></td>
-          </tr>
+              <tr>
+                <td><%= episode.season.to_s + 'x' + episode.number.to_s %></td>
+                <td><%= link_to episode.name, episode %></td>
+                <td><span class="success label radius"><%= episode.released.strftime('%d.%m.%Y') %></span></td>
+              </tr>
             <% else %>
-          <tr>
-            <td><%= episode.season.to_s + 'x' + episode.number.to_s %></td>
-            <td><%= link_to episode.name, episode %></td>
-            <td><span class="secondary label radius"><%= episode.released.strftime('%d.%m.%Y') %></span></td>
-          </tr>
-            <% end %>
-      <% end } %>
-    </table>
+              <tr>
+                <td><%= episode.season.to_s + 'x' + episode.number.to_s %></td>
+                <td><%= link_to episode.name, episode %></td>
+                <td><span class="secondary label radius"><%= episode.released.strftime('%d.%m.%Y') %></span></td>
+              </tr>
+        <% end } %>
+        </table></li></ul>
+
+      <p><%= link_to 'Add a Comment', new_show_comment_path(@show) %></p>
+
+      <ul class="comment_list">
+        <%= render :partial => 'comments/comment', :collection => @show.comments %>
+      </ul>
+
+    </div>
+    <div class="recommendation large-3 medium-4 columns">
+      <h6>Recommend for you</h6>
+      <% @recommendation.each { |item| %>
+        <%= link_to (image_tag item.photo), item %>
+          <br>
+        <%= link_to item.name, item %>
+      <% } %>
+    </div>
   </div>
-
-  <h2>Comments</h2>
-
-  <p><%= link_to 'Add a Comment', new_show_comment_path(@show) %></p>
-
-  <ul class="comment_list">
-    <%= render :partial => 'comments/comment', :collection => @show.comments %>
-  </ul>
-
-  <div class="recomendation">
-    <% @recomendation.each {|item| %>
-        <br>
-       <%= link_to item.name, item %>
-       <%    }%>
-  </div>
-
-<!--
-
-  Show.joins(:genres).where("`genres`.`name` IN ('#{Show.find(4).genres.pluck(:name).each{|v|}.join("','")}')").group_by{ |x| x}.sort_by{ |x, list| [-list.size,x]}.map(&:first)
--->
-
-
 </div>

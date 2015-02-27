@@ -17,7 +17,7 @@ class ShowsController < ApplicationController
 
     @show_years = ' (' + @show_start_date.strftime('%Y') + ' - ' + finish_year + ')'
 
-    @recomendation = Show.joins(:genres).where("`genres`.`name` IN ('#{@show.genres.pluck(:name).each{|v|}.join("','")}')").group_by{ |x| x}.sort_by{ |x, list| [-list.size,x]}.map(&:first)[1..10]
+    @recommendation = Show.joins(:genres).where("`genres`.`name` IN ('#{@show.genres.pluck(:name).join("','")}')").group_by{ |x| x}.sort_by{ |x, list| [-list.size,x]}.map(&:first)[1..5]
   end
 
   def index
@@ -68,7 +68,12 @@ class ShowsController < ApplicationController
             @new_show.rate_imdb = show_doc.css('.star-box-giga-star').text
             @new_show.rate_users = 0.1
             @new_show.comments_count = 0
-          show_doc.css('#img_primary img').each do |img| @new_show.photo = img['src'] end
+          show_doc.css('#img_primary img').map { |img| @new_show.photo = img['src'] }
+
+            show_doc.css('#img_primary .image a').map { |orig_pic_url|
+              orig_pic_doc = Nokogiri::HTML(open('http://www.imdb.com/' + orig_pic_url[:href]))
+              orig_pic_doc.css('#primary-img').map { |orig_pic| @new_show.photo_orig = orig_pic[:src] }
+            }
           @new_show.save
 
           show_doc.css('.infobar .itemprop').each do |element|
@@ -80,6 +85,7 @@ class ShowsController < ApplicationController
         end
       end
     end
+    redirect_to :back
   end
   
   private

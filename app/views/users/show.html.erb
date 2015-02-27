@@ -1,61 +1,67 @@
-<div class="page row">
-  <div class="user-left">
-    <h2 align="center"><%=@user_profile.login%></h2>
+<% content_for :title, @user_profile.login %>
+<div class="page" data-equalizer>
+  <div class="row">
+    <div class="large-9 medium-9 columns" data-equalizer-watch>
 
-    <div class="user-chart">
-      <%= bar_chart @ord, height: '300px', format: '%i' %>
-    </div>
+      <div class="row">
+        <div class="large-4 medium-4 small-12 columns">
+          <div class="user-avatar">
+            <%= image_tag @user_profile.avatar.url(:medium)%>
+          </div>
+          <div>
+            <% if current_user.access == 1 && @user_profile == current_user %>
+                <a class="button radius success tiny" <%= link_to 'Parse shows', new_show_path %>
+                <a class="button radius success tiny" <%= link_to 'Parse genres', new_genre_path %>
+                <br>
+                <a class="button radius success tiny" <%= link_to 'Parse episodes', new_episode_path %>
+                <a class="button radius success tiny" <%= link_to 'Admin panel', rails_admin_path %>
+                <br>
+            <% end %>
+            <% if current_user == @user_profile %>
+                <a class="button radius success tiny" <%= link_to 'Edit profile', edit_user_registration_path(current_user) %>
+            <% end %>
+          </div>
+        </div>
 
-    <div class="user-avatar" style="background-image: url(<%=@user_profile.avatar.url(:medium)%>)"></div>
+        <div class="large-8 medium-8 small-12 columns">
+          <%= bar_chart @ord, format: '%i', width: '100%'%>
+        </div>
 
-    <div class="user-control-panel">
-      <% if current_user.access == 1 && @user_profile == current_user%>
-          <a class="button radius success tiny" <%= link_to 'Parse shows', new_show_path %>
-          <a class="button radius success tiny" <%= link_to 'Parse genres', new_genre_path %>
-          <br>
-          <a class="button radius success tiny" <%= link_to 'Parse episodes', new_episode_path %>
-          <a class="button radius success tiny" <%= link_to 'Admin panel', rails_admin_path %>
-          <br>
-      <% end %>
-      <% if current_user == @user_profile %>
-          <a class="button radius success tiny" <%= link_to 'Edit profile', edit_user_registration_path(current_user) %>
-      <% end %>
-    </div>
-
-
-  </div>
-
-      <div class="user-right">
-
-        <% unless @watching.empty? %>
-            <h5>Watching</h5>
-            <% @watching.each { |item| %>
-                <h6><%= link_to item.show.name, item.show %></h6>
-            <% }
-               end %>
-        <% unless @will_watch.empty? %>
-            <h5>Will watch</h5>
-            <% @will_watch.each { |item| %>
-                <h6><%= link_to item.show.name, item.show %></h6>
-            <% }
-               end %>
-
-        <% unless @stopped_watch.empty? %>
-            <h5>Stopped watch</h5>
-            <% @stopped_watch.each { |item| %>
-                <h6><%= link_to item.show.name, item.show %></h6>
-            <% } %>
-        <% end %>
-
-        <% if @watching.empty? && @will_watch.empty? && @stopped_watch.empty? %>
-            <% if @user_profile == current_user %>
-                <h6>You don't watch anything yet :с</h6>
-                <i>Go to <%= link_to 'list', shows_path %> and add shows to your profile</i>
-
-                <% else %>
-                <h6><b><%= @user_profile.login %></b> don't watch anything yet :с</h6>
-                <% end %>
-        <% end %>
       </div>
+    </div>
 
+
+    <div class="user-right large-3 medium-3 columns" data-equalizer-watch>
+
+      <% unless @watching.empty? %>
+          <h5>Watching</h5>
+          <% @watching.each { |item| %>
+              <h6><%= link_to item.show.name, item.show %></h6>
+          <% }
+             end %>
+      <% unless @will_watch.empty? %>
+          <h5>Will watch</h5>
+          <% @will_watch.each { |item| %>
+              <h6><%= link_to item.show.name, item.show %></h6>
+          <% }
+             end %>
+
+      <% unless @stopped_watch.empty? %>
+          <h5>Stopped watch</h5>
+          <% @stopped_watch.each { |item| %>
+              <h6><%= link_to item.show.name, item.show %></h6>
+          <% } %>
+      <% end %>
+
+      <% if @watching.empty? && @will_watch.empty? && @stopped_watch.empty? %>
+          <% if @user_profile == current_user %>
+              <h6>You don't watch anything yet :с</h6>
+              <i>Go to <%= link_to 'list', shows_path %> and add shows to your profile</i>
+
+          <% else %>
+              <h6><b><%= @user_profile.login %></b> don't watch anything yet :с</h6>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>

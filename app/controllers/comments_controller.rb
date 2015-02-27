@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @parent.comments.build(comment_params)
     if @comment.save
-      redirect_to show_path(@comment.show), :notice => 'Thank you for your comment!'
+      redirect_to :back
     else
       render :new
     end
@@ -18,6 +18,7 @@ class CommentsController < ApplicationController
 
   def get_parent
     @parent = Show.find(params[:show_id]) if params[:show_id]
+    @parent = Episode.find(params[:episode_id]) if params[:episode_id]
     @parent = Comment.find(params[:comment_id]) if params[:comment_id]
     redirect_to root_path unless defined?(@parent)
   end

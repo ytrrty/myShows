@@ -1,19 +1,24 @@
 <li class="comment">
-  <div class="comment-head">
-
-    <b><%= User.find(comment.user_id).login %></b>
-    <%= comment.created_at.strftime('%H:%M:%S, %d.%m.%Y') %>
+  <div class="comment-header">
+    <b><%= link_to User.find(comment.user_id).login, User.find(comment.user_id) %></b>
+    <span class="right"> <%= comment.created_at.strftime('%H:%M:%S, %d.%m.%Y') %> </span>
+  </div>
+  <div class="comment-picture">
+    <%= link_to (image_tag User.find(comment.user_id).avatar.url(:thumb), class: 'comment-picture-img'), User.find(comment.user_id)%>
   </div>
   <div class="comment-body">
-    <%= image_tag User.find(comment.user_id).avatar.url(:thumb), class: 'comment-picture' %>
     <%= comment.body %>
   </div>
+  <div class="comment-footer">
+    <%= link_to 'Add a Reply', new_comment_comment_path(comment) %>
+  </div>
+</li>
 
-  <p><%= link_to 'Add a Reply', new_comment_comment_path(comment) %></p>
+
 
   <% unless comment.comments.empty? %>
-      <ul class="comment_list" style="float: left">
+      <ul class="comment_list">
         <%= render :partial => 'comments/comment', :collection => comment.comments %>
       </ul>
   <% end %>
-</li>
+

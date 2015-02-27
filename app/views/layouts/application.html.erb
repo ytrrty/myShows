@@ -6,13 +6,16 @@
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag "vendor/modernizr" %>
   <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
-  <title>Showtime | <%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
+  <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
   <%= stylesheet_link_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <div class="wrapper">
   <%= render partial: 'layouts/header' %>
+  <div data-magellan-expedition="fixed" class="header2">
+    <h4 class="header-h4"><%= content_for?(:title) ? yield(:title) : "Rails" %></h4>
+  </div>
   <%= yield %>
 
 </div>
