@@ -24,6 +24,12 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  font-family: 'Open Sans';
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 div.reg {
@@ -69,6 +75,12 @@ div.reg {
   text-align: center;
 }
 
+.favorite-button {
+  position: absolute;
+  right: 10px;
+  top: 0;
+}
+
 .episode-avatar {
   margin-bottom: 10px;
   border: 1px #DDDDDD ridge;
@@ -88,10 +100,8 @@ div.reg {
   height: 27px;
   width: 240px;
   background-color: #333333;
-  margin: -15px 0 0 0;
+  /*margin: -15px 0 0 0;*/
   padding: 4px 11px;
-  position: absolute;
-  font-size: small;
 }
 
 .blocks-names > a {
@@ -189,7 +199,7 @@ img.comment-picture-img {
 .recommendation {
   float: left;
   border-left: 1px ridge #DDDDDD;
-  max-width: 250px;
+  max-width: 200px;
   height: 100%;
 }
 
@@ -225,6 +235,53 @@ span.label {
 .closeable.close {
   height: 2em;
 }
+
+.cuadro_intro_hover{
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  /*height: 200px;*/
+}
+.cuadro_intro_hover:hover .caption{
+  opacity: 1;
+  transform: translateY(-335px);
+  -webkit-transform:translateY(-335px);
+  -moz-transform:translateY(-335px);
+  -ms-transform:translateY(-335px);
+  -o-transform:translateY(-335px);
+}
+.cuadro_intro_hover img{
+  z-index: 4;
+}
+.cuadro_intro_hover .caption{
+  position: absolute;
+  top: 355px;
+  -webkit-transition:all 0.3s ease-in-out;
+  -moz-transition:all 0.3s ease-in-out;
+  -o-transition:all 0.3s ease-in-out;
+  -ms-transition:all 0.3s ease-in-out;
+  transition:all 0.3s ease-in-out;
+  width: 100%;
+}
+.cuadro_intro_hover .blur{
+  background-color: rgba(0,0,0,0.7);
+  height: 345px;
+  z-index: 5;
+  position: absolute;
+  width: 100%;
+}
+.cuadro_intro_hover .caption-text{
+  z-index: 10;
+  color: #fff;
+  position: absolute;
+  height: 318px;
+  top:-20px;
+  width: 100%;
+  font-size: 12px;
+  overflow: hidden;
+  text-align: center;
+}
+
 
 * {
   margin: 0;

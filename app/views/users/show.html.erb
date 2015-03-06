@@ -19,6 +19,7 @@
             <% end %>
             <% if current_user == @user_profile %>
                 <a class="button radius success tiny" <%= link_to 'Edit profile', edit_user_registration_path(current_user) %>
+                <a class="button radius success tiny" <%= link_to 'My favorites', users_favorites_path %>
             <% end %>
           </div>
         </div>

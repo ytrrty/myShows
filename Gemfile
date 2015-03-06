@@ -37,6 +37,8 @@ gem 'rails_admin'
 
 gem 'chartkick'
 
+gem 'easy_translate'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

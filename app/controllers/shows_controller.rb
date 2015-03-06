@@ -16,8 +16,8 @@ class ShowsController < ApplicationController
     end
 
     @show_years = ' (' + @show_start_date.strftime('%Y') + ' - ' + finish_year + ')'
-
     @recommendation = Show.joins(:genres).where("`genres`.`name` IN ('#{@show.genres.pluck(:name).join("','")}')").group_by{ |x| x}.sort_by{ |x, list| [-list.size,x]}.map(&:first)[1..5]
+    @current_fav = UsersShow.where(:user_id => current_user.id, :show_id => @show.id).first
   end
 
   def index
@@ -28,11 +28,7 @@ class ShowsController < ApplicationController
   def change_status
     @update_record = UsersShow.where(user_id: current_user.id, show_id: Show.find(params[:id]))
     unless @update_record.empty?
-      if params[:status] == 'dont_watch'
-        UsersShow.destroy(@update_record)
-      elsif
         UsersShow.update(@update_record, show_status: params[:status])
-      end
     else
       @new_record = UsersShow.new
       @new_record.user_id = current_user.id
@@ -87,7 +83,20 @@ class ShowsController < ApplicationController
     end
     redirect_to :back
   end
-  
+
+  def favorite
+    @favorite_update = UsersShow.where(:user_id => current_user.id, :show_id => Show.find(params[:id]))
+    if @favorite_update.empty?
+      @new_fav =  UsersShow.new
+      @new_fav.user = current_user.id
+      @new_fav.show = Show.find(params[:id])
+      @new_fav.favorite = params[:fav]
+      @new_fav.save
+    else
+    UsersShow.update(@favorite_update, favorite: params[:fav])
+    end
+  end
+
   private
     def set_show
       @show = Show.find(params[:id])

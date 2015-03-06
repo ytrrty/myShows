@@ -1,15 +1,15 @@
-<div class="page show-list">
-  <h2>Shows list</h2>
-  <br>
-  <ul class="large-block-grid-5">
+<% content_for :title, 'Genre: ' + @current_genre.name %>
+<div class="page">
+  <ul class="large-block-grid-4">
     <% @show_genres.each { |show| %>
         <li>
           <div class="main-blocks">
-            <%= link_to image_tag(show.photo, class: 'show-list'), show %>
+            <%= link_to image_tag(show.photo_orig, class: 'show-list'), show %>
+            <div class="blocks-names"><%= link_to show.name, show %></div>
           </div>
-          <div class="blocks-names"><%= link_to show.name, show %></div>
+
         </li>
     <% } %>
   </ul>
-  <br>
+  <%= paginate @show_genres %>
 </div>

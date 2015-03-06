@@ -20,6 +20,33 @@
           </ul>
         </div>
         <div class="large-8 columns">
+          <div class="favorite-button">
+            <div class="switch tiny">
+              <input id="switch" type="checkbox" <%if @current_fav.favorite == true %> checked="true" <% end %>>
+              <label for="switch"></label>
+              <br>
+              Add to favorite
+            </div>
+
+            <script>
+                $( function() {
+                    var a = function() {
+                        if (document.getElementById("switch").checked == true) { favorite_status = 1; }
+                        else { favorite_status = 0 }
+                        return favorite_status
+                    };
+
+                    $('.switch').on('change', function() {
+                        $.ajax({
+                            type: 'POST',
+                            url: '<%= favorite_path %>',
+                            data: {fav: a}
+                        });
+                    })
+                });
+
+            </script>
+          </div>
           <strong>Status:</strong>
           <% if @show.status == 'Run' %>
               <span class="success label radius"><%= @show.status %></span>
@@ -97,7 +124,7 @@
       </ul>
 
     </div>
-    <div class="recommendation large-3 medium-4 columns">
+    <div class="recommendation large-3 medium-4 small-12 columns">
       <h6>Recommend for you</h6>
       <% @recommendation.each { |item| %>
         <%= link_to (image_tag item.photo), item %>
@@ -105,5 +132,6 @@
         <%= link_to item.name, item %>
       <% } %>
     </div>
+    <h1><%= @a %></h1>
   </div>
 </div>

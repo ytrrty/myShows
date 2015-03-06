@@ -23,7 +23,9 @@ Rails.application.routes.draw do
   root to: 'users#welcome'
   #root to: 'shows#index'
 
+  get 'users/:id/favorites', to: 'users#favorites', as: :users_favorites
   get 'shows/:id/change_status', to: 'shows#change_status', as: :change_status
+  post 'shows/:id/favorite', to: 'shows#favorite', as: :favorite
   get 'genres/:id', to: 'genres#show', as: :find_genres
 
   # The priority is based upon order of creation: first created -> highest priority.

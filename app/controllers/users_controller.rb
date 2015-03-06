@@ -33,11 +33,14 @@ class UsersController < ApplicationController
 
   def welcome
     redirect_to current_user if user_signed_in?
-
   end
 
   def index
     @all_users = User.all
+  end
+
+  def favorites
+    @user_favorite = UsersShow.where(:user_id => current_user.id, :favorite => 1)
   end
 
   private
