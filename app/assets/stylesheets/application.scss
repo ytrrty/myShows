@@ -24,17 +24,12 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  font-family: 'Open Sans';
-  font-size: 14px;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: 400;
-  line-height: 20px;
 }
 
 div.reg {
     width: 270px;
-    margin: 0 auto;
+    margin: 50px auto;
+
 }
 
 .header2{
@@ -53,6 +48,10 @@ div.reg {
     margin: 10px auto;
     background-color: #FFFFFF;
     border: 1px ridge #DDDDDD;
+}
+
+.div-opacity {
+  background-color:rgba(100,100,100,0.5);
 }
 
 .user-avatar {
@@ -77,7 +76,7 @@ div.reg {
 
 .favorite-button {
   position: absolute;
-  right: 10px;
+  right: 0;
   top: 0;
 }
 
@@ -212,10 +211,6 @@ h4.header-h4 {
   color: #DDDDDD;
 }
 
-i {
-    font-size: 13px;
-}
-
 button.show-status {
   width: 100%;
 }
@@ -226,6 +221,14 @@ span.label {
 
 .seasons>li>h6:hover {
   cursor: pointer;
+}
+
+.top-bar-section .dropdown li a {
+  height: 35px;
+}
+
+.f-dropdown li a{
+  height: 30px;
 }
 
 .closeable {
@@ -287,6 +290,10 @@ span.label {
   margin: 0;
   font-size: 12px;
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 20px;
 }
 html, body {
   height: 100%;

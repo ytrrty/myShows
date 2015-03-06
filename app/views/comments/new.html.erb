@@ -1,8 +1,8 @@
-<% content_for :title, 'New comment' %>
+<% content_for :title, (I18n.t 'comment.new') %>
 <div class="new-comment">
 <%= form_for [@parent, @comment] do |f| %>
     <%= f.text_area :body, placeholder: :body, rows: '6' %>
     <%= f.hidden_field :user_id, value: current_user.id %>
-    <%= f.submit 'add comment', class: 'button success tiny ' %>
+    <%= f.submit (I18n.t 'comment.add'), class: 'button success tiny ' %>
 <% end %>
 </div>

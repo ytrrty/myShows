@@ -16,7 +16,7 @@ class ShowsController < ApplicationController
     end
 
     @show_years = ' (' + @show_start_date.strftime('%Y') + ' - ' + finish_year + ')'
-    @recommendation = Show.joins(:genres).where("`genres`.`name` IN ('#{@show.genres.pluck(:name).join("','")}')").group_by{ |x| x}.sort_by{ |x, list| [-list.size,x]}.map(&:first)[1..5]
+    @recommendation = Show.joins(:genres).where("`genres`.`name` IN ('#{@show.genres.pluck(:name).join("','")}')").group_by{ |x| x}.sort_by{ |x, list| [-list.size,x]}.map(&:first)[0..5]
     @current_fav = UsersShow.where(:user_id => current_user.id, :show_id => @show.id).first
   end
 

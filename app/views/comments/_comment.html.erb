@@ -10,7 +10,7 @@
     <%= comment.body %>
   </div>
   <div class="comment-footer">
-    <%= link_to 'Add a Reply', new_comment_comment_path(comment) %>
+    <%= link_to (I18n.t 'comment.reply'), new_comment_comment_path(comment) %>
   </div>
 </li>
 

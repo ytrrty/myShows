@@ -25,7 +25,7 @@ class UsersController < ApplicationController
           INNER JOIN shows ON shows.id = shows_genres.show_id
           INNER JOIN users_shows ON users_shows.show_id = shows.id
           INNER JOIN users ON users.id = users_shows.user_id').
-          where('users.id = ' + params[:id].to_s).count
+          where('users.id = ' + params[:id].to_s + " AND users_shows.show_status != 'dont_watch'").count
 
     # @result.each_with_index { |val, i| puts "Genre: #{Genre.find(i).name} - #{val}" if !val.nil? }
 

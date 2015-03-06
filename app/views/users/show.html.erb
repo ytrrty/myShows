@@ -9,18 +9,18 @@
             <%= image_tag @user_profile.avatar.url(:medium)%>
           </div>
           <div>
-            <% if current_user.access == 1 && @user_profile == current_user %>
-                <a class="button radius success tiny" <%= link_to 'Parse shows', new_show_path %>
-                <a class="button radius success tiny" <%= link_to 'Parse genres', new_genre_path %>
-                <br>
-                <a class="button radius success tiny" <%= link_to 'Parse episodes', new_episode_path %>
-                <a class="button radius success tiny" <%= link_to 'Admin panel', rails_admin_path %>
-                <br>
-            <% end %>
-            <% if current_user == @user_profile %>
-                <a class="button radius success tiny" <%= link_to 'Edit profile', edit_user_registration_path(current_user) %>
-                <a class="button radius success tiny" <%= link_to 'My favorites', users_favorites_path %>
-            <% end %>
+            <% if user_signed_in? %>
+                <% if current_user.access == 1 && @user_profile == current_user %>
+                    <a class="button radius success tiny" <%= link_to (I18n.t 'user.parse-genres'), new_genre_path %>
+                    <a class="button radius success tiny" <%= link_to (I18n.t 'user.parse-shows'), new_show_path %>
+                    <a class="button radius success tiny" <%= link_to (I18n.t 'user.parse-episodes'), new_episode_path %>
+                    <a class="button radius success tiny" <%= link_to (I18n.t 'user.admin-panel'), rails_admin_path %>
+                <% end %>
+                <% if current_user == @user_profile %>
+                    <a class="button radius success tiny" <%= link_to (I18n.t 'user.edit-profile'), edit_user_registration_path(current_user) %>
+                    <a class="button radius success tiny" <%= link_to (I18n.t 'user.favorites'), users_favorites_path %>
+                <% end %>
+                <% end %>
           </div>
         </div>
 
@@ -35,20 +35,20 @@
     <div class="user-right large-3 medium-3 columns" data-equalizer-watch>
 
       <% unless @watching.empty? %>
-          <h5>Watching</h5>
+          <h5><%= I18n.t 'user.watching' %></h5>
           <% @watching.each { |item| %>
               <h6><%= link_to item.show.name, item.show %></h6>
           <% }
              end %>
       <% unless @will_watch.empty? %>
-          <h5>Will watch</h5>
+          <h5><%= I18n.t 'user.will-watch' %></h5>
           <% @will_watch.each { |item| %>
               <h6><%= link_to item.show.name, item.show %></h6>
           <% }
              end %>
 
       <% unless @stopped_watch.empty? %>
-          <h5>Stopped watch</h5>
+          <h5><%= I18n.t 'user.stopped-watch' %></h5>
           <% @stopped_watch.each { |item| %>
               <h6><%= link_to item.show.name, item.show %></h6>
           <% } %>
@@ -56,11 +56,11 @@
 
       <% if @watching.empty? && @will_watch.empty? && @stopped_watch.empty? %>
           <% if @user_profile == current_user %>
-              <h6>You don't watch anything yet :с</h6>
-              <i>Go to <%= link_to 'list', shows_path %> and add shows to your profile</i>
+              <h6><%= I18n.t 'user.dont-watch-yet' %></h6>
+              <i><%= I18n.t 'user.go-to' %> <%= link_to (I18n.t 'user.shows-list'), shows_path %> <%= I18n.t 'user.add-shows' %></i>
 
           <% else %>
-              <h6><b><%= @user_profile.login %></b> don't watch anything yet :с</h6>
+              <h6><b><%= @user_profile.login %></b> <%= I18n.t 'interface.user.other-user' %></h6>
           <% end %>
       <% end %>
     </div>

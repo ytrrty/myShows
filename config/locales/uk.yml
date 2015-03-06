@@ -1,0 +1,58 @@
+uk:
+    header:
+      menu: Меню
+      back: Назад
+      shows-list: Список серіалів
+      genres-list: Список жанрів
+      users-list: Список користувачів
+      home: Головна
+      profile: Моя сторінка
+      logout: Вихід
+      sign-up: Зареєструватись
+      sign-in: Увійти
+      search: Пошук
+    user:
+      favorites: Мої закладки
+      watching: В процесі
+      will-watch: На майбутнє
+      stopped-watch: Перестав дивитись
+      dont-watch: Не дивлюсь
+      dont-watch-yet: Ви поки що нічого не дивитесь
+      go-to: Перейдіть до
+      shows-list: списку серіалів
+      add-shows: та додайте їх до свого списку
+      other-user: поки що нічого не дивиться
+      edit-profile: Редагувати профіль
+      parse-shows: Парсинг серіалів
+      parse-genres: Парсинг жанрів
+      parse-episodes: Парсинг серій
+      admin-panel: Панель адміністатора
+    show:
+      select-status: Виберіть статус серіалу
+      add-to-favorite: До закладок
+      status: Статус
+      start-date: Дата початку
+      finish-date: Дата закінчення
+      channel: Канал
+      genres: Жанри
+      seasons: Сезонів
+      runtime: Тривалість серії
+      rate-imdb: Оцінка IMDB
+      users-rate: Оцінка користувачів
+      about: Сюжет
+      season: Сезон
+      name: Назва
+      date: Дата
+      recommend: Схожі серіали
+    episode:
+      name: Назва
+      show: Серіал
+      released: Дата виходу
+      season: Сезон
+      episode: Серія
+    comment:
+      add: Залишити коментар
+      reply: Відповісти
+      new: Новий комнтар
+    read-more: Читати більше
+    welcome: Вітаю на моєму сайті!
