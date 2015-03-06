@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, controllers: { registrations: 'registrations' }
 
   resources :users
@@ -7,10 +8,24 @@ Rails.application.routes.draw do
   resources :genres
   resources :episodes
 
-  root to: 'users#welcome'
-  #root to: 'shows#show'
+  resources :comments do
+    resources :comments
+  end
 
+  resources :shows do
+    resources :comments
+  end
+
+  resources :episodes do
+    resources :comments
+  end
+
+  root to: 'users#welcome'
+  #root to: 'shows#index'
+
+  get 'users/:id/favorites', to: 'users#favorites', as: :users_favorites
   get 'shows/:id/change_status', to: 'shows#change_status', as: :change_status
+  post 'shows/:id/favorite', to: 'shows#favorite', as: :favorite
   get 'genres/:id', to: 'genres#show', as: :find_genres
 
   # The priority is based upon order of creation: first created -> highest priority.

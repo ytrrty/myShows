@@ -31,9 +31,15 @@ gem 'paperclip', '~> 4.1'
 
 gem 'kaminari'
 
+gem 'rails_admin'
+
 #gem 'state_machine', :require => 'state_machine/core'
 
 gem 'chartkick'
+
+#gem 'easy_translate'
+
+gem 'rails-i18n', '~> 4.0.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

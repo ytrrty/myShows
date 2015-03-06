@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219125043) do
+ActiveRecord::Schema.define(version: 20150223093830) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "body",             limit: 65535
+    t.integer  "commentable_id",   limit: 4
+    t.string   "commentable_type", limit: 255
+    t.integer  "comments_id",      limit: 4
+    t.integer  "user_id",          limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+  add_index "comments", ["comments_id"], name: "index_comments_on_comments_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "episodes", force: :cascade do |t|
     t.string  "name",           limit: 255,               null: false
@@ -24,9 +38,10 @@ ActiveRecord::Schema.define(version: 20150219125043) do
     t.integer "number",         limit: 4,                 null: false
     t.integer "comments_count", limit: 4,     default: 0
     t.string  "photo",          limit: 255
+    t.string  "photo_orig",     limit: 255
   end
 
-  add_index "episodes", ["show_id"], name: "fk_rails_0e6a1cb011", using: :btree
+  add_index "episodes", ["show_id"], name: "fk_rails_36114265c6", using: :btree
 
   create_table "genres", force: :cascade do |t|
     t.string "name", limit: 255, null: false
@@ -46,6 +61,7 @@ ActiveRecord::Schema.define(version: 20150219125043) do
     t.float   "rate_users",     limit: 24
     t.integer "comments_count", limit: 4,     default: 0,  null: false
     t.string  "photo",          limit: 255
+    t.string  "photo_orig",     limit: 255
   end
 
   create_table "shows_genres", force: :cascade do |t|
@@ -53,8 +69,8 @@ ActiveRecord::Schema.define(version: 20150219125043) do
     t.integer "genre_id", limit: 4
   end
 
-  add_index "shows_genres", ["genre_id"], name: "fk_rails_c2e82c80b1", using: :btree
-  add_index "shows_genres", ["show_id"], name: "fk_rails_255848479d", using: :btree
+  add_index "shows_genres", ["genre_id"], name: "fk_rails_1916726a78", using: :btree
+  add_index "shows_genres", ["show_id"], name: "fk_rails_abd9654d97", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "login",                  limit: 255, default: "", null: false
@@ -87,8 +103,8 @@ ActiveRecord::Schema.define(version: 20150219125043) do
     t.boolean "favorite",   limit: 1, default: false
   end
 
-  add_index "users_episodes", ["episode_id"], name: "fk_rails_fa48474aaa", using: :btree
-  add_index "users_episodes", ["user_id"], name: "fk_rails_dcfc8ffb04", using: :btree
+  add_index "users_episodes", ["episode_id"], name: "fk_rails_6842b33d8b", using: :btree
+  add_index "users_episodes", ["user_id"], name: "fk_rails_fe2702d7cc", using: :btree
 
   create_table "users_shows", force: :cascade do |t|
     t.integer "user_id",     limit: 4
@@ -97,9 +113,10 @@ ActiveRecord::Schema.define(version: 20150219125043) do
     t.boolean "favorite",    limit: 1,   default: false
   end
 
-  add_index "users_shows", ["show_id"], name: "fk_rails_15d25c65a5", using: :btree
-  add_index "users_shows", ["user_id"], name: "fk_rails_3d489a45a4", using: :btree
+  add_index "users_shows", ["show_id"], name: "fk_rails_9f6a9a7cfe", using: :btree
+  add_index "users_shows", ["user_id"], name: "fk_rails_2611b9dfca", using: :btree
 
+  add_foreign_key "comments", "users"
   add_foreign_key "episodes", "shows"
   add_foreign_key "shows_genres", "genres"
   add_foreign_key "shows_genres", "shows"

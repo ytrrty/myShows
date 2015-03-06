@@ -29,11 +29,19 @@ class EpisodesController < ApplicationController
             @new_episode.rate_imdb = episode_doc.css('.star-box-giga-star').text
             @new_episode.users_rate = seasons_count
             @new_episode.comments_count = 0
-            @new_episode.show_id = Show.where(name: show_name).first
+            @new_episode.show_id = Show.where(name: show_name).first.id
             @new_episode.season = episode_doc.css('.tv_header .nobr').text[7]
             @new_episode.number = episode_doc.css('.tv_header .nobr').text[18..20]
-            episode_doc.css('#img_primary img').each do |img| @new_episode.photo = img['src'] end
-            unless @new_episode.released.nil? then @new_episode.save end
+            episode_doc.css('#img_primary img').map { |img| @new_episode.photo = img['src'] }
+
+            episode_doc.css('#img_primary .image a').map { |orig_pic_url|
+              orig_pic_doc = Nokogiri::HTML(open('http://www.imdb.com/' + orig_pic_url[:href]))
+              orig_pic_doc.css('#primary-img').map { |orig_pic| @new_episode.photo_orig = orig_pic[:src] }
+            }
+
+            unless @new_episode.released.nil?
+              @new_episode.save
+            end
           end
         end
       end

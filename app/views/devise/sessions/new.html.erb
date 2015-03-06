@@ -1,8 +1,8 @@
+<% content_for :title, (I18n.t 'header.sign-in') %>
+<div class="page">
 <form method="post">
 
 <div class="reg">
-
-<h2>Sign in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
@@ -20,9 +20,10 @@
     </div>
   <% end -%>
 
-      <button type="submit" class="button radius expand success small">Ok</button>
+      <button type="submit" class="button radius expand success small"><%= I18n.t 'header.sign-in' %></button>
 <% end %>
 
 <%= render "devise/shared/links" %>
 </div>
 </form>
+</div>

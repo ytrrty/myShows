@@ -99,7 +99,7 @@ $include-html-global-classes: $include-html-classes;
 // $primary-color: #008CBA;
 // $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
-// $success-color: #43AC6A;
+ $success-color: #54986A;
 // $warning-color: #f08a24;
 // $info-color: #a0d3e8;
 
@@ -939,7 +939,7 @@ $include-html-global-classes: $include-html-classes;
 // $pagination-link-unavailable-bg-active: transparent;
 
 // We use these for currently selected anchor links
-// $pagination-link-current-background: $primary-color;
+ $pagination-link-current-background: $success-color;
 // $pagination-link-current-font-color: $white;
 // $pagination-link-current-font-weight: $font-weight-bold;
 // $pagination-link-current-cursor: default;

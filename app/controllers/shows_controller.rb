@@ -4,20 +4,31 @@ class ShowsController < ApplicationController
   def show
     @show_genres = @show.genres
     @show_episodes = Episode.where(show_id: @show.id).order('released desc')
+    @show_start_date = @show.episodes.first.released
+    if @show.status == 'Closed'
+      @show_finish_date = @show.episodes.last.released
+    end
+
+    if @show_finish_date.nil?
+        finish_year = '...'
+    else
+        finish_year = @show_finish_date.strftime('%Y')
+    end
+
+    @show_years = ' (' + @show_start_date.strftime('%Y') + ' - ' + finish_year + ')'
+    @recommendation = Show.joins(:genres).where("`genres`.`name` IN ('#{@show.genres.pluck(:name).join("','")}')").group_by{ |x| x}.sort_by{ |x, list| [-list.size,x]}.map(&:first)[0..5]
+    @current_fav = UsersShow.where(:user_id => current_user.id, :show_id => @show.id).first
   end
 
   def index
     @all_shows = Show.all.page(params[:page]).per(20).search(params[:search])
+    @search = ''
   end
 
   def change_status
     @update_record = UsersShow.where(user_id: current_user.id, show_id: Show.find(params[:id]))
     unless @update_record.empty?
-      if params[:status] == 'dont_watch'
-        UsersShow.destroy(@update_record)
-      elsif
         UsersShow.update(@update_record, show_status: params[:status])
-      end
     else
       @new_record = UsersShow.new
       @new_record.user_id = current_user.id
@@ -53,7 +64,12 @@ class ShowsController < ApplicationController
             @new_show.rate_imdb = show_doc.css('.star-box-giga-star').text
             @new_show.rate_users = 0.1
             @new_show.comments_count = 0
-          show_doc.css('#img_primary img').each do |img| @new_show.photo = img['src'] end
+          show_doc.css('#img_primary img').map { |img| @new_show.photo = img['src'] }
+
+            show_doc.css('#img_primary .image a').map { |orig_pic_url|
+              orig_pic_doc = Nokogiri::HTML(open('http://www.imdb.com/' + orig_pic_url[:href]))
+              orig_pic_doc.css('#primary-img').map { |orig_pic| @new_show.photo_orig = orig_pic[:src] }
+            }
           @new_show.save
 
           show_doc.css('.infobar .itemprop').each do |element|
@@ -65,8 +81,22 @@ class ShowsController < ApplicationController
         end
       end
     end
+    redirect_to :back
   end
-  
+
+  def favorite
+    @favorite_update = UsersShow.where(:user_id => current_user.id, :show_id => Show.find(params[:id]))
+    if @favorite_update.empty?
+      @new_fav =  UsersShow.new
+      @new_fav.user = current_user.id
+      @new_fav.show = Show.find(params[:id])
+      @new_fav.favorite = params[:fav]
+      @new_fav.save
+    else
+    UsersShow.update(@favorite_update, favorite: params[:fav])
+    end
+  end
+
   private
     def set_show
       @show = Show.find(params[:id])

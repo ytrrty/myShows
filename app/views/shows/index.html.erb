@@ -1,18 +1,26 @@
-
-
-<div class="page show-list">
-  <h2>Shows list</h2>
-
-  <%= paginate @all_shows %>
-
-  <ul class="large-block-grid-5">
+<% content_for :title, (I18n.t 'header.shows-list') %>
+<div class="page" style="background-color:rgba(100,100,100,0.5);">
+  <%#= paginate @all_shows %>
+  <ul class="large-block-grid-4">
     <% @all_shows.each { |show| %>
-        <li>
-          <div class="main-blocks">
-            <%= link_to image_tag(show.photo, class: 'show-list'), show %>
+      <li>
+        <div class="cuadro_intro_hover">
+        <div class="main-blocks img-responsive">
+          <%= link_to image_tag(show.photo_orig, class: 'show-list'), show %>
+          <div class="caption">
+            <div class="blur">
+            <div class="caption-text">
+              <div class="blocks-names"><%= link_to show.name, show %></div>
+                <%= show.about[0..500] + '...' %>
+              <br>
+              <%= link_to (I18n.t 'read-more'), show, class: 'button success tiny', style: 'align: center;' %>
+            </div>
+
+            </div>
           </div>
-          <div class="blocks-names"><%= link_to show.name, show %></div>
-        </li>
+        </div>
+        </div>
+      </li>
     <% } %>
   </ul>
   <%= paginate @all_shows %>

@@ -1,5 +1,5 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
+<% content_for :title, (I18n.t 'user.edit-profile') %>
+<div class="page">
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {:multipart => true, method: :put}) do |f| %>
     <%= devise_error_messages! %>
 
@@ -45,3 +45,4 @@
 
 </div>
 </form>
+</div>

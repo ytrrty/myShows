@@ -1,0 +1,24 @@
+<li class="comment">
+  <div class="comment-header">
+    <b><%= link_to User.find(comment.user_id).login, User.find(comment.user_id) %></b>
+    <span class="right"> <%= comment.created_at.strftime('%H:%M:%S, %d.%m.%Y') %> </span>
+  </div>
+  <div class="comment-picture">
+    <%= link_to (image_tag User.find(comment.user_id).avatar.url(:thumb), class: 'comment-picture-img'), User.find(comment.user_id)%>
+  </div>
+  <div class="comment-body">
+    <%= comment.body %>
+  </div>
+  <div class="comment-footer">
+    <%= link_to (I18n.t 'comment.reply'), new_comment_comment_path(comment) %>
+  </div>
+</li>
+
+
+
+  <% unless comment.comments.empty? %>
+      <ul class="comment_list">
+        <%= render :partial => 'comments/comment', :collection => comment.comments %>
+      </ul>
+  <% end %>
+

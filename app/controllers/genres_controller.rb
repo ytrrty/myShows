@@ -7,10 +7,12 @@ class GenresController < ApplicationController
       @new_genre.name = item.text
       @new_genre.save
     end
+    redirect_to :back
   end
 
   def show
-    @show_genres= Genre.find(params[:id]).shows.all
+    @show_genres = Genre.find(params[:id]).shows.all.page(params[:page]).per(20)
+    @current_genre = Genre.find(params[:id])
   end
 
   def index

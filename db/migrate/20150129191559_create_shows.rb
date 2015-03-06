@@ -14,6 +14,7 @@ class CreateShows < ActiveRecord::Migration
       t.float :rate_users
       t.integer :comments_count,      null: false, default: 0
       t.string :photo
+      t.string :photo_orig
     end
 
   end
