@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  post '/rate' => 'rater#create', :as => 'rate'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, controllers: { registrations: 'registrations' }
 
@@ -23,10 +24,13 @@ Rails.application.routes.draw do
   root to: 'users#welcome'
   #root to: 'shows#index'
 
+
   get 'users/:id/favorites', to: 'users#favorites', as: :users_favorites
+  get 'users/:id/rates', to: 'users#rates', as: :users_rates
   get 'shows/:id/change_status', to: 'shows#change_status', as: :change_status
   post 'shows/:id/favorite', to: 'shows#favorite', as: :favorite
   get 'genres/:id', to: 'genres#show', as: :find_genres
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -37,9 +37,11 @@ gem 'rails_admin'
 
 gem 'chartkick'
 
-#gem 'easy_translate'
-
 gem 'rails-i18n', '~> 4.0.0'
+
+gem "letsrate", :git => "git://github.com/iammyr/letsrate.git"
+
+gem 'filterrific'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -111,6 +111,11 @@ div.reg {
   border-left: 1px ridge #DDDDDD;
 }
 
+.user-panel {
+  margin: -5px 0;
+  list-style: none;
+}
+
 .users-list {
   width: auto;
   height: auto;
@@ -133,8 +138,9 @@ ul.large-block-grid-5 {
 }
 
 .large-block-grid-4 {
-  margin: 10px auto;
-  padding-right: 10px;
+  /*margin: 0 auto;*/
+  margin-right: 15px;
+  margin-left: 15px;
 }
 
 img.show-list {
@@ -231,6 +237,11 @@ span.label {
   height: 30px;
 }
 
+.row.collapse > .column, .row.collapse > .columns > .filter {
+/*  width: 200px;*/
+  padding: 15px;
+}
+
 .closeable {
   overflow: hidden;
   transition: height 1s ease;
@@ -243,7 +254,6 @@ span.label {
   padding: 0;
   position: relative;
   overflow: hidden;
-  /*height: 200px;*/
 }
 .cuadro_intro_hover:hover .caption{
   opacity: 1;

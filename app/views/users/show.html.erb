@@ -11,14 +11,20 @@
           <div>
             <% if user_signed_in? %>
                 <% if current_user.access == 1 && @user_profile == current_user %>
-                    <a class="button radius success tiny" <%= link_to (I18n.t 'user.parse-genres'), new_genre_path %>
-                    <a class="button radius success tiny" <%= link_to (I18n.t 'user.parse-shows'), new_show_path %>
-                    <a class="button radius success tiny" <%= link_to (I18n.t 'user.parse-episodes'), new_episode_path %>
-                    <a class="button radius success tiny" <%= link_to (I18n.t 'user.admin-panel'), rails_admin_path %>
+                    <button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="tiny button dropdown show-status success"><%= I18n.t 'user.site-control' %></button>
+                    <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
+                      <li><%= link_to (I18n.t 'user.parse-genres'), new_genre_path %></li>
+                      <li><%= link_to (I18n.t 'user.parse-shows'), new_show_path %></li>
+                      <li><%= link_to (I18n.t 'user.parse-episodes'), new_episode_path %></li>
+                      <li><%= link_to (I18n.t 'user.admin-panel'), rails_admin_path %></li>
+                    </ul>
                 <% end %>
                 <% if current_user == @user_profile %>
-                    <a class="button radius success tiny" <%= link_to (I18n.t 'user.edit-profile'), edit_user_registration_path(current_user) %>
-                    <a class="button radius success tiny" <%= link_to (I18n.t 'user.favorites'), users_favorites_path %>
+                    <ul class="user-panel">
+                    <li><a class="label success tiny" <%= link_to (I18n.t 'user.favorites'), users_favorites_path %></li>
+                    <li><a class="label success tiny" <%= link_to (I18n.t 'user.rates'), users_rates_path %></li>
+                    <li><a class="label success tiny" <%= link_to (I18n.t 'user.edit-profile'), edit_user_registration_path(current_user) %> </li>
+                    </ul>
                 <% end %>
                 <% end %>
           </div>

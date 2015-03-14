@@ -1,0 +1,16 @@
+<% content_for :title, (I18n.t 'user.rates') %>
+<div class="page">
+
+  <table style="margin: 20px auto">
+    <tr>
+      <th scope="column" width="50px"><b><%= I18n.t 'user.mark' %></b></th>
+      <th scope="column" width="530px"><b><%= I18n.t 'show.name' %></b></th>
+    </tr>
+    <% @rate_shows.each { |show|  %>
+    <tr>
+      <td><%= rating_for_user show, current_user, "rate" %></td>
+      <td><%= link_to show.name, show %></td>
+    </tr>
+<% } %>
+  </table>
+</div>

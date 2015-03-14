@@ -27,6 +27,15 @@ en:
       parse-genres: Parse genres
       parse-episodes: Parse episodes
       admin-panel: Admin panel
+    reg:
+          edit: Edit
+          delete: Delete
+          back: Back
+          login: Login
+          password: Password
+          confim-password: Confim password
+          current-password: Current password
+          leave-it-blank: leave blank if you don't want to change it
     show:
       select-status: Select show status
       add-to-favorite: Add to favorite

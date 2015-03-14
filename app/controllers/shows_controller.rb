@@ -21,8 +21,8 @@ class ShowsController < ApplicationController
   end
 
   def index
-    @all_shows = Show.all.page(params[:page]).per(20).search(params[:search])
-    @search = ''
+    @all_shows = Show.all.page(params[:page]).per(20).search(params[:search]).sort(params[:sort]).genre(params[:genre])
+    @all_genres = Genre.all
   end
 
   def change_status
