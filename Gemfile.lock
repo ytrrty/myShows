@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/iammyr/letsrate.git
+  revision: 15991d57865eab3fe6272b2b22a7552b7c1aab8c
+  specs:
+    letsrate (1.0.9)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -69,6 +75,8 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.2.2)
+    filterrific (2.0.4)
+      rails (>= 3.1.0)
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
     foundation-rails (5.4.5.0)
@@ -209,10 +217,12 @@ DEPENDENCIES
   chartkick
   coffee-rails (~> 4.1.0)
   devise (= 3.4.1)
+  filterrific
   foundation-rails
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
+  letsrate!
   mysql2
   paperclip (~> 4.1)
   rails (= 4.2.0)

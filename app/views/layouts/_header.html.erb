@@ -8,7 +8,6 @@
   <section class="top-bar-section">
     <ul class="left">
       <li class="has-dropdown not-click"><a href="#"><%= I18n.t 'header.menu'%></a>
-
         <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)"><%= I18n.t 'header.back'%></a></h5></li><li class="parent-link show-for-small-only"></li>
           <li><%= link_to (I18n.t 'header.shows-list'), shows_path%></li>
           <li><%= link_to (I18n.t 'header.genres-list'), genres_path%></li>
@@ -34,7 +33,15 @@
       </li>
       <li class="divider"></li>
       <% if user_signed_in? %>
-          <li><a href="/"><%=I18n.t 'header.profile'%></a></li>
+          <li class="has-dropdown not-click"><a href="/"><%= current_user.login %></a>
+            <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)"><%= I18n.t 'header.back'%></a></h5></li><li class="parent-link show-for-small-only"></li>
+              <li><%= link_to (I18n.t 'header.profile'), current_user %></li>
+              <li><%= link_to (I18n.t 'user.edit-profile'), edit_user_registration_path(current_user) %></li>
+              <li><%= link_to (I18n.t 'user.favorites'), users_favorites_path(current_user) %></li>
+              <li><%= link_to (I18n.t 'user.rates'), users_rates_path(current_user) %></li>
+
+            </ul>
+          </li>
           <li class="divider"></li>
           <li><%= link_to (I18n.t 'header.logout'), destroy_user_session_path, :method => :delete %></li>
 

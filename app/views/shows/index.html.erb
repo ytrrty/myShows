@@ -1,27 +1,61 @@
 <% content_for :title, (I18n.t 'header.shows-list') %>
 <div class="page" style="background-color:rgba(100,100,100,0.5);">
-  <%#= paginate @all_shows %>
-  <ul class="large-block-grid-4">
-    <% @all_shows.each { |show| %>
-      <li>
-        <div class="cuadro_intro_hover">
-        <div class="main-blocks img-responsive">
-          <%= link_to image_tag(show.photo_orig, class: 'show-list'), show %>
-          <div class="caption">
-            <div class="blur">
-            <div class="caption-text">
-              <div class="blocks-names"><%= link_to show.name, show %></div>
-                <%= show.about[0..500] + '...' %>
-              <br>
-              <%= link_to (I18n.t 'read-more'), show, class: 'button success tiny', style: 'align: center;' %>
-            </div>
+  <form method="get" action="#" id="form">
+    <div class="row collapse">
 
-            </div>
-          </div>
+      <div class="large-3 medium-3 small-12 columns">
+        <div class="filter">
+        <%= text_field_tag :search, params[:search], id: 'search', onkeyup: "$('#form').submit()" %>
         </div>
+      </div>
+
+      <div class="large-3 medium-3 small-12 columns">
+        <div class="filter">
+          <input id="page" onkeyup="$('#form').submit()"/>
         </div>
-      </li>
-    <% } %>
-  </ul>
-  <%= paginate @all_shows %>
+      </div>
+
+      <div class="large-3 medium-3 small-12 columns">
+        <div class="filter">
+        <select name="sort" id="name" onchange="$('#form').submit()">
+          <option value=''>За назвою</option>
+          <option value="name_asc">За зростанням</option>
+          <option value="name_desc">За спаданням</option>
+        </select>
+        </div>
+      </div>
+
+      <div class="large-3 medium-3 small-12 columns">
+        <div class="filter">
+        <select name="genre" id="genre" onchange="$('#form').submit()">
+          <option value="all">За жанром</option>
+          <% @all_genres.each { |genre| %>
+            <option value=<%= genre.id %>><%= genre.name %> </option>
+          <% } %></select>
+        </select>
+        </div>
+      </div>
+
+    </div>
+
+  <div id="content">
+    <%= render 'shows/list' %>
+  </div>
+  </form>
+        <script>
+            $(document).ready(function () {
+                $('#form').submit(function(){
+                    $.ajax({
+                    type: "get",
+                    url: "shows",
+                    data: {sort: $("#name").val(), genre:$("#genre").val(), page:$("#page").val(), search:$("#search").val()},
+                    success: function(data){
+                        data = $(data);
+                        $("#content").html($('#shows',data).html());
+                    }
+                });
+                    return false;
+              });
+            });
+        </script>
 </div>

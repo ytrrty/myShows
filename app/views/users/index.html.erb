@@ -3,8 +3,8 @@
   <ul class="large-block-grid-4">
     <% @all_users.each { |user| %>
         <li>
-          <div class="main-blocks">
-            <%= link_to image_tag(user.avatar.url, class: 'show-list'), user %>
+          <div class="user-avatar">
+            <%= image_tag user.avatar.url(:medium)%>
           </div>
           <div class="blocks-names"><%= link_to user.login, user %></div>
         </li>

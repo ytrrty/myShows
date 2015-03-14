@@ -1,0 +1,26 @@
+<div id="shows">
+<ul class="large-block-grid-4">
+  <% @all_shows.each { |show| %>
+      <li>
+        <div class="cuadro_intro_hover">
+          <!--<div class="main-blocks img-responsive" data-name="<%#= link_to show.name, show %>">-->
+          <%= link_to image_tag(show.photo_orig, class: 'show-list'), show %>
+          <div class="caption">
+            <div class="blur">
+              <div class="caption-text">
+                <div class="blocks-names"><%= link_to show.name, show %></div>
+                <%= show.about[0..450] + '...' %>
+                <br><br>
+                <%= link_to (I18n.t 'read-more'), show, class: 'button success tiny', style: 'align: center;' %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!--</div>-->
+      </li>
+  <% } %>
+
+</ul>
+<%= paginate @all_shows %>
+</div>

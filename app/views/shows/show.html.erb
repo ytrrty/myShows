@@ -8,7 +8,21 @@
           <div class="show-avatar">
             <%= image_tag @show.photo_orig %>
           </div>
-          <button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="tiny button dropdown show-status"><%= I18n.t 'show.select-status' %>
+          <button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="tiny button dropdown show-status">
+            <% unless @current_fav.blank? %>
+            <% case @current_fav.show_status %>
+            <% when 'dont_watch'%>
+             <%=(I18n.t 'user.dont-watch')%>
+            <% when 'watching' %>
+                <%=(I18n.t 'user.watching')%>
+            <% when 'will_watch' %>
+                <%=(I18n.t 'user.will-watch')%>
+            <% when 'stopped_watch' %>
+                <%=(I18n.t 'user.stopped-watch')%>
+            <% end %>
+                <% else %>
+            <%=(I18n.t 'user.dont-watch')%>
+            <%end%>
           </button>
           <br>
           <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
@@ -82,8 +96,8 @@
               <%= @show.rate_imdb %>
           <% end %>
           <br>
-          <strong><%= I18n.t 'show.users-rate' %>:</strong> <%= @show.rate_users %>
-          <br>
+          <b>Загальна оцінка:</b> <%= rating_for @show, "rate" %>
+          <b>Ваша оцінка:</b> <%= rating_for_user @show, current_user, "rate", :star => 7 %>
           <strong><%= I18n.t 'show.about' %>:</strong> <%= @show.about %>
           <br>
         </div>
