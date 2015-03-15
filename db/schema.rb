@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20150309202202) do
     t.text    "about",          limit: 65535,             null: false
     t.date    "released"
     t.float   "rate_imdb",      limit: 24
-    t.float   "users_rate",     limit: 24
     t.integer "show_id",        limit: 4
     t.integer "season",         limit: 4,                 null: false
     t.integer "number",         limit: 4,                 null: false
@@ -41,7 +40,7 @@ ActiveRecord::Schema.define(version: 20150309202202) do
     t.string  "photo_orig",     limit: 255
   end
 
-  add_index "episodes", ["show_id"], name: "fk_rails_36114265c6", using: :btree
+  add_index "episodes", ["show_id"], name: "fk_rails_5a2eb758b9", using: :btree
 
   create_table "genres", force: :cascade do |t|
     t.string "name", limit: 255, null: false
@@ -77,13 +76,10 @@ ActiveRecord::Schema.define(version: 20150309202202) do
     t.string  "status",         limit: 255,   default: "", null: false
     t.date    "start_date"
     t.date    "finish_date"
-    t.string  "country",        limit: 255,   default: "", null: false
-    t.string  "channel",        limit: 255,   default: "", null: false
     t.text    "about",          limit: 65535,              null: false
     t.integer "seasons_count",  limit: 4,     default: 0,  null: false
     t.integer "runtime",        limit: 4,     default: 0,  null: false
     t.float   "rate_imdb",      limit: 24
-    t.float   "rate_users",     limit: 24
     t.integer "comments_count", limit: 4,     default: 0,  null: false
     t.string  "photo",          limit: 255
     t.string  "photo_orig",     limit: 255
@@ -94,8 +90,8 @@ ActiveRecord::Schema.define(version: 20150309202202) do
     t.integer "genre_id", limit: 4
   end
 
-  add_index "shows_genres", ["genre_id"], name: "fk_rails_1916726a78", using: :btree
-  add_index "shows_genres", ["show_id"], name: "fk_rails_abd9654d97", using: :btree
+  add_index "shows_genres", ["genre_id"], name: "fk_rails_62dd371099", using: :btree
+  add_index "shows_genres", ["show_id"], name: "fk_rails_86f4ad6cd5", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "login",                  limit: 255, default: "", null: false
@@ -128,8 +124,8 @@ ActiveRecord::Schema.define(version: 20150309202202) do
     t.boolean "favorite",   limit: 1, default: false
   end
 
-  add_index "users_episodes", ["episode_id"], name: "fk_rails_6842b33d8b", using: :btree
-  add_index "users_episodes", ["user_id"], name: "fk_rails_fe2702d7cc", using: :btree
+  add_index "users_episodes", ["episode_id"], name: "fk_rails_3c48ff33f0", using: :btree
+  add_index "users_episodes", ["user_id"], name: "fk_rails_1967e0de0d", using: :btree
 
   create_table "users_shows", force: :cascade do |t|
     t.integer "user_id",     limit: 4
@@ -138,8 +134,8 @@ ActiveRecord::Schema.define(version: 20150309202202) do
     t.boolean "favorite",    limit: 1,   default: false
   end
 
-  add_index "users_shows", ["show_id"], name: "fk_rails_9f6a9a7cfe", using: :btree
-  add_index "users_shows", ["user_id"], name: "fk_rails_2611b9dfca", using: :btree
+  add_index "users_shows", ["show_id"], name: "fk_rails_892183c1e7", using: :btree
+  add_index "users_shows", ["user_id"], name: "fk_rails_21a9d73691", using: :btree
 
   add_foreign_key "comments", "users"
   add_foreign_key "episodes", "shows"

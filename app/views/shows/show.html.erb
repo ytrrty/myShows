@@ -10,18 +10,18 @@
           </div>
           <button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="tiny button dropdown show-status">
             <% unless @current_fav.blank? %>
-            <% case @current_fav.show_status %>
-            <% when 'dont_watch'%>
-             <%=(I18n.t 'user.dont-watch')%>
-            <% when 'watching' %>
-                <%=(I18n.t 'user.watching')%>
-            <% when 'will_watch' %>
-                <%=(I18n.t 'user.will-watch')%>
-            <% when 'stopped_watch' %>
-                <%=(I18n.t 'user.stopped-watch')%>
-            <% end %>
-                <% else %>
-            <%=(I18n.t 'user.dont-watch')%>
+              <% case @current_fav.show_status %>
+                <% when 'dont_watch'%>
+                 <%= I18n.t 'user.dont-watch' %>
+                <% when 'watching' %>
+                    <%= I18n.t 'user.watching' %>
+                <% when 'will_watch' %>
+                    <%= I18n.t 'user.will-watch' %>
+                <% when 'stopped_watch' %>
+                    <%= I18n.t 'user.stopped-watch' %>
+              <% end %>
+            <% else %>
+              <%= I18n.t 'user.dont-watch' %>
             <%end%>
           </button>
           <br>
@@ -46,50 +46,50 @@
             </div>
 
             <script>
-                $( function() {
-                    var a = function() {
-                        if (document.getElementById("switch").checked == true) { favorite_status = 1; }
-                        else { favorite_status = 0 }
-                        return favorite_status
-                    };
+              $( function() {
+                var a = function() {
+                  if (document.getElementById("switch").checked == true)
+                    { favorite_status = 1; }
+                  else
+                    { favorite_status = 0 }
+                  return favorite_status
+                };
 
-                    $('.switch').on('change', function() {
-                        $.ajax({
-                            type: 'POST',
-                            url: '<%= favorite_path %>',
-                            data: {fav: a}
-                        });
-                    })
-                });
-
+                $('.switch').on('change', function() {
+                  $.ajax({
+                    type: 'POST',
+                    url: '<%= favorite_path %>',
+                    data: {fav: a}
+                  });
+                })
+              });
             </script>
+
           </div>
-          <strong><%= I18n.t 'show.status' %>:</strong>
+          <b><%= I18n.t 'show.status' %>:</b>
           <% if @show.status == 'Run' %>
               <span class="success label radius"><%= @show.status %></span>
           <% else %>
               <span class="alert label radius"><%= @show.status %></span>
           <% end %>
           <br>
-          <strong><%= I18n.t 'show.start-date' %>:</strong> <%= @show_start_date.strftime('%d.%m.%Y') %>
+          <b><%= I18n.t 'show.start-date' %>:</b> <%= @show.start_date.strftime('%d.%m.%Y') %>
           <br>
-          <strong><%= I18n.t 'show.finish-date' %></strong>
-          <% if @show_finish_date.nil? %>
+          <b><%= I18n.t 'show.finish-date' %>:</b>
+          <% if @show.finish_date.nil? %>
               ...
           <% else %>
-              <%= @show_finish_date.strftime('%d.%m.%Y') %>
+              <%= @show.finish_date.strftime('%d.%m.%Y') %>
           <% end %>
           <br>
-          <strong><%= I18n.t 'show.channel' %>:</strong> <%= @show.channel %>
-          <br>
-          <strong><%= I18n.t 'show.genres' %>:</strong>
+          <b><%= I18n.t 'show.genres' %>:</b>
           <% @show_genres.each { |genre| %> <%= link_to genre.name, genre %> | <% } %>
           <br>
-          <strong><%= I18n.t 'show.seasons' %>:</strong> <%= @show.seasons_count %>
+          <b><%= I18n.t 'show.seasons' %>:</b> <%= @show.seasons_count %>
           <br>
-          <strong><%= I18n.t 'show.runtime' %>:</strong> <%= @show.runtime %> min.
+          <b><%= I18n.t 'show.runtime' %>:</b> <%= @show.runtime %> min.
           <br>
-          <strong><%= I18n.t 'show.rate-imdb' %>:</strong>
+          <b><%= I18n.t 'show.rate-imdb' %>:</b>
           <% if @show.rate_imdb == nil %>
               Not rated yet
           <% else %>
@@ -98,7 +98,7 @@
           <br>
           <b>Загальна оцінка:</b> <%= rating_for @show, "rate" %>
           <b>Ваша оцінка:</b> <%= rating_for_user @show, current_user, "rate", :star => 7 %>
-          <strong><%= I18n.t 'show.about' %>:</strong> <%= @show.about %>
+          <b><%= I18n.t 'show.about' %>:</b> <%= @show.about %>
           <br>
         </div>
 
@@ -112,26 +112,22 @@
               <li class="closeable close"><h6><%= I18n.t 'show.season' %> <%= season %></h6>
               <table>
                 <tr>
-                  <th scope="column" width="50px">#</th>
-                  <th scope="column" width="530px"><%= I18n.t 'show.name' %></th>
-                  <th scope="column" width="50px"><%= I18n.t 'show.date' %></th>
+                  <th width="50px">#</th>
+                  <th width="530px"><%= I18n.t 'show.name' %></th>
+                  <th width="50px"><%= I18n.t 'show.date' %></th>
                 </tr>
                 <% season = season - 1 %>
           <% end %>
 
+            <tr>
+              <td><%= episode.season.to_s + 'x' + episode.number.to_s %></td>
+              <td><%= link_to episode.name, episode %></td>
             <% if episode.released <= DateTime.now %>
-              <tr>
-                <td><%= episode.season.to_s + 'x' + episode.number.to_s %></td>
-                <td><%= link_to episode.name, episode %></td>
                 <td><span class="success label radius"><%= episode.released.strftime('%d.%m.%Y') %></span></td>
-              </tr>
             <% else %>
-              <tr>
-                <td><%= episode.season.to_s + 'x' + episode.number.to_s %></td>
-                <td><%= link_to episode.name, episode %></td>
                 <td><span class="secondary label radius"><%= episode.released.strftime('%d.%m.%Y') %></span></td>
-              </tr>
-        <% end } %>
+            <% end } %>
+            </tr>
         </table></li></ul>
 
       <p><%= link_to (I18n.t 'comment.add'), new_show_comment_path(@show) %></p>

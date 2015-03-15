@@ -6,28 +6,28 @@
       <%= image_tag @episode.photo_orig, class: 'episode-avatar' %>
     </div>
     <div class="show-text large-5 columns">
-      <strong><%= I18n.t 'episode.name' %>:</strong> <%= @episode.name %>
+      <b><%= I18n.t 'episode.name' %>:</b> <%= @episode.name %>
       <br>
-      <strong><%= I18n.t 'episode.show' %>:</strong> <%= link_to @show.name, @show %>
+      <b><%= I18n.t 'episode.show' %>:</b> <%= link_to @show.name, @show %>
       <br>
-      <strong><%= I18n.t 'episode.released' %>:</strong> <%= @episode.released.strftime('%d.%m.%Y') %>
+      <b><%= I18n.t 'episode.released' %>:</b> <%= @episode.released.strftime('%d.%m.%Y') %>
       <br>
-      <strong><%= I18n.t 'show.rate-imdb' %>:</strong>
+      <b><%= I18n.t 'show.rate-imdb' %>:</b>
           <% if @episode.rate_imdb == nil %>
               Not rated yet
           <% else %>
               <%= @episode.rate_imdb %>
           <% end %>
       <br>
-      <strong><%= I18n.t 'show.users-rate' %>:</strong> <%= @episode.users_rate %>
+      <b><%= I18n.t 'show.users-rate' %>:</b> <%= @episode.users_rate %>
       <br>
-      <strong><%= I18n.t 'episode.season' %>:</strong> <%= @episode.season %>
+      <b><%= I18n.t 'episode.season' %>:</b> <%= @episode.season %>
       <br>
-      <strong><%= I18n.t 'episode.episode' %>:</strong> <%= @episode.number %>
+      <b><%= I18n.t 'episode.episode' %>:</b> <%= @episode.number %>
       <br>
-      <strong><%= I18n.t 'show.runtime' %>:</strong> <%= @show.runtime %> min.
+      <b><%= I18n.t 'show.runtime' %>:</b> <%= @show.runtime %> min.
       <br>
-      <strong><%= I18n.t 'show.about' %>:</strong> <%= @episode.about %>
+      <b><%= I18n.t 'show.about' %>:</b> <%= @episode.about %>
       <br>
     </div>
     </div>

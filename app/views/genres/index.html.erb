@@ -1,9 +1,8 @@
 <% content_for :title, (I18n.t 'header.genres-list') %>
 <div class="page">
   <div class="genres">
-
-  <% @all_genres.each { |genre| %>
+    <% @all_genres.each { |genre| %>
       <h6 align="center"><%= link_to genre.name, genre %></h6>
-  <% } %>
+    <% } %>
   </div>
 </div>

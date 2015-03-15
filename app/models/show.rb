@@ -18,15 +18,15 @@ class Show < ActiveRecord::Base
   end
 
   def self.sort(sort)
-      case sort
-        when 'name_desc'
-          return self.order('`shows`.`name` DESC')
-        when 'name_asc'
-          return self.order('`shows`.`name` ASC')
-        when 'rate_desc'
-          order('`shows`.`rate_imdb` DESC')
-        when 'rate_asc'
-          order('`shows`.`rate_imdb` ASC')
+    case sort
+      when 'name_desc'
+        return self.order('`shows`.`name` DESC')
+      when 'name_asc'
+        return self.order('`shows`.`name` ASC')
+      when 'rate_desc'
+        order('`shows`.`rate_imdb` DESC')
+      when 'rate_asc'
+        order('`shows`.`rate_imdb` ASC')
     else
       Show.all
     end
@@ -34,11 +34,7 @@ class Show < ActiveRecord::Base
 
   def self.genre(genre)
     if genre
-      if genre == 'all'
-        Show.all
-      else
-      Show.joins(:genres).where('`genre_id` = ' + genre)
-      end
+      genre == 'all' ? Show.all : Show.joins(:genres).where('`genre_id` = ' + genre)
     else
       Show.all
     end

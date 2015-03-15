@@ -1,4 +1,5 @@
 class GenresController < ApplicationController
+
   def new
     url = 'http://www.imdb.com/genre'
     doc = Nokogiri::HTML(open(url))
@@ -17,6 +18,6 @@ class GenresController < ApplicationController
 
   def index
     @all_genres = Genre.all
-
   end
+
 end

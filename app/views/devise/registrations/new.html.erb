@@ -7,7 +7,7 @@
       <div class="reg">
 
         <div class="field">
-          <%= f.text_field :login, autofocus: true, placeholder: 'Login' %>
+          <%= f.text_field :login, autofocus: true, placeholder: (I18n.t 'reg.login') %>
         </div>
 
         <div class="field">
@@ -18,11 +18,11 @@
           <% if @validatable %>
               <em>(<%= @minimum_password_length %> characters minimum)</em>
           <% end %><br/>
-          <%= f.password_field :password, autocomplete: "off", placeholder: 'Password' %>
+          <%= f.password_field :password, autocomplete: "off", placeholder: (I18n.t 'reg.password') %>
         </div>
 
         <div class="field">
-          <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Confirm password' %>
+          <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: (I18n.t 'reg.confim-password') %>
         </div>
 
         <div class="field">
