@@ -1,0 +1,8 @@
+- content_for :title, (I18n.t 'header.users-list')
+.page.show-list
+  %ul.large-block-grid-4
+    - @all_users.each do |user|
+      %li
+        .user-avatar
+          = image_tag user.avatar.url(:medium)
+          .blocks-names= link_to user.login, user

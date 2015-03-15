@@ -1,0 +1,27 @@
+- content_for :title, (I18n.t 'header.shows-list')
+.page{style: 'background-color:rgba(100,100,100,0.5);'}
+  %form#form{method: 'get', action: '#'}
+    .row.collapse
+
+      .large-3.medium-3.small-12.columns
+        .filter
+          = text_field_tag :search, params[:search], placeholder: (I18n.t 'header.search') ,id: 'search', onkeyup: "$('#form').submit()"
+
+      .large-3.medium-3.small-12.columns
+        .filter
+          %select#name{name: 'sort', onchange: "$('#form').submit()"}
+            %option{value: ''} За назвою
+            %option{value: 'name_asc'} За зростанням
+            %option{value: 'name_desc'} За спаданням
+
+      .large-3.medium-3.small-12.columns
+        .filter
+          %select#genre{name: 'genre', onchange: "$('#form').submit()"}
+            %option{value: 'all'} За жанром
+            - @all_genres.each do |genre|
+              %option{value: "#{genre.id}"}= genre.name
+
+      .large-3.medium-3.small-12.columns
+
+    #content
+      = render partial: 'shows/list'

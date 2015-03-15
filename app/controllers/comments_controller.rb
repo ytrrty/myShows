@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
       redirect_to :back
     else
       render :new
+      redirect_to :back
     end
   end
 
