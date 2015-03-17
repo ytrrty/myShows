@@ -5,7 +5,6 @@ class CreateEpisodes < ActiveRecord::Migration
       t.text   :about,              null: false
       t.date   :released
       t.float :rate_imdb
-      t.float :users_rate
       t.references :show,           show: true
       t.integer :season,            null: false
       t.integer :number,            null: false

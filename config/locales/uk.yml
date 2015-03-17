@@ -39,6 +39,7 @@ uk:
       confim-password: Повторіть пароль
       current-password: Поточний пароль
       leave-it-blank: Залишіть ці поля порожніми, якщо не хочете змінювати пароль
+      remember-me: Запам’ятати мене
     show:
       select-status: Виберіть статус серіалу
       add-to-favorite: До закладок
@@ -47,6 +48,7 @@ uk:
       finish-date: Дата закінчення
       channel: Канал
       genres: Жанри
+      genre: Жанр
       seasons: Сезонів
       runtime: Тривалість серії
       rate-imdb: Оцінка IMDB

@@ -21,8 +21,8 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  root to: 'users#welcome'
-  #root to: 'shows#index'
+  #root to: 'users#welcome'
+  root to: 'shows#index'
 
 
   get 'users/:id/favorites', to: 'users#favorites', as: :users_favorites

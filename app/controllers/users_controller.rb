@@ -27,12 +27,12 @@ class UsersController < ApplicationController
   end
 
   def rates
-    @rate_shows = Array.new
+    @rated_shows = Array.new
 
     rate = Rate.where(:rater_id => current_user.id)
     rate.each {|rate|
       if rate.rateable_type == 'Show'
-        @rate_shows.push(Show.find(rate.rateable_id))
+        @rated_shows.push(Show.find(rate.rateable_id))
       end
     }
   end

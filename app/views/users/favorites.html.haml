@@ -1,0 +1,15 @@
+- content_for :title, (I18n.t 'user.favorites')
+.page{style: 'background-color:rgba(100,100,100,0.5);'}
+  %ul.large-block-grid-4
+    - @user_favorite.each do |item|
+      %li
+        .cuadro_intro_hover
+          .main-blocks.img-responsive
+            = link_to image_tag(item.show.photo_orig, class: 'show-list'), item.show
+            .caption
+              .blur
+                .caption-text
+                  .blocks-names= link_to item.show.name, item.show
+                  = item.show.about[0..500] + '...'
+                  %br
+                  = link_to (I18n.t 'read-more'), item.show, class: 'button success tiny', style: 'align: center;'
