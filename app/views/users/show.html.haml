@@ -16,15 +16,16 @@
                 %li= link_to (I18n.t 'user.parse-episodes'), new_episode_path
                 %li= link_to (I18n.t 'user.admin-panel'), rails_admin_path
 
-            - if current_user == @user_profile
-              %ul.user-panel
-                %li
-                  %a.label.success.tiny= link_to (I18n.t 'user.favorites'), users_favorites_path
-                %li
-                  %a.label.success.tiny= link_to (I18n.t 'user.rates'), users_rates_path
-                %li
-                  %a.label.success.tiny= link_to (I18n.t 'user.edit-profile'), edit_user_registration_path(current_user)
-        .large-8.medium-8.small-12.columns
+              - if current_user == @user_profile
+
+                %ul.user-panel.full-width
+                  %li{style: 'margin-bottom: -15px'}
+                    = link_to (I18n.t 'user.favorites'), users_favorites_path, class: 'button success tiny full-width'
+                  %li{style: 'margin-bottom: -15px'}
+                    = link_to (I18n.t 'user.rates'), users_rates_path, class: 'button success tiny full-width'
+                  %li{style: 'margin-bottom: -15px'}
+                    = link_to (I18n.t 'user.edit-profile'), edit_user_registration_path(current_user), class: 'button success tiny full-width'
+        .large-8.medium-8.small-12.columns{style: 'margin-top: 5px'}
           = bar_chart @ord
 
     .user-right.large-3.medium-3.columns

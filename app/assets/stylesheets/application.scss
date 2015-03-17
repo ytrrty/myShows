@@ -69,7 +69,7 @@ div.reg {
 .show-avatar {
   margin-bottom: 10px;
   border: 1px #DDDDDD ridge;
-  width: auto;
+  max-width: 100%;
   height: auto;
   text-align: center;
 }
@@ -157,6 +157,10 @@ img.show-list:hover{
   margin: 20px auto
 }
 
+.full-width{
+  width: 100%;
+}
+
 .comment {
   border: 1px ridge #DDDDDD;
   width: 400px;
@@ -209,7 +213,6 @@ img.comment-picture-img {
   float: left;
   border-left: 1px ridge #DDDDDD;
   max-width: 200px;
-  height: 100%;
 }
 
 h2, h5 {

@@ -7,7 +7,7 @@ class ShowsController < ApplicationController
     @show.finish_date.nil? ? finish_year = '...' : finish_year = @show.finish_date.strftime('%Y')
     @show_years = ' (' + @show.start_date.strftime('%Y') + ' - ' + finish_year + ')'
     @recommendation = Show.joins(:genres).where("`genres`.`name` IN ('#{@show.genres.pluck(:name).join("','")}')").group_by{ |x| x}.sort_by{ |x, list| [-list.size,x]}.map(&:first).first(6)
-    @current_fav = UsersShow.where(:user_id => current_user.id, :show_id => @show.id).first
+    @current_fav = UsersShow.where(:user_id => current_user.id, :show_id => @show.id).first if user_signed_in?
   end
 
   def index
@@ -22,7 +22,7 @@ class ShowsController < ApplicationController
     else
       @new_record = UsersShow.new
       @new_record.user_id = current_user.id
-      @new_record.show = @show.id
+      @new_record.show_id = @show.id
       @new_record.show_status = params[:status]
       @new_record.save
     end

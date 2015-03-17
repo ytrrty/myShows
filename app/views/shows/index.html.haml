@@ -10,9 +10,11 @@
       .large-3.medium-3.small-12.columns
         .filter
           %select#name{name: 'sort', onchange: "$('#form').submit()"}
-            %option{value: ''} За назвою
-            %option{value: 'name_asc'} За зростанням
-            %option{value: 'name_desc'} За спаданням
+            %option{value: ''} Сотрувати
+            %option{value: 'name_asc'} По назві за зростанням
+            %option{value: 'name_desc'} По назві за спаданням
+            %option{value: 'rate_asc'} По рейтингу за зростанням
+            %option{value: 'rate_desc'} По рейтингу за спаданням
 
       .large-3.medium-3.small-12.columns
         .filter

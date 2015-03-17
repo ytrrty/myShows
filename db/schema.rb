@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20150309202202) do
     t.string  "photo_orig",     limit: 255
   end
 
-  add_index "episodes", ["show_id"], name: "fk_rails_5a2eb758b9", using: :btree
+  add_index "episodes", ["show_id"], name: "fk_rails_0224b72b3f", using: :btree
 
   create_table "genres", force: :cascade do |t|
     t.string "name", limit: 255, null: false
@@ -90,8 +90,8 @@ ActiveRecord::Schema.define(version: 20150309202202) do
     t.integer "genre_id", limit: 4
   end
 
-  add_index "shows_genres", ["genre_id"], name: "fk_rails_62dd371099", using: :btree
-  add_index "shows_genres", ["show_id"], name: "fk_rails_86f4ad6cd5", using: :btree
+  add_index "shows_genres", ["genre_id"], name: "fk_rails_8d1ab3566b", using: :btree
+  add_index "shows_genres", ["show_id"], name: "fk_rails_f22fc491d7", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "login",                  limit: 255, default: "", null: false
@@ -124,8 +124,8 @@ ActiveRecord::Schema.define(version: 20150309202202) do
     t.boolean "favorite",   limit: 1, default: false
   end
 
-  add_index "users_episodes", ["episode_id"], name: "fk_rails_3c48ff33f0", using: :btree
-  add_index "users_episodes", ["user_id"], name: "fk_rails_1967e0de0d", using: :btree
+  add_index "users_episodes", ["episode_id"], name: "fk_rails_0b69314357", using: :btree
+  add_index "users_episodes", ["user_id"], name: "fk_rails_56fecba797", using: :btree
 
   create_table "users_shows", force: :cascade do |t|
     t.integer "user_id",     limit: 4
@@ -134,8 +134,8 @@ ActiveRecord::Schema.define(version: 20150309202202) do
     t.boolean "favorite",    limit: 1,   default: false
   end
 
-  add_index "users_shows", ["show_id"], name: "fk_rails_892183c1e7", using: :btree
-  add_index "users_shows", ["user_id"], name: "fk_rails_21a9d73691", using: :btree
+  add_index "users_shows", ["show_id"], name: "fk_rails_39daa80b03", using: :btree
+  add_index "users_shows", ["user_id"], name: "fk_rails_e2964cd2cc", using: :btree
 
   add_foreign_key "comments", "users"
   add_foreign_key "episodes", "shows"

@@ -11,8 +11,9 @@ class EpisodesController < ApplicationController
       if (show[:href].include? '/title/tt') && (show[:href].length < 25)
         show_url = 'http://www.imdb.com/' + show[:href] #show
         show_doc = Nokogiri::HTML(open(show_url))
-        seasons_count = show_doc.css('.clear+ div a:nth-child(1)').text.to_i
+        #seasons_count = show_doc.css('.clear+ div a:nth-child(1)').text.to_i
         show_name = show_doc.css('.header .itemprop').text
+        seasons_count = Show.where(name: show_name).first.seasons_count
 
         for i in 1..seasons_count
           season_url = 'http://www.imdb.com/' + show[:href] + 'episodes?season=' + i.to_s #season

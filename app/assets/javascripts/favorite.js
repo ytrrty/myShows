@@ -10,7 +10,7 @@ $( function() {
     $('.switch').on('change', function() {
         $.ajax({
             type: 'POST',
-            url: '<%= favorite_path %>',
+            url: window.location.pathname + '/favorite',
             data: {fav: a}
         });
     })
