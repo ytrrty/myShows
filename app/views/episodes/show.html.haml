@@ -3,7 +3,7 @@
   .show-info
     .row
       .avatar.large-7.medium-7.columns
-        = image_tag @episode.photo_orig, class: 'episode-avatar'
+        = image_tag @episode.photo, class: 'episode-avatar'
       .show-text.large-5.medium-5.columns
         %b= (I18n.t 'episode.name') + ':'
         = @episode.name

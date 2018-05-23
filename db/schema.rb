@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,131 +10,119 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309202202) do
+ActiveRecord::Schema.define(version: 2015_03_09_202202) do
 
-  create_table "comments", force: :cascade do |t|
-    t.text     "body",             limit: 65535
-    t.integer  "commentable_id",   limit: 4
-    t.string   "commentable_type", limit: 255
-    t.integer  "comments_id",      limit: 4
-    t.integer  "user_id",          limit: 4
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "comments", id: :serial, force: :cascade do |t|
+    t.text "body"
+    t.integer "commentable_id"
+    t.string "commentable_type"
+    t.integer "comments_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
+    t.index ["comments_id"], name: "index_comments_on_comments_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
-  add_index "comments", ["comments_id"], name: "index_comments_on_comments_id", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
-
-  create_table "episodes", force: :cascade do |t|
-    t.string  "name",           limit: 255,               null: false
-    t.text    "about",          limit: 65535,             null: false
-    t.date    "released"
-    t.float   "rate_imdb",      limit: 24
-    t.integer "show_id",        limit: 4
-    t.integer "season",         limit: 4,                 null: false
-    t.integer "number",         limit: 4,                 null: false
-    t.integer "comments_count", limit: 4,     default: 0
-    t.string  "photo",          limit: 255
-    t.string  "photo_orig",     limit: 255
+  create_table "episodes", id: :serial, force: :cascade do |t|
+    t.string "name", null: false
+    t.text "about", null: false
+    t.date "released"
+    t.float "rate_imdb"
+    t.integer "show_id"
+    t.integer "season", null: false
+    t.integer "number", null: false
+    t.integer "comments_count", default: 0
+    t.string "photo"
+    t.string "photo_orig"
   end
 
-  add_index "episodes", ["show_id"], name: "fk_rails_0224b72b3f", using: :btree
-
-  create_table "genres", force: :cascade do |t|
-    t.string "name", limit: 255, null: false
+  create_table "genres", id: :serial, force: :cascade do |t|
+    t.string "name", null: false
   end
 
-  create_table "rates", force: :cascade do |t|
-    t.integer  "rater_id",      limit: 4
-    t.integer  "rateable_id",   limit: 4
-    t.string   "rateable_type", limit: 255
-    t.float    "stars",         limit: 24,  null: false
-    t.string   "dimension",     limit: 255
+  create_table "rates", id: :serial, force: :cascade do |t|
+    t.integer "rater_id"
+    t.string "rateable_type"
+    t.integer "rateable_id"
+    t.float "stars", null: false
+    t.string "dimension"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["rateable_id", "rateable_type"], name: "index_rates_on_rateable_id_and_rateable_type"
+    t.index ["rater_id"], name: "index_rates_on_rater_id"
   end
 
-  add_index "rates", ["rateable_id", "rateable_type"], name: "index_rates_on_rateable_id_and_rateable_type", using: :btree
-  add_index "rates", ["rater_id"], name: "index_rates_on_rater_id", using: :btree
-
-  create_table "rating_caches", force: :cascade do |t|
-    t.integer  "cacheable_id",   limit: 4
-    t.string   "cacheable_type", limit: 255
-    t.float    "avg",            limit: 24,  null: false
-    t.integer  "qty",            limit: 4,   null: false
-    t.string   "dimension",      limit: 255
+  create_table "rating_caches", id: :serial, force: :cascade do |t|
+    t.string "cacheable_type"
+    t.integer "cacheable_id"
+    t.float "avg", null: false
+    t.integer "qty", null: false
+    t.string "dimension"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type"
   end
 
-  add_index "rating_caches", ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type", using: :btree
-
-  create_table "shows", force: :cascade do |t|
-    t.string  "name",           limit: 255,                null: false
-    t.string  "status",         limit: 255,   default: "", null: false
-    t.date    "start_date"
-    t.date    "finish_date"
-    t.text    "about",          limit: 65535,              null: false
-    t.integer "seasons_count",  limit: 4,     default: 0,  null: false
-    t.integer "runtime",        limit: 4,     default: 0,  null: false
-    t.float   "rate_imdb",      limit: 24
-    t.integer "comments_count", limit: 4,     default: 0,  null: false
-    t.string  "photo",          limit: 255
-    t.string  "photo_orig",     limit: 255
+  create_table "shows", id: :serial, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "status", default: "", null: false
+    t.date "start_date"
+    t.date "finish_date"
+    t.text "about", null: false
+    t.integer "seasons_count", default: 0, null: false
+    t.integer "runtime", default: 0, null: false
+    t.float "rate_imdb"
+    t.integer "comments_count", default: 0, null: false
+    t.string "photo"
+    t.string "photo_orig"
   end
 
-  create_table "shows_genres", force: :cascade do |t|
-    t.integer "show_id",  limit: 4
-    t.integer "genre_id", limit: 4
+  create_table "shows_genres", id: :serial, force: :cascade do |t|
+    t.integer "show_id"
+    t.integer "genre_id"
   end
 
-  add_index "shows_genres", ["genre_id"], name: "fk_rails_8d1ab3566b", using: :btree
-  add_index "shows_genres", ["show_id"], name: "fk_rails_f22fc491d7", using: :btree
-
-  create_table "users", force: :cascade do |t|
-    t.string   "login",                  limit: 255, default: "", null: false
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
-    t.integer  "access",                 limit: 4,   default: 0,  null: false
-    t.string   "avatar_file_name",       limit: 255
-    t.string   "avatar_content_type",    limit: 255
-    t.integer  "avatar_file_size",       limit: 4
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "login", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.integer "access", default: 0, null: false
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.integer "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.string   "reset_password_token",   limit: 255
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["login"], name: "index_users_on_login", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "users_episodes", force: :cascade do |t|
-    t.integer "episode_id", limit: 4
-    t.integer "user_id",    limit: 4
-    t.boolean "favorite",   limit: 1, default: false
+  create_table "users_episodes", id: :serial, force: :cascade do |t|
+    t.integer "episode_id"
+    t.integer "user_id"
+    t.boolean "favorite", default: false
   end
 
-  add_index "users_episodes", ["episode_id"], name: "fk_rails_0b69314357", using: :btree
-  add_index "users_episodes", ["user_id"], name: "fk_rails_56fecba797", using: :btree
-
-  create_table "users_shows", force: :cascade do |t|
-    t.integer "user_id",     limit: 4
-    t.integer "show_id",     limit: 4
-    t.string  "show_status", limit: 255
-    t.boolean "favorite",    limit: 1,   default: false
+  create_table "users_shows", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "show_id"
+    t.string "show_status"
+    t.boolean "favorite", default: false
   end
-
-  add_index "users_shows", ["show_id"], name: "fk_rails_39daa80b03", using: :btree
-  add_index "users_shows", ["user_id"], name: "fk_rails_e2964cd2cc", using: :btree
 
   add_foreign_key "comments", "users"
   add_foreign_key "episodes", "shows"

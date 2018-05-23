@@ -4,7 +4,7 @@ $(document).ready(function () {
             type: "get",
             url: "shows",
             data: {
-                sort: $("#name").val(),
+                order: $("#order").val(),
                 genre: $("#genre").val(),
                 page: $("#page").val(),
                 search: $("#search").val()

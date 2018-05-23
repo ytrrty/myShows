@@ -1,0 +1,47 @@
+html
+  font-size: 14px
+
+body
+  background: #f8f9fa
+
+nav.navbar
+  padding: 0
+
+.wrapper
+  padding-top: 54px
+
+.account-toggle
+  display: flex
+  //min-width: 220px
+  //max-width: 220px
+  padding: 0.5rem 1rem
+  align-items: center
+  color: $white
+  cursor: pointer
+  overflow: hidden
+  text-transform: none
+  transition: background 0.3s ease
+  &:after
+    display: none
+  .header-avatar
+    position: relative
+    flex: 0 0 40px
+    width: 40px
+    height: 40px
+    border-radius: 50%
+    border: none
+    overflow: hidden
+    img
+      position: absolute
+      left: 50%
+      top: 50%
+      width: 100%
+      transform: translate(-50%, -50%)
+      height: auto
+  .account-info
+    width: 100%
+    padding: 0 1rem
+    &:first-child
+      font-weight: bold
+    &:last-child
+      font-size: 13px

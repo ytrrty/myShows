@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_filter :get_parent
+  before_action :get_parent
 
   def new
     @comment = @parent.comments.build
@@ -8,10 +8,10 @@ class CommentsController < ApplicationController
   def create
     @comment = @parent.comments.build(comment_params)
     if @comment.save
-      redirect_to :back
+      redirect_back fallback_location: root_path
     else
       render :new
-      redirect_to :back
+      redirect_back fallback_location: root_path
     end
   end
 
@@ -27,5 +27,4 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:body, :commentable_type, :commentable_id, :user_id)
   end
-
 end

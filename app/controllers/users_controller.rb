@@ -1,17 +1,17 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: :show
 
   def show
-    @user_profile = User.find(params[:id])
-    @watching = UsersShow.where(:user_id => @user_profile.id, :show_status => 'watching')
-    @will_watch = UsersShow.where(:user_id =>  @user_profile.id, :show_status => 'will_watch')
-    @stopped_watch = UsersShow.where(:user_id =>  @user_profile.id, :show_status => 'stopped_watch')
+    @user_shows = @user.users_shows
+    @watching =      @user_shows.select_by_status(:watching)
+    @will_watch =    @user_shows.select_by_status(:will_watch)
+    @stopped_watch = @user_shows.select_by_status(:stopped_watch)
 
-    @ord = Genre.group('genres.name').joins('
-          INNER JOIN shows_genres ON shows_genres.genre_id = genres.id
-          INNER JOIN shows ON shows.id = shows_genres.show_id
-          INNER JOIN users_shows ON users_shows.show_id = shows.id
-          INNER JOIN users ON users.id = users_shows.user_id').
-          where('users.id = ' + params[:id].to_s + " AND users_shows.show_status != 'dont_watch'").count
+    @ord = Genre.joins(shows_genres: [show: [users_shows: :user]])
+                .where(users_shows: { user_id: @user.id })
+                .where.not(users_shows: { show_status: :dont_watch})
+                .group('genres.name')
+                .count
   end
 
   def welcome
@@ -38,5 +38,9 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 end
 

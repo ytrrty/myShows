@@ -1,53 +1,29 @@
-%nav.top-bar{role: 'navigation'}
-  %ul.title-area
-    %li.name
-    %li.toggle-topbar.menu-icon
-      %a
-        %span= I18n.t 'header.menu'
+%nav.navbar.navbar-expand-lg.navbar-dark.fixed-top.bg-dark
+  .container
+    = link_to 'TVshows', root_path, class: 'navbar-brand'
+    %button.navbar-toggler{'aria-expanded': false, 'data-toggle': 'collapse', type: :button}
+      %span.navbar-toggler-icon
+    #navbarsExample07.collapse.navbar-collapse
+      %ul.navbar-nav.mr-auto
+        -#%li.nav-item.active
+        -#  %a.nav-link{:href => "#"}
+        -#    Home
+        -#    %span.sr-only (current)
+        %li.nav-item= link_to (I18n.t 'header.shows-list'), shows_path, class: 'nav-link'
+        %li.nav-item= link_to (I18n.t 'header.genres-list'), genres_path, class: 'nav-link'
+        %li.nav-item= link_to (I18n.t 'header.users-list'), users_path, class: 'nav-link'
+        -#%li.nav-item
+        -#  %a.nav-link.disabled{:href => "#"} Disabled
 
-  %section.top-bar-section
-    %ul.left
-      %li.has-dropdown.not-click
-        %a= I18n.t 'header.menu'
-        %ul.dropdown
-          %li.title.back.js-generated
-            %h5
-              %a{href: 'javascript:void(0)'}= I18n.t 'header.back'
-            %li.parent-link.show-for-small-only
-          %li= link_to (I18n.t 'header.shows-list'), shows_path
-          %li= link_to (I18n.t 'header.genres-list'), genres_path
-          %li= link_to (I18n.t 'header.users-list'), users_path
-      %li.divider
-
-    %ul.right
-      %li.has-form
-        %form{method: 'get', action: '/shows'}
-          .row.collapse
-            .large-8.small-9.columns
-              = text_field_tag :search, params[:search], id: 'search_id'
-            .large-4.small-3.columns
-              = submit_tag (I18n.t 'header.search'), :name => nil, :class => 'button tiny success'
-      %li.divider
-
-      - if user_signed_in?
-        %li.has-dropdown.not-click
-          %a{href: '/'}= current_user.login
-          %ul.dropdown
-            %li.title.back.js-generated
-              %h5
-                %a{href: 'javascript:void(0)'}= I18n.t 'header.back'
-              %li.parent-link.show-for-small-only
-            %li= link_to (I18n.t 'header.profile'), current_user
-            %li= link_to (I18n.t 'user.edit-profile'), edit_user_registration_path(current_user)
-            %li= link_to (I18n.t 'user.favorites'), users_favorites_path(current_user)
-            %li= link_to (I18n.t 'user.rates'), users_rates_path(current_user)
-        %li.divider
-        %li= link_to (I18n.t 'header.logout'), destroy_user_session_path, :method => :delete
-
-      - else
-        %li
-          %a{href: '/'}=I18n.t 'header.home'
-        %li.divider
-        %li= link_to (I18n.t 'header.sign-in'), new_user_session_path
-        %li.divider
-        %li= link_to (I18n.t 'header.sign-up'), new_user_registration_path
+      %li.nav-item.dropdown.form-inline.my-2.my-md-0
+        %a.account-toggle.nav-link.dropdown-toggle{'aria-expanded': false, 'aria-haspopup': true, 'data-toggle': :dropdown, href: '#'}
+          .account-info.d-none.d-sm-block
+            %p.text-truncate= current_user.login
+          .header-avatar
+            = image_tag current_user.avatar.url(:thumb)
+        .dropdown-menu
+          = link_to (I18n.t 'header.profile'), current_user, class: 'dropdown-item'
+          = link_to (I18n.t 'user.edit-profile'), edit_user_registration_path(current_user), class: 'dropdown-item'
+          = link_to (I18n.t 'user.favorites'), favorites_user_path(current_user), class: 'dropdown-item'
+          = link_to (I18n.t 'user.favorites'), favorites_user_path(current_user), class: 'dropdown-item'
+          = link_to (I18n.t 'header.logout'), destroy_user_session_path, class: 'dropdown-item', method: :delete

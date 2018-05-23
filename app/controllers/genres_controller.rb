@@ -1,14 +1,13 @@
 class GenresController < ApplicationController
-
   def new
-    url = 'http://www.imdb.com/genre'
+    url = 'https://www.imdb.com/feature/genre/'
     doc = Nokogiri::HTML(open(url))
     doc.css('#main a').each do |item|
-      @new_genre = Genre.new
-      @new_genre.name = item.text
+      next if item.text.blank?
+      @new_genre = Genre.find_or_initialize_by(name: item.text)
       @new_genre.save
     end
-    redirect_to :back
+    redirect_back fallback_location: root_path
   end
 
   def show
@@ -19,5 +18,4 @@ class GenresController < ApplicationController
   def index
     @all_genres = Genre.all
   end
-
 end

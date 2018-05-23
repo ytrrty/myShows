@@ -1,4 +1,4 @@
-class CreateShowsGenres < ActiveRecord::Migration
+class CreateShowsGenres < ActiveRecord::Migration[4.2]
   def change
     create_table :shows_genres do |t|
       t.references :show,  show: true

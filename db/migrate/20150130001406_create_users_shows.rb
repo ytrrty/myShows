@@ -1,4 +1,4 @@
-class CreateUsersShows < ActiveRecord::Migration
+class CreateUsersShows < ActiveRecord::Migration[4.2]
   def change
     create_table(:users_shows) do |t|
       t.references :user, show: true

@@ -1,17 +1,14 @@
-$( function() {
-    var a = function() {
-        if (document.getElementById("switch").checked == true)
-        { favorite_status = 1; }
-        else
-        { favorite_status = 0 }
-        return favorite_status
-    };
+$( document ).ready(function() {
+  $('.switch').on('change', function () {
+    $.post({
+      url: '/shows/' + '' + '/to_favorite',
+      data: {
+        favorite: $("#switch").checked
+      }
+    });
+  });
 
-    $('.switch').on('change', function() {
-        $.ajax({
-            type: 'POST',
-            url: window.location.pathname + '/favorite',
-            data: {fav: a}
-        });
-    })
+  $(".heart.fa").click(function() {
+    $(this).toggleClass("fa-heart fa-heart-o");
+  });
 });
