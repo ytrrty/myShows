@@ -11,7 +11,7 @@ class GenresController < ApplicationController
   end
 
   def show
-    @show_genres = Genre.find(params[:id]).shows.all.page(params[:page]).per(20)
+    @shows = Genre.find(params[:id]).shows.all.page(params[:page]).per(20)
     @current_genre = Genre.find(params[:id])
   end
 

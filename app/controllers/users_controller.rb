@@ -1,11 +1,15 @@
 class UsersController < ApplicationController
   before_action :set_user, only: :show
 
+  def index
+    @users = User.all
+  end
+
   def show
     @user_shows = @user.users_shows
-    @watching =      @user_shows.select_by_status(:watching)
-    @will_watch =    @user_shows.select_by_status(:will_watch)
-    @stopped_watch = @user_shows.select_by_status(:stopped_watch)
+    @watching =      @user_shows.select_by_status('watching')
+    @will_watch =    @user_shows.select_by_status('will_watch')
+    @stopped_watch = @user_shows.select_by_status('stopped_watch')
 
     @ord = Genre.joins(shows_genres: [show: [users_shows: :user]])
                 .where(users_shows: { user_id: @user.id })
@@ -14,16 +18,8 @@ class UsersController < ApplicationController
                 .count
   end
 
-  def welcome
-    redirect_to current_user if user_signed_in?
-  end
-
-  def index
-    @all_users = User.all
-  end
-
   def favorites
-    @user_favorite = UsersShow.where(:user_id => current_user.id, :favorite => 1)
+    @shows = current_user.users_shows.where(favorite: true).map(&:show)
   end
 
   def rates
@@ -43,4 +39,3 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 end
-

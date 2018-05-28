@@ -8,11 +8,11 @@ class ShowSearch < BaseSearch
     query.where('shows.name ILIKE ? OR shows.about ILIKE ?', name, name)
   end
 
-  def search_genre
+  def search_genre_id
     query.where(genres: { id: options[:genre_id] })
   end
 
-  def order
+  def search_order
     case options[:order].to_sym
     when :name_desc
       query.order('shows.name DESC')

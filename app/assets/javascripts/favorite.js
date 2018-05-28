@@ -1,14 +1,7 @@
-$( document ).ready(function() {
-  $('.switch').on('change', function () {
-    $.post({
-      url: '/shows/' + '' + '/to_favorite',
-      data: {
-        favorite: $("#switch").checked
-      }
+$(document).ready(function () {
+  $("label.bookmarks").change(function() {
+    $.post('/shows/' + $(this).data('id') + '/to_favorite', {
+      favorite: $(".bookmarks input").prop('checked')
     });
-  });
-
-  $(".heart.fa").click(function() {
-    $(this).toggleClass("fa-heart fa-heart-o");
   });
 });

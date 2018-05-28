@@ -1,6 +1,7 @@
-- content_for :title, "#{@show.name} (#{@show.start_date.year})"
-- javascript_include_tag 'favorite'
-- javascript_include_tag 'seasons-list'
+= content_for :title, "#{@show.name} (#{@show.start_date.year})"
+= content_for :javascripts do
+  = javascript_include_tag 'favorite'
+  = javascript_include_tag 'seasons-list'
 
 .container-fluid{style: 'background: #333; color: white; padding: 30px 0;'}
   .container
@@ -17,26 +18,19 @@
 
           = link_to (I18n.t 'comment.add'), new_show_comment_path(@show), class: 'btn-watch-comment btn btn-warning'
 
-
       .col-lg-9
         %h1.films-title
           .films-title-left
             = @show.name
             %span.text-muted= "(#{@show.start_date.year})"
-          .films-title-right
-            %label.bookmarks{title: 'Додати в закладки'}
-              %input{type: 'checkbox'}
-              %span.bookmarks-status
+          - if current_user.present?
+            .films-title-right
+              %label.bookmarks{title: 'Додати в закладки', 'data-id': @show.id}
+                %input{type: 'checkbox', checked: @user_show&.favorite}
+                %span.bookmarks-status
         %h5
           - @show_genres.each do |genre|
             = link_to genre.name, genre, class: 'badge badge-info'
-        -#- if user_signed_in?
-        -#  .favorite-button
-        -#    .switch.tiny
-        -#      %input#switch{type: 'checkbox', checked: @current_fav&.favorite || false}
-        -#      %label{:for=>'switch'}
-        -#      %br
-        -#      = I18n.t 'show.add-to-favorite'
 
         %b= (I18n.t 'show.status') + ':'
         - if @show.status == 'Run'
@@ -92,12 +86,7 @@
       -#        = I18n.t 'user.stopped-watch'
       -#  - else
       -#    = I18n.t 'user.dont-watch'
-      -#%br
-      -#%ul.f-dropdown#drop1{'aria-hidden'=>'true', tabindex: '-1'}
-      -#  %li= link_to (I18n.t 'user.dont-watch'), change_status_show_path(@show, status: :dont_watch)
-      -#  %li= link_to (I18n.t 'user.will-watch'), change_status_show_path(@show, status: :will_watch)
-      -#  %li= link_to (I18n.t 'user.watching'), change_status_show_path(@show, status: :watching)
-      -#  %li= link_to (I18n.t 'user.stopped-watch'), change_status_show_path(@show, status: :stopped_watch)
+
 
       .accordion#accordionSeason
         - count = @show.episodes.last.season

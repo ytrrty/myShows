@@ -29,18 +29,17 @@
           = bar_chart @ord
 
     .user-right.large-3.medium-3.columns
-      - unless @watching.empty?
+      - if @watching.present?
         %h5= I18n.t 'user.watching'
         - @watching.each do |item|
           %h6= link_to item.show.name, item.show
 
-      - unless @will_watch.empty?
+      - if @will_watch.present?
         %h5= I18n.t 'user.will-watch'
         - @will_watch.each do |item|
           %h6= link_to item.show.name, item.show
 
-
-      - unless @stopped_watch.empty?
+      - if @stopped_watch.present?
         %h5= I18n.t 'user.stopped-watch'
         - @stopped_watch.each do |item|
           %h6= link_to item.show.name, item.show

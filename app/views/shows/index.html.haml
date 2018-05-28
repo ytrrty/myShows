@@ -7,23 +7,23 @@
       .col-lg-3
         .form-group
           %label{for: 'search'}= I18n.t 'header.search'
-          %input.form-control#search{name: 'search', type: 'text', onkeyup: "$('#form').submit()", value: params[:search]}
+          %input.form-control#name{name: 'name', type: 'text', onkeyup: "$('#form').submit()", value: params[:name]}
       .col-lg-3
         .form-group
           %label{for: 'order'} Сотрувати:
-          %select#sort-by.form-control{name: 'order', onchange: "$('#form').submit()"}
+          %select#sort-by.form-control{name: 'order', onchange: "$('#form').submit()", value: params[:order]}
             %option{value: ''}
-            %option{value: 'name_asc'} По назві за зростанням
-            %option{value: 'name_desc'} По назві за спаданням
-            %option{value: 'rate_asc'} По рейтингу за зростанням
-            %option{value: 'rate_desc'} По рейтингу за спаданням
+            %option{value: 'name_asc', selected: (params[:order] == 'name_asc')} По назві за зростанням
+            %option{value: 'name_desc', selected: (params[:order] == 'name_desc')} По назві за спаданням
+            %option{value: 'rate_asc', selected: (params[:order] == 'rate_asc')} По рейтингу за зростанням
+            %option{value: 'rate_desc', selected: (params[:order] == 'rate_desc')} По рейтингу за спаданням
       .col-lg-3
         .form-group
           %label{for: 'sort-genre'} За жанром:
-          %select#sort-genre.form-control{name: 'genre', onchange: "$('#form').submit()"}
-            %option{value: 'all'} За жанром
+          %select#sort-genre.form-control{name: 'genre_id', onchange: "$('#form').submit()"}
+            %option{value: ''}
             - @genres.each do |genre|
-              %option{value: "#{genre.id}"}= genre.name
+              %option{value: "#{genre.id}", selected: (params[:genre_id].to_i == genre.id)}= genre.name
 
   #content
     = render partial: 'shows/list'

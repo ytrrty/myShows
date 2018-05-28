@@ -1,4 +1,4 @@
-//= require jquery.slim
+//= require jquery
 //= require rails-ujs
 //= require popper
 //= require bootstrap

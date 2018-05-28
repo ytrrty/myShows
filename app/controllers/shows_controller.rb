@@ -8,6 +8,7 @@ class ShowsController < ApplicationController
 
   def show
     @show_genres = @show.genres
+    @user_show = current_user.users_shows.find_by(show: @show) if current_user.present?
     @show_episodes = @show.episodes.order('released desc')
     @show.finish_date.nil? ? finish_year = '...' : finish_year = @show.finish_date.strftime('%Y')
     @show_years = '(' + @show.start_date.strftime('%Y') + ' - ' + finish_year + ')'
@@ -16,16 +17,9 @@ class ShowsController < ApplicationController
   end
 
   def change_status
-    update_record = UsersShow.where(user_id: current_user.id, show_id: @show.id)
-    unless update_record.empty?
-      update_record.update(update_record, show_status: params[:status])
-    else
-      @new_record = UsersShow.new
-      @new_record.user_id = current_user.id
-      @new_record.show_id = @show.id
-      @new_record.show_status = params[:status]
-      @new_record.save
-    end
+    user_show = current_user.users_shows.find_or_initialize_by(show_id: @show.id)
+    user_show.show_status = params[:status]
+    user_show.save
     redirect_back fallback_location: root_path
   end
 

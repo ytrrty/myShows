@@ -15,15 +15,21 @@
         -#%li.nav-item
         -#  %a.nav-link.disabled{:href => "#"} Disabled
 
-      %li.nav-item.dropdown.form-inline.my-2.my-md-0
-        %a.account-toggle.nav-link.dropdown-toggle{'aria-expanded': false, 'aria-haspopup': true, 'data-toggle': :dropdown, href: '#'}
-          .account-info.d-none.d-sm-block
-            %p.text-truncate= current_user.login
-          .header-avatar
-            = image_tag current_user.avatar.url(:thumb)
-        .dropdown-menu
-          = link_to (I18n.t 'header.profile'), current_user, class: 'dropdown-item'
-          = link_to (I18n.t 'user.edit-profile'), edit_user_registration_path(current_user), class: 'dropdown-item'
-          = link_to (I18n.t 'user.favorites'), favorites_user_path(current_user), class: 'dropdown-item'
-          = link_to (I18n.t 'user.favorites'), favorites_user_path(current_user), class: 'dropdown-item'
-          = link_to (I18n.t 'header.logout'), destroy_user_session_path, class: 'dropdown-item', method: :delete
+      - if user_signed_in?
+        %li.nav-item.dropdown.form-inline.my-2.my-md-0
+          %a.account-toggle.nav-link.dropdown-toggle{'aria-expanded': false, 'aria-haspopup': true, 'data-toggle': :dropdown, href: '#'}
+            .account-info.d-none.d-sm-block
+              %p.text-truncate= current_user.login
+            .header-avatar
+              = image_tag current_user.avatar.url(:thumb)
+          .dropdown-menu
+            = link_to (I18n.t 'header.profile'), current_user, class: 'dropdown-item'
+            = link_to (I18n.t 'user.edit-profile'), edit_user_registration_path(current_user), class: 'dropdown-item'
+            = link_to (I18n.t 'user.favorites'), favorites_user_path(current_user), class: 'dropdown-item'
+            = link_to (I18n.t 'header.logout'), destroy_user_session_path, class: 'dropdown-item', method: :delete
+      - else
+        %ul.navbar-nav.ml-auto
+          %li.nav-item
+            = link_to (I18n.t 'header.sign-in'), new_user_session_path, class: 'nav-link'
+          %li.nav-item
+            = link_to (I18n.t 'header.sign-up'), new_user_registration_path, class: 'nav-link'
