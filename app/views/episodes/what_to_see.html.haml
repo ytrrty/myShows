@@ -1,3 +1,42 @@
+
+
+.container.pt16
+  .row.justify-content-center
+    .col-md-9
+      %h1 Нові епізоди
+      .accordion#newEpisode
+        .new-episode
+          .new-episode-item
+            %h2
+              %a{href: '#'} 13 причин чому
+            .card
+              .card-header
+                %button.btn.btn-link{type: 'button', 'data-toggle': 'collapse', 'data-target': '#collapse-1'} Season 2
+              #collapse-1.collapse{'data-parent': '#newEpisode'}
+                .card-body
+                  %table.table.table-striped
+                    %tr
+                      %td 123
+                      %td The Third Polaroid
+                      %td 45
+                      %td 34
+        .new-episode
+          .new-episode-item
+            %h2
+              %a{href: '#'} The Drunk Slut
+            .card
+              .card-header
+                %button.btn.btn-link{type: 'button', 'data-toggle': 'collapse', 'data-target': '#collapse-2'} Season 2
+              #collapse-2.collapse{'data-parent': '#newEpisode'}
+                .card-body
+                  %table.table.table-striped
+                    %tr
+                      %td 123
+                      %td The Third Polaroid
+                      %td 45
+                      %td 34
+
+
 - @shows.group_by(&:show).each_pair do |show, seasons|
   = show.name
   %br
