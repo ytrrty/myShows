@@ -104,6 +104,7 @@
                     %th{width: '50px'}= '#'
                     %th{width: '530px'}= I18n.t 'show.name'
                     %th{width: '50px'}= I18n.t 'show.date'
+                    %th
                   - current_season.each do |episode|
                     %tr
                       %td= episode.season.to_s + 'x' + episode.number.to_s
@@ -114,6 +115,10 @@
                       - else
                         %td
                           %span.badge.badge-secondary= episode.released.strftime('%d.%m.%Y')
+                      %td
+                        %label.watched{title: 'Переглянуто'}
+                          %input{type: 'checkbox'}
+                          %span.watched-status
           - count -= 1
 
       -#%ul.seasons

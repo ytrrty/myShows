@@ -1,38 +1,41 @@
 <% content_for :title, (I18n.t 'header.sign-up') %>
-<div class="page">
+<div class="account-page">
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {:multipart => true}) do |f| %>
     <%= devise_error_messages! %>
 
-    <form method="post" class="reg">
-      <div class="reg">
+    <form method="post">
 
-        <div class="field">
-          <%= f.text_field :login, autofocus: true, placeholder: (I18n.t 'reg.login') %>
+        <div class="form-group">
+          <label>Логін</label>
+          <%= f.text_field :login, autofocus: true, placeholder: (I18n.t 'reg.login'), class: 'form-control' %>
         </div>
 
-        <div class="field">
-          <%= f.email_field :email, placeholder: 'Email' %>
+        <div class="form-group">
+          <label>Email</label>
+          <%= f.email_field :email, placeholder: 'Email', class: 'form-control' %>
         </div>
 
-        <div class="field">
+        <div class="form-group">
+          <label>Пароль</label>
           <% if @validatable %>
               <em>(<%= @minimum_password_length %> characters minimum)</em>
           <% end %><br/>
-          <%= f.password_field :password, autocomplete: "off", placeholder: (I18n.t 'reg.password') %>
+          <%= f.password_field :password, autocomplete: "off", placeholder: (I18n.t 'reg.password'), class: 'form-control' %>
         </div>
 
-        <div class="field">
-          <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: (I18n.t 'reg.confim-password') %>
+        <div class="form-group">
+          <label>Повторіть пароль</label>
+          <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: (I18n.t 'reg.confim-password'), class: 'form-control' %>
         </div>
 
-        <div class="field">
-          <%= f.file_field :avatar %>
+        <div class="form-group">
+          <%= f.file_field :avatar, class: "form-control-file" %>
         </div>
-
-        <button type="submit" class="button radius expand success small"><%= I18n.t 'header.sign-up' %></button>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary"><%= I18n.t 'header.sign-up' %></button>
+      </div>
 
 <% end %>
 
-</div>
 </form>
 </div>

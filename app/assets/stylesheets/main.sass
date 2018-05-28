@@ -9,7 +9,8 @@ nav.navbar
 
 .wrapper
   padding-top: 54px
-
+.fixed-top
+  min-height: 54px
 .account-toggle
   display: flex
   //min-width: 220px
@@ -118,3 +119,56 @@ nav.navbar
 .episode-avatar
   width: 100%
 
+.account-page
+  min-height: calc(100vh - 54px)
+  display: flex
+  &>form
+    padding: 16px
+    width: 100%
+    max-width: 360px
+    margin: auto
+    border-radius: 3px
+    background: white
+    border: 1px solid #ccc
+
+label
+  margin-bottom: 0
+
+.user-avatar
+  img
+    width: 100%
+.user-drop
+  margin: 8px 0 8px
+  button
+    width: 100%
+    display: block
+    &+.dropdown-menu
+      right: 30px
+
+.user-page-nav
+  display: flex
+  flex-direction: column
+  .btn
+    margin: 8px 0
+
+.watched
+  cursor: pointer
+  margin: 0
+  input
+    display: none
+    &:checked
+      &+.watched-status
+        &:after
+          content: "\f070"
+          color: #ccc
+
+.watched-status
+  position: relative
+  &:after
+    content: "\f06e"
+    font-family: FontAwesome
+    font-style: normal
+    font-weight: normal
+    text-decoration: inherit
+    color: #000
+    font-size: 35px
