@@ -1,0 +1,9 @@
+- @shows.group_by(&:show).each_pair do |show, seasons|
+  = show.name
+  %br
+  - seasons.group_by(&:season).each_pair do |season, episodes|
+    = "Season #{season}"
+    %br
+    - episodes.each do |episode|
+      = episode.name
+      %br

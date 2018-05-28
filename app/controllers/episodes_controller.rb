@@ -57,4 +57,12 @@ class EpisodesController < ApplicationController
       user_episode.save
     end
   end
+
+  def what_to_see
+    @shows = Episode.left_joins(:users_episodes, show: :users_shows)
+                    .where(users_shows: { show_status: 'watching' })
+                    .where.not(users_shows: { id: nil })
+                    .where(users_episodes: { id: nil })
+                    .includes(:show)
+  end
 end
