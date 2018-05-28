@@ -1,14 +1,27 @@
-%li.comment
-  .comment-header
-    %b= link_to User.find(comment.user_id).login, User.find(comment.user_id)
-    %span.right= comment.created_at.strftime('%H:%M:%S, %d.%m.%Y')
-  .comment-picture
-    = link_to (image_tag User.find(comment.user_id).avatar.url(:thumb), class: 'comment-picture-img'), User.find(comment.user_id)
-  .comment-body= comment.body
-  .comment-footer
-    = link_to (I18n.t 'comment.reply'), new_comment_comment_path(comment)
-
+= link_to (image_tag User.find(comment.user_id).avatar.url(:thumb), class: 'comment-picture-img'), User.find(comment.user_id), class: 'pr-3'
+.media-body
+  %h6.mt-0.comment-header
+    = link_to User.find(comment.user_id).login, User.find(comment.user_id)
+    %span.badge.badge-light= comment.created_at.strftime('%H:%M:%S, %d.%m.%Y')
+  = comment.body
+  .media-footer
+    = link_to (I18n.t 'comment.reply'), new_comment_comment_path(comment), class: 'comment-feedback-link'
   - unless comment.comments.empty?
-    %ul.comment_list
+    .media.mt-3
       = render :partial => 'comments/comment', :collection => comment.comments
+
+
+  -#%li.comment
+  -#  .comment-header
+  -#    %b= link_to User.find(comment.user_id).login, User.find(comment.user_id)
+  -#    %span.right= comment.created_at.strftime('%H:%M:%S, %d.%m.%Y')
+  -#  .comment-picture
+  -#    = link_to (image_tag User.find(comment.user_id).avatar.url(:thumb), class: 'comment-picture-img'), User.find(comment.user_id)
+  -#  .comment-body
+  -#  .comment-footer
+  -#    = link_to (I18n.t 'comment.reply'), new_comment_comment_path(comment)
+  -#
+  -#  - unless comment.comments.empty?
+  -#    %ul.comment_list
+  -#      = render :partial => 'comments/comment', :collection => comment.comments
 

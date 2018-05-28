@@ -45,3 +45,76 @@ nav.navbar
       font-weight: bold
     &:last-child
       font-size: 13px
+.nav-link:hover,
+.nav-link:focus
+  color: #f93703
+.pt16
+  padding-top: 16px
+.btn-watch-status
+  width: 100%
+  margin: 8px 0 0
+  text-transform: uppercase
+  &+.dropdown-menu
+      right: 30px
+.btn-watch-comment
+  display: block
+  margin: 8px 0 0
+  text-transform: uppercase
+.comment-header
+  display: flex
+  align-items: center
+  justify-content: space-between
+.media
+  padding: 16px 0
+  img
+    width: 80px
+  h6
+    a
+      font-size: 16px
+      font-weight: bold
+      color: #000
+      &:hover
+        color: #f93703
+
+.media-footer
+  display: flex
+  justify-content: flex-end
+  padding-top: 16px
+.comment-feedback-link
+  color: #606983
+  border-bottom: 1px dashed #606983
+  text-decoration: none
+  &:hover
+    color: #f93703
+    border-bottom-color: #f93703
+    text-decoration: none
+
+.films-title
+  display: flex
+  align-items: center
+  justify-content: space-between
+.bookmarks
+  cursor: pointer
+  margin: 0
+  input
+    display: none
+    &:checked
+      &+.bookmarks-status
+        &:after
+          content: "\f004"
+          color: #f93703
+
+.bookmarks-status
+  position: relative
+  &:after
+    content: "\f08a"
+    font-family: FontAwesome
+    font-style: normal
+    font-weight: normal
+    text-decoration: inherit
+    color: #fff
+    font-size: 35px
+
+.episode-avatar
+  width: 100%
+

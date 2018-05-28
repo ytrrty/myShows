@@ -1,38 +1,39 @@
 - content_for :title, @show.name + ' : ' + @episode.name
-.page
-  .show-info
-    .row
-      .avatar.large-7.medium-7.columns
-        = image_tag @episode.photo, class: 'episode-avatar'
-      .show-text.large-5.medium-5.columns
-        %b= (I18n.t 'episode.name') + ':'
-        = @episode.name
-        %br
-        %b= (I18n.t 'episode.show') + ':'
-        = link_to @show.name, @show
-        %br
-        %b= (I18n.t 'episode.released') + ':'
-        = @episode.released.strftime('%d.%m.%Y')
-        %br
-        %b= (I18n.t 'show.rate-imdb') + ':'
-        - if @episode.rate_imdb == nil
-          Not rated yet
-        - else
-          = @episode.rate_imdb
-        %br
-        %b= (I18n.t 'episode.season') + ':'
-        = @episode.season
-        %br
-        %b= (I18n.t 'episode.episode') + ':'
-        = @episode.number
-        %br
-        %b= (I18n.t 'show.runtime') + ':'
-        = @show.runtime.to_s + ' min.'
-        %br
-        %b= (I18n.t 'show.about') + ':'
-        = @episode.about
-        %br
-    %p= link_to (I18n.t 'comment.add'), new_episode_comment_path(@episode)
+.container.pt16
+  .row
+    .col-md-3
+      = image_tag @episode.photo, class: 'episode-avatar'
+      = link_to (I18n.t 'comment.add'), new_episode_comment_path(@episode), class: 'btn-watch-comment btn btn-warning'
+    .col-md-7
+      %b= (I18n.t 'episode.name') + ':'
+      = @episode.name
+      %br
+      %b= (I18n.t 'episode.show') + ':'
+      = link_to @show.name, @show
+      %br
+      %b= (I18n.t 'episode.released') + ':'
+      = @episode.released.strftime('%d.%m.%Y')
+      %br
+      %b= (I18n.t 'show.rate-imdb') + ':'
+      - if @episode.rate_imdb == nil
+        Not rated yet
+      - else
+        = @episode.rate_imdb
+      %br
+      %b= (I18n.t 'episode.season') + ':'
+      = @episode.season
+      %br
+      %b= (I18n.t 'episode.episode') + ':'
+      = @episode.number
+      %br
+      %b= (I18n.t 'show.runtime') + ':'
+      = @show.runtime.to_s + ' min.'
+      %br
+      %b= (I18n.t 'show.about') + ':'
+      = @episode.about
+      %br
+      .media
+        = render :partial => 'comments/comment', :collection => @episode.comments
 
-    %ul.comment_list
-      = render :partial => 'comments/comment', :collection => @episode.comments
+
+

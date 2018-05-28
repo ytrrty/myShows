@@ -8,27 +8,28 @@
       .col-md-3
         = image_tag @show.photo, style: 'width: 100%'
         - if user_signed_in?
-          .dropdown
-            %button.btn.btn-primary.dropdown-toggle{'data-toggle': 'dropdown', type: 'button'}
-              Dropdown Example
-              %span.caret
-            %ul.dropdown-menu
-              %li= link_to (I18n.t 'user.dont-watch'), change_status_show_path(@show, status: :dont_watch)
-              %li= link_to (I18n.t 'user.will-watch'), change_status_show_path(@show, status: :will_watch)
-              %li= link_to (I18n.t 'user.watching'), change_status_show_path(@show, status: :watching)
-              %li= link_to (I18n.t 'user.stopped-watch'), change_status_show_path(@show, status: :stopped_watch)
+          %button.btn-watch-status.btn.btn-info.dropdown-toggle{type: 'button', 'data-toggle': "dropdown", 'aria-haspopup': "true", 'aria-expanded': "false"} Статус
+          .dropdown-menu
+            = link_to (I18n.t 'user.dont-watch'), change_status_show_path(@show, status: :dont_watch), class: 'dropdown-item'
+            = link_to (I18n.t 'user.will-watch'), change_status_show_path(@show, status: :will_watch), class: 'dropdown-item'
+            = link_to (I18n.t 'user.watching'), change_status_show_path(@show, status: :watching), class: 'dropdown-item'
+            = link_to (I18n.t 'user.stopped-watch'), change_status_show_path(@show, status: :stopped_watch), class: 'dropdown-item'
 
-      .col-lg-9.columns
-        .row
-          .col-md-8
-            %h1.highlight
-              = @show.name
-              %span.text-muted= "(#{@show.start_date.year})"
-            %h5
-              - @show_genres.each do |genre|
-                = link_to genre.name, genre
-          .col-md-4
-            %i.heart.fa.fa-heart-o
+          = link_to (I18n.t 'comment.add'), new_show_comment_path(@show), class: 'btn-watch-comment btn btn-warning'
+
+
+      .col-lg-9
+        %h1.films-title
+          .films-title-left
+            = @show.name
+            %span.text-muted= "(#{@show.start_date.year})"
+          .films-title-right
+            %label.bookmarks{title: 'Додати в закладки'}
+              %input{type: 'checkbox'}
+              %span.bookmarks-status
+        %h5
+          - @show_genres.each do |genre|
+            = link_to genre.name, genre, class: 'badge badge-info'
         -#- if user_signed_in?
         -#  .favorite-button
         -#    .switch.tiny
@@ -39,9 +40,9 @@
 
         %b= (I18n.t 'show.status') + ':'
         - if @show.status == 'Run'
-          %span.label.label-success= @show.status
+          %span.badge.badge-success= @show.status
         - else
-          %span.label.label-danger= @show.status
+          %span.badge.badge-danger= @show.status
         %br
         %b= (I18n.t 'show.start-date') + ':'
         = @show.start_date.strftime('%d.%m.%Y')
@@ -73,62 +74,85 @@
         = @show.about
         %br
 
-.container
-  .row
-    .show-info.col-lg-9.col-md-8
-      .row
-        .col-lg-4
+.container.pt16
+  .row.justify-content-center
+    .col-md-9
 
 
-        -#%button.tiny.button.dropdown.show-status{'data-dropdown' => 'drop1', 'aria-controls' => 'drop1', 'aria-expanded' => 'false'}
-        -#  - unless @current_fav.blank?
-        -#    - case @current_fav.show_status
-        -#      - when 'dont_watch'
-        -#        = I18n.t 'user.dont-watch'
-        -#      - when 'watching'
-        -#        = I18n.t 'user.watching'
-        -#      - when 'will_watch'
-        -#        = I18n.t 'user.will-watch'
-        -#      - when 'stopped_watch'
-        -#        = I18n.t 'user.stopped-watch'
-        -#  - else
-        -#    = I18n.t 'user.dont-watch'
-        -#%br
-        -#%ul.f-dropdown#drop1{'aria-hidden'=>'true', tabindex: '-1'}
-        -#  %li= link_to (I18n.t 'user.dont-watch'), change_status_show_path(@show, status: :dont_watch)
-        -#  %li= link_to (I18n.t 'user.will-watch'), change_status_show_path(@show, status: :will_watch)
-        -#  %li= link_to (I18n.t 'user.watching'), change_status_show_path(@show, status: :watching)
-        -#  %li= link_to (I18n.t 'user.stopped-watch'), change_status_show_path(@show, status: :stopped_watch)
+      -#%button.tiny.button.dropdown.show-status{'data-dropdown' => 'drop1', 'aria-controls' => 'drop1', 'aria-expanded' => 'false'}
+      -#  - unless @current_fav.blank?
+      -#    - case @current_fav.show_status
+      -#      - when 'dont_watch'
+      -#        = I18n.t 'user.dont-watch'
+      -#      - when 'watching'
+      -#        = I18n.t 'user.watching'
+      -#      - when 'will_watch'
+      -#        = I18n.t 'user.will-watch'
+      -#      - when 'stopped_watch'
+      -#        = I18n.t 'user.stopped-watch'
+      -#  - else
+      -#    = I18n.t 'user.dont-watch'
+      -#%br
+      -#%ul.f-dropdown#drop1{'aria-hidden'=>'true', tabindex: '-1'}
+      -#  %li= link_to (I18n.t 'user.dont-watch'), change_status_show_path(@show, status: :dont_watch)
+      -#  %li= link_to (I18n.t 'user.will-watch'), change_status_show_path(@show, status: :will_watch)
+      -#  %li= link_to (I18n.t 'user.watching'), change_status_show_path(@show, status: :watching)
+      -#  %li= link_to (I18n.t 'user.stopped-watch'), change_status_show_path(@show, status: :stopped_watch)
 
-
-
-      %ul.seasons
+      .accordion#accordionSeason
         - count = @show.episodes.last.season
         - i = 0
         - while count > i do
           - current_season = @show_episodes.where(:season => count)
-          %li.closeable.close
-            %h6= (I18n.t 'show.season') + ' ' + count.to_s
-            %table.table.table-striped
-              %tr
-                %th{width: '50px'}= '#'
-                %th{width: '530px'}= I18n.t 'show.name'
-                %th{width: '50px'}= I18n.t 'show.date'
-              - current_season.each do |episode|
-                %tr
-                  %td= episode.season.to_s + 'x' + episode.number.to_s
-                  %td= link_to episode.name, episode
-                  - if episode.released <= DateTime.now
-                    %td
-                      %span.success.label.radius= episode.released.strftime('%d.%m.%Y')
-                  - else
-                    %td
-                      %span.secondary.label.radius= episode.released.strftime('%d.%m.%Y')
+          .card
+            .card-header
+              %h5.mb-0
+                %button.btn.btn-link{type: 'button', 'data-toggle': 'collapse', 'data-target': "#collapse-#{count}", 'aria-expanded': 'true', 'aria-controls': "collapse-#{count}"}= (I18n.t 'show.season') + ' ' + count.to_s
+            .collapse.show{'aria-labelledby': 'heading-1', 'data-parent': '#accordionSeason', id: "collapse-#{count}"}
+              .card-body
+                %table.table.table-striped
+                  %tr
+                    %th{width: '50px'}= '#'
+                    %th{width: '530px'}= I18n.t 'show.name'
+                    %th{width: '50px'}= I18n.t 'show.date'
+                  - current_season.each do |episode|
+                    %tr
+                      %td= episode.season.to_s + 'x' + episode.number.to_s
+                      %td= link_to episode.name, episode
+                      - if episode.released <= DateTime.now
+                        %td
+                          %span.badge.badge-success= episode.released.strftime('%d.%m.%Y')
+                      - else
+                        %td
+                          %span.badge.badge-secondary= episode.released.strftime('%d.%m.%Y')
           - count -= 1
 
-      %p= link_to (I18n.t 'comment.add'), new_show_comment_path(@show)
+      -#%ul.seasons
+      -#  - count = @show.episodes.last.season
+      -#  - i = 0
+      -#  - while count > i do
+      -#    - current_season = @show_episodes.where(:season => count)
+      -#    %li.closeable.close
+      -#      %h6= (I18n.t 'show.season') + ' ' + count.to_s
+      -#      %table.table.table-striped
+      -#        %tr
+      -#          %th{width: '50px'}= '#'
+      -#          %th{width: '530px'}= I18n.t 'show.name'
+      -#          %th{width: '50px'}= I18n.t 'show.date'
+      -#        - current_season.each do |episode|
+      -#          %tr
+      -#            %td= episode.season.to_s + 'x' + episode.number.to_s
+      -#            %td= link_to episode.name, episode
+      -#            - if episode.released <= DateTime.now
+      -#              %td
+      -#                %span.success.label.radius= episode.released.strftime('%d.%m.%Y')
+      -#            - else
+      -#              %td
+      -#                %span.secondary.label.radius= episode.released.strftime('%d.%m.%Y')
+      -#    - count -= 1
 
-      %ul.comment_list
+
+      .media
         = render :partial => 'comments/comment', :collection => @show.comments
 
     -#.col-lg-3.col-md-4.col-sm-12.closeable.recommendation
