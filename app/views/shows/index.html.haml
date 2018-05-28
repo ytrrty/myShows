@@ -1,6 +1,5 @@
 - content_for :title, (I18n.t 'header.shows-list')
 
-
 %form#form{method: 'get', action: '#'}
   .container.pt16
     .row
@@ -13,10 +12,10 @@
           %label{for: 'order'} Сотрувати:
           %select#sort-by.form-control{name: 'order', onchange: "$('#form').submit()", value: params[:order]}
             %option{value: ''}
+            %option{value: 'rate_desc', selected: (params[:order] == 'rate_desc')} По рейтингу за спаданням
+            %option{value: 'rate_asc', selected: (params[:order] == 'rate_asc')} По рейтингу за зростанням
             %option{value: 'name_asc', selected: (params[:order] == 'name_asc')} По назві за зростанням
             %option{value: 'name_desc', selected: (params[:order] == 'name_desc')} По назві за спаданням
-            %option{value: 'rate_asc', selected: (params[:order] == 'rate_asc')} По рейтингу за зростанням
-            %option{value: 'rate_desc', selected: (params[:order] == 'rate_desc')} По рейтингу за спаданням
       .col-lg-3
         .form-group
           %label{for: 'sort-genre'} За жанром:

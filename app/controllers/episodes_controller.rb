@@ -48,4 +48,13 @@ class EpisodesController < ApplicationController
     end
     redirect_back fallback_location: root_path
   end
+
+  def mark_as_watched
+    user_episode = current_user.users_episodes.find_or_initialize_by(episode_id: params[:id])
+    if user_episode.id
+      user_episode.destroy
+    else
+      user_episode.save
+    end
+  end
 end

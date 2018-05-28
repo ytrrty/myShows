@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   root to: 'shows#index'
   resources :shows
   resources :genres
-  resources :episodes
 
   resources :users do
     get :favorites, on: :member
@@ -22,8 +21,9 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  resources :episodes do
+  resources :episodes, only: [:new, :show] do
     resources :comments
+    post :mark_as_watched, on: :member
   end
 
   post '/rate' => 'rater#create', :as => 'rate'

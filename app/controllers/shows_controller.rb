@@ -8,12 +8,11 @@ class ShowsController < ApplicationController
 
   def show
     @show_genres = @show.genres
+    @episodes = @show.episodes.order(released: :desc).order(number: :desc)
+    @user_episodes = current_user.users_episodes.left_joins(:episode).where(episodes: { show: @show })
+    # @rate = Rate.where(ra)
+    # @recommendation = Show.joins(:genres).where("genres.name IN ('#{@show.genres.pluck(:name).join("','")}')").first(6)#.group_by{ |x| x}.sort_by{ |x, list| [-list.size,x]}.map(&:first).first(6)
     @user_show = current_user.users_shows.find_by(show: @show) if current_user.present?
-    @show_episodes = @show.episodes.order('released desc')
-    @show.finish_date.nil? ? finish_year = '...' : finish_year = @show.finish_date.strftime('%Y')
-    @show_years = '(' + @show.start_date.strftime('%Y') + ' - ' + finish_year + ')'
-    @recommendation = Show.joins(:genres).where("genres.name IN ('#{@show.genres.pluck(:name).join("','")}')").first(6)#.group_by{ |x| x}.sort_by{ |x, list| [-list.size,x]}.map(&:first).first(6)
-    @current_fav = UsersShow.where(:user_id => current_user.id, :show_id => @show.id).first if user_signed_in?
   end
 
   def change_status

@@ -4,4 +4,8 @@ $(document).ready(function () {
       favorite: $(".bookmarks input").prop('checked')
     });
   });
+
+  $(".watched").change(function() {
+    $.post('/episodes/' + $(this).data('id') + '/mark_as_watched');
+  });
 });
