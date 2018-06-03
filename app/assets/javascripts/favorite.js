@@ -8,4 +8,8 @@ $(document).ready(function () {
   $(".watched").change(function() {
     $.post('/episodes/' + $(this).data('id') + '/mark_as_watched');
   });
+  $('.toggle-films').on('click', function () {
+    $(this).toggleClass('opened');
+    $(this).parents('tr').next().find('.films-inner-ct').slideToggle(300);
+  });
 });

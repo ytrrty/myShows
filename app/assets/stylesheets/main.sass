@@ -163,6 +163,7 @@ label
 
 .watched-status
   position: relative
+  cursor: pointer
   &:after
     content: "\f06e"
     font-family: FontAwesome
@@ -194,3 +195,25 @@ label
       text-align: left
       color: #000
       font-weight:  bold
+.film-ct
+  td
+    padding: 0
+    border: 0
+.films-inner-ct
+  display: none
+  iframe
+    width: 100% !important
+.toggle-films
+  position: relative
+  cursor: pointer
+  &.opened
+    &:after
+      content: "\f144"
+  &:after
+    content: "\f01d"
+    font-family: FontAwesome
+    font-style: normal
+    font-weight: normal
+    text-decoration: inherit
+    color: #000
+    font-size: 18px
