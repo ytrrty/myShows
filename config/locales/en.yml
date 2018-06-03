@@ -1,97 +1,67 @@
 en:
-    header:
-      menu: Меню
-      back: Назад
-      shows-list: Список серіалів
-      genres-list: Список жанрів
-      users-list: Список користувачів
-      home: Головна
-      profile: Моя сторінка
-      logout: Вихід
-      sign-up: Зареєструватись
-      sign-in: Увійти
-      search: Пошук
-    user:
-      favorites: Мої закладки
-      watching: В процесі
-      will-watch: На майбутнє
-      stopped-watch: Перестав дивитись
-      dont-watch: Не дивлюсь
-      dont-watch-yet: Ви поки що нічого не дивитесь
-      go-to: Перейдіть до
-      shows-list: списку серіалів
-      add-shows: та додайте їх до свого списку
-      other-user: поки що нічого не дивиться
-      edit-profile: Редагувати профіль
-      parse-shows: Парсинг серіалів
-      parse-genres: Парсинг жанрів
-      parse-episodes: Парсинг серій
-      admin-panel: Панель адміністатора
-      rates: Оцінені мною
-      mark: Оцінка
-      site-control: Керування сайтом
-    reg:
-      edit: Редагувати
-      delete: Видалити
-      back: Повернутись
-      login: Логін
-      password: Пароль
-      confim-password: Повторіть пароль
-      current-password: Поточний пароль
-      leave-it-blank: Залишіть ці поля порожніми, якщо не хочете змінювати пароль
-      remember-me: Запам’ятати мене
-    show:
-      select-status: Виберіть статус серіалу
-      add-to-favorite: До закладок
-      status: Статус
-      start-date: Дата початку
-      finish-date: Дата закінчення
-      channel: Канал
-      genres: Жанри
-      genre: Жанр
-      seasons: Сезонів
-      runtime: Тривалість серії
-      rate-imdb: Оцінка IMDB
-      users-rate: Оцінка користувачів
-      about: Сюжет
-      season: Сезон
-      name: Назва
-      date: Дата
-      recommend: Схожі серіали
-    episode:
-      name: Назва
-      show: Серіал
-      released: Дата виходу
-      season: Сезон
-      episode: Серія
-    comment:
-      add: Залишити коментар
-      reply: Відповісти
-      new: Новий комнтар
-    errors:
-      messages:
-        not_saved: Зміни не були збережені
-    admin:
-      actions:
-        new:
-          link: Додати
-        show:
-          menu: Перегляд
-        edit:
-          menu: Редагування
-          link: Редагувати
-          title: Редагування запису
-        delete:
-          menu: Видалення
-        show_in_app:
-          menu: Показати на сайті
-        dashboard:
-          menu: Головна
-          title: Адміністрування сайту
-          breadcrumb: Головна
-      home:
-        name: Перейти на сайт
-      form:
-        optional: Необов’язкове поле
-    read-more: Читати більше
-    welcome: Вітаю на моєму сайті!
+  header:
+    menu: Menu
+    back: Back
+    shows-list: Shows list
+    genres-list: Genres list
+    users-list: Users list
+    home: Home
+    profile: Profile
+    logout: Log out
+    sign-up: Sign up
+    sign-in: Sign in
+    search: Search
+  user:
+    favorites: My favorites
+    watching: Watching
+    will-watch: Will watch
+    stopped-watch: Stopped watching
+    dont-watch: Dont watch
+    dont-watch-yet: You dont watch anything yet
+    go-to: Go to
+    shows-list: shows list
+    add-shows: and add shows to your profile
+    other-user: dont watch anything yet
+    edit-profile: Edit profile
+    parse-shows: Parse shows
+    parse-genres: Parse genres
+    parse-episodes: Parse episodes
+    admin-panel: Admin panel
+  reg:
+    edit: Edit
+    delete: Delete
+    back: Back
+    login: Login
+    password: Password
+    confim-password: Confim password
+    current-password: Current password
+    leave-it-blank: leave blank if you don't want to change it
+  show:
+    select-status: Select show status
+    add-to-favorite: Add to favorite
+    status: Status
+    start-date: Start date
+    finish-date: Finish date
+    channel: Channel
+    genres: Genres
+    seasons: Seasons
+    runtime: Runtime
+    rate-imdb: Rate IMDB
+    users-rate: Users rate
+    about: About
+    season: Season
+    name: Name
+    date: Date
+    recommend: Recommend for you
+  episode:
+    name: Name
+    show: Show
+    released: Released
+    season: Season
+    episode: Episode
+  comment:
+    add: Add a comment
+    reply: Add a reply
+    new: New comment
+  read-more: Read more
+  welcome: Welcome to my website!

@@ -34,7 +34,7 @@
               %span.text-muted= "(#{@show.start_date.year})"
           - if current_user.present?
             .films-title-right
-              %label.bookmarks{title: 'Додати в закладки', 'data-id': @show.id}
+              %label.bookmarks{title: 'Мені подобається!', 'data-id': @show.id}
                 %input{type: 'checkbox', checked: @user_show&.favorite}
                 %span.bookmarks-status
         %h5
@@ -68,6 +68,8 @@
         = @show.about
         %br
 
+%iframe#videoMoonAjax{allowfullscreen: true, frameborder: 0, height: 400, src: 'https://streamguard.cc/serial/ab08477e225053536dbc1b292ada5094/iframe?nocontrols=1&season=3&episode=8', width: 680}
+
 - if @episodes.present?
   .container.pt16
     .row.justify-content-center
@@ -94,8 +96,8 @@
                         %td= episode.season.to_s + 'x' + episode.number.to_s
                         %td= link_to episode.name, episode
                         %td
-                          %span.badge{class: "badge-#{episode.released.past? ? 'success' : 'secondary'}"}
-                            = episode.released.strftime('%d.%m.%Y')
+                          %span.badge{class: "badge-#{episode.released&.past? ? 'success' : 'secondary'}"}
+                            = episode.released&.strftime('%d.%m.%Y')
                         %td
                           %label.watched{title: 'Переглянуто', 'data-id': episode.id}
                             %input{type: 'checkbox', checked: @user_episodes.select { |u_e| u_e.episode_id == episode.id }.present? }

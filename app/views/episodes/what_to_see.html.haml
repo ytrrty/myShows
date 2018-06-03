@@ -1,48 +1,32 @@
-
+= content_for :javascripts do
+  = javascript_include_tag 'favorite'
 
 .container.pt16
   .row.justify-content-center
     .col-md-9
-      %h1 Нові епізоди
+      %h2.text-center Нові епізоди
       .accordion#newEpisode
-        .new-episode
-          .new-episode-item
-            %h2
-              %a{href: '#'} 13 причин чому
-            .card
-              .card-header
-                %button.btn.btn-link{type: 'button', 'data-toggle': 'collapse', 'data-target': '#collapse-1'} Season 2
-              #collapse-1.collapse{'data-parent': '#newEpisode'}
-                .card-body
-                  %table.table.table-striped
-                    %tr
-                      %td 123
-                      %td The Third Polaroid
-                      %td 45
-                      %td 34
-        .new-episode
-          .new-episode-item
-            %h2
-              %a{href: '#'} The Drunk Slut
-            .card
-              .card-header
-                %button.btn.btn-link{type: 'button', 'data-toggle': 'collapse', 'data-target': '#collapse-2'} Season 2
-              #collapse-2.collapse{'data-parent': '#newEpisode'}
-                .card-body
-                  %table.table.table-striped
-                    %tr
-                      %td 123
-                      %td The Third Polaroid
-                      %td 45
-                      %td 34
-
-
-- @shows.group_by(&:show).each_pair do |show, seasons|
-  = show.name
-  %br
-  - seasons.group_by(&:season).each_pair do |season, episodes|
-    = "Season #{season}"
-    %br
-    - episodes.each do |episode|
-      = episode.name
-      %br
+        - @shows.group_by(&:show).each_pair do |show, seasons|
+          .new-episode
+            .new-episode-item
+              %h4
+                = link_to show.name, show
+              - seasons.group_by(&:season).each_pair do |season, episodes|
+                .card
+                  .card-header
+                    %button.btn.btn-link{type: 'button', 'data-toggle': 'collapse', 'data-target': "#collapse-#{show.id}#{season}"}= "Season #{season}"
+                  .collapse.show{'data-parent': '#newEpisode', id: "collapse-#{show.id}#{season}"}
+                    .card-body
+                      %table.table.table-striped
+                        %tr
+                        - episodes.each do |episode|
+                          %tr
+                            %td{width: '50px'}= episode.season.to_s + 'x' + episode.number.to_s
+                            %td{width: '530px'}= link_to episode.name, episode
+                            %td{width: '50px'}
+                              %span.badge{class: "badge-#{episode.released.past? ? 'success' : 'secondary'}"}
+                                = episode.released.strftime('%d.%m.%Y')
+                            %td
+                              %label.watched{title: 'Переглянуто', 'data-id': episode.id}
+                                %input{type: 'checkbox', checked: false }
+                                %span.watched-status

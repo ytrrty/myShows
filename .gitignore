@@ -16,6 +16,8 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+/.idea
+/.sass-cache
 
 # Ignore uploaded files in development
 /storage/*
@@ -28,4 +30,3 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-/.idea

@@ -10,10 +10,10 @@
             %button{type: 'button', class: 'btn btn-info dropdown-toggle', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false'}
               = I18n.t 'user.site-control'
             .dropdown-menu
-              = link_to (I18n.t 'user.parse-genres'), new_genre_path, class: 'dropdown-item'
-              = link_to (I18n.t 'user.parse-episodes'), new_episode_path, class: 'dropdown-item'
+              = link_to (I18n.t 'user.parse-shows'), new_show_path, class: 'dropdown-item'
+              -#= link_to (I18n.t 'user.parse-genres'), new_genre_path, class: 'dropdown-item'
+              -#= link_to (I18n.t 'user.parse-episodes'), new_episode_path, class: 'dropdown-item'
               = link_to (I18n.t 'user.admin-panel'), rails_admin_path, class: 'dropdown-item'
-
 
           - if current_user == @user
             .btn-group.user-page-nav
