@@ -11,5 +11,6 @@ development:
   <<: *default
   database: shows
 
-
-
+test:
+  <<: *default
+  database: shows_test

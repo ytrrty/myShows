@@ -4,7 +4,6 @@ gem 'rails', '5.2.0'
 gem 'puma'
 gem 'pg'
 
-
 gem 'sass-rails'
 gem 'uglifier'
 gem 'jbuilder'
@@ -17,10 +16,14 @@ gem 'letsrate'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'searchlight'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 group :development do
+  gem 'capistrano', '3.11'
+  gem 'capistrano-nginx'
+  gem 'capistrano-rails'
+  gem 'capistrano-rails-db'
+  gem 'capistrano-upload-config'
+  gem 'capistrano3-puma'
+
   gem 'byebug'
   gem 'web-console', '>= 3.3.0'
   # gem 'listen', '>= 3.0.5', '< 3.2'
