@@ -8,7 +8,8 @@ class ShowsController < ApplicationController
 
   def show
     @show_genres = @show.genres
-    @episodes = @show.episodes.order(released: :desc).order(number: :desc)
+    @episodes = @show.episodes.where.not(released: nil).order(released: :desc).order(number: :desc)
+    return if current_user.blank?
     @user_episodes = current_user.users_episodes.left_joins(:episode).where(episodes: { show: @show })
     @user_show = current_user.users_shows.find_by(show: @show) if current_user.present?
   end

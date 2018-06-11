@@ -12,6 +12,10 @@ class ShowSearch < BaseSearch
     query.where(genres: { id: options[:genre_id] })
   end
 
+  def search_online
+    query.where.not(online_link: nil)
+  end
+
   def search_order
     case options[:order].to_sym
     when :name_desc

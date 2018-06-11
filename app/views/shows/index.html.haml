@@ -23,6 +23,10 @@
             %option{value: ''}
             - @genres.each do |genre|
               %option{value: "#{genre.id}", selected: (params[:genre_id].to_i == genre.id)}= genre.name
+      .col-lg-3
+        .form-group
+          %input#online{type: 'checkbox', name: 'online', onchange: "$('#form').submit()", checked: params[:online]}
+          %label{for: 'online'} Перегляд онлайн
 
   #content
     = render partial: 'shows/list'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2015_03_09_202202) do
+ActiveRecord::Schema.define(version: 2018_06_10_225326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2015_03_09_202202) do
     t.integer "comments_count", default: 0, null: false
     t.string "photo"
     t.string "photo_orig"
+    t.string "online_link"
   end
 
   create_table "shows_genres", id: :serial, force: :cascade do |t|

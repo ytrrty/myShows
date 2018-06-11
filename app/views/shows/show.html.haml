@@ -99,16 +99,19 @@
                         %td
                           %span.badge{class: "badge-#{episode.released&.past? ? 'success' : 'secondary'}"}
                             = episode.released&.strftime('%d.%m.%Y')
-                        %td
-                          %span.toggle-films
-                        %td
-                          %label.watched{title: 'Переглянуто', 'data-id': episode.id}
-                            %input{type: 'checkbox', checked: @user_episodes.select { |u_e| u_e.episode_id == episode.id }.present? }
-                            %span.watched-status
-                      %tr.film-ct
-                        %td{colspan: 5}
-                          .films-inner-ct
-                            %iframe#videoMoonAjax{allowfullscreen: true, frameborder: 0, height: 400, src: 'https://streamguard.cc/serial/ab08477e225053536dbc1b292ada5094/iframe?nocontrols=1&season=3&episode=8', width: 680}
+                        - if @show.online_link.present?
+                          %td
+                            %span.toggle-films
+                        - if current_user.present?
+                          %td
+                            %label.watched{title: 'Переглянуто', 'data-id': episode.id}
+                              %input{type: 'checkbox', checked: @user_episodes.select { |u_e| u_e.episode_id == episode.id }.present? }
+                              %span.watched-status
+                      - if @show.online_link.present?
+                        %tr.film-ct
+                          %td{colspan: 5}
+                            .films-inner-ct
+                              %iframe#cdn-player{src: episode.online_link, width: 640, height: 360, frameborder: 0, allowfullscreen: '', webkitallowfullscreen: '', mozallowfullscreen: '', oallowfullscreen: '', msallowfullscreen: ''}
               - count -= 1
 
       .media
