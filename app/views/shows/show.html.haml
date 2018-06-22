@@ -1,5 +1,6 @@
 = content_for :title, @show.name + (@show.start_date ? "(#{@show.start_date&.year})" : '')
 = content_for :javascripts do
+  = javascript_include_tag 'seasons-list'
   = javascript_include_tag 'favorite'
 
 .container-fluid{style: 'background: #333; color: white; padding: 30px 0;'}
@@ -99,19 +100,19 @@
                         %td
                           %span.badge{class: "badge-#{episode.released&.past? ? 'success' : 'secondary'}"}
                             = episode.released&.strftime('%d.%m.%Y')
-                        - if @show.online_link.present?
-                          %td
-                            %span.toggle-films
+                        %td
+                          - if @show.online_link.present? && episode.released.past?
+                            %span.toggle-films{'data-src': episode.online_link}
                         - if current_user.present?
                           %td
                             %label.watched{title: 'Переглянуто', 'data-id': episode.id}
                               %input{type: 'checkbox', checked: @user_episodes.select { |u_e| u_e.episode_id == episode.id }.present? }
                               %span.watched-status
-                      - if @show.online_link.present?
+                      - if @show.online_link.present? && episode.released.past?
                         %tr.film-ct
                           %td{colspan: 5}
                             .films-inner-ct
-                              %iframe#cdn-player{src: episode.online_link, width: 640, height: 360, frameborder: 0, allowfullscreen: '', webkitallowfullscreen: '', mozallowfullscreen: '', oallowfullscreen: '', msallowfullscreen: ''}
+
               - count -= 1
 
       .media

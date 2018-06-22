@@ -5,6 +5,6 @@ class Episode < ApplicationRecord
 
   def online_link
     return if show.online_link.blank?
-    "#{show.online_link}?nocontrols=1&season=#{season}&episode=#{number}"
+    "#{show.online_link}?nocontrols=1&autoplay=1&season=#{season}&episode=#{number}"
   end
 end

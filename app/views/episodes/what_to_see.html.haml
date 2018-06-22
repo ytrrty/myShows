@@ -1,5 +1,5 @@
 = content_for :javascripts do
-  = javascript_include_tag 'favorite'
+  = javascript_include_tag 'seasons-list'
 
 .container.pt16
   .row.justify-content-center
@@ -26,7 +26,14 @@
                             %td{width: '50px'}
                               %span.badge{class: "badge-#{episode.released.past? ? 'success' : 'secondary'}"}
                                 = episode.released.strftime('%d.%m.%Y')
+                            %td{width: '50px'}
+                              - if show.online_link.present? && episode.released.past?
+                                %span.toggle-films{'data-src': episode.online_link}
                             %td
                               %label.watched{title: 'Переглянуто', 'data-id': episode.id}
                                 %input{type: 'checkbox', checked: false }
                                 %span.watched-status
+                          - if show.online_link.present? && episode.released.past?
+                            %tr.film-ct
+                              %td{colspan: 5}
+                                .films-inner-ct
