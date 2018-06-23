@@ -1,16 +1,17 @@
 - content_for :title, (I18n.t 'header.shows-list')
-
+= content_for :javascripts do
+  = javascript_include_tag 'filter'
 %form#form{method: 'get', action: '#'}
   .container.pt16
     .row
       .col-lg-3
         .form-group
           %label{for: 'search'}= I18n.t 'header.search'
-          %input.form-control#name{name: 'name', type: 'text', onkeyup: "$('#form').submit()", value: params[:name]}
+          %input.form-control#name{name: 'name', type: 'text', value: params[:name]}
       .col-lg-3
         .form-group
           %label{for: 'order'} Сотрувати:
-          %select#sort-by.form-control{name: 'order', onchange: "$('#form').submit()", value: params[:order]}
+          %select#sort-by.form-control{name: 'order', value: params[:order]}
             %option{value: ''}
             %option{value: 'rate_desc', selected: (params[:order] == 'rate_desc')} По рейтингу за спаданням
             %option{value: 'rate_asc', selected: (params[:order] == 'rate_asc')} По рейтингу за зростанням
@@ -19,17 +20,17 @@
       .col-lg-3
         .form-group
           %label{for: 'sort-genre'} За жанром:
-          %select#sort-genre.form-control{name: 'genre_id', onchange: "$('#form').submit()"}
+          %select#sort-genre.form-control{name: 'genre_id'}
             %option{value: ''}
             - @genres.each do |genre|
               %option{value: "#{genre.id}", selected: (params[:genre_id].to_i == genre.id)}= genre.name
       .col-lg-3
         .form-group
-          %input#online{type: 'checkbox', name: 'online', onchange: "$('#form').submit()", checked: params[:online]}
+          %input#online{type: 'checkbox', name: 'online', checked: params[:online]}
           %label{for: 'online'} Перегляд онлайн
 
   #content
     = render partial: 'shows/list'
 
-  .container
-    = paginate @shows
+    .container
+      = paginate @shows

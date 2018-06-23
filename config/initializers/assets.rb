@@ -21,5 +21,6 @@ Rails.application.config.assets.paths += paths.map { |path| Rails.root.join(path
 
 Rails.application.config.assets.precompile += %w[
   favorite.js
+  filter.js
   seasons-list.js
 ]
