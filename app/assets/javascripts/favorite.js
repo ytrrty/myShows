@@ -4,4 +4,10 @@ $(document).ready(function () {
       favorite: $(".bookmarks input").prop('checked')
     });
   });
+
+  $(document).on('click', '.comment-feedback-link', function (e) {
+    e.preventDefault();
+    $('#'+$(this).data('comment')).slideDown(300);
+    $(this).slideUp(300);
+  })
 });

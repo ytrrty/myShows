@@ -115,11 +115,14 @@
 
               - count -= 1
 
-      .media
-        = form_for Comment.new do |f|
-          = f.text_area :body
-          = f.hidden_field :commentable_id, value: @show.id
-          = f.hidden_field :commentable_type, value: :Show
-          = f.submit
+      .col-md-9
+        .media
+          = form_for Comment.new do |f|
+            .form-group
+              = f.label :body, 'Напишіть відгук'
+              = f.text_area :body, class: 'form-control'
+              = f.hidden_field :commentable_id, value: @show.id
+              = f.hidden_field :commentable_type, value: :Show
+            = f.submit :submit, class: 'btn btn-primary'
 
         = render partial: 'comments/comment', collection: @show.comments

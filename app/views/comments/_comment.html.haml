@@ -1,17 +1,18 @@
-= link_to comment.user, class: 'pr-3' do
-  = image_tag comment.user.avatar.url(:thumb), class: 'comment-picture-img'
-.media-body
-  %h6.mt-0.comment-header
-    = link_to comment.user.login, comment.user
-    %span.badge.badge-light= comment.created_at.strftime('%H:%M:%S, %d.%m.%Y')
-  = comment.body
-  .media-footer
-    = link_to (I18n.t 'comment.reply'), '#', class: 'comment-feedback-link'
-  = form_for Comment.new do |f|
-    = f.text_area :body
-    = f.hidden_field :commentable_id, value: comment.id
-    = f.hidden_field :commentable_type, value: :Comment
-    = f.submit
-  - if comment.comments.present?
-    .media.mt-3
-      = render partial: 'comments/comment', collection: comment.comments
+.media
+  = link_to comment.user, class: 'pr-3' do
+    = image_tag comment.user.avatar.url(:thumb), class: 'comment-picture-img'
+  .media-body
+    %h6.mt-0.comment-header
+      = link_to comment.user.login, comment.user
+      %span.badge.badge-light= comment.created_at.strftime('%H:%M:%S, %d.%m.%Y')
+    = comment.body
+    .media-footer
+      = link_to (I18n.t 'comment.reply'), '#', class: 'comment-feedback-link', data: {comment: "comment#{comment.id}"}
+    = form_for Comment.new, html: {id: "comment#{comment.id}", class: 'comment-replay'} do |f|
+      = f.text_area :body
+      = f.hidden_field :commentable_id, value: comment.id
+      = f.hidden_field :commentable_type, value: :Comment
+      = f.submit
+    - if comment.comments.present?
+      .media.mt-3
+        = render partial: 'comments/comment', collection: comment.comments
