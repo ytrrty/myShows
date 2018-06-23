@@ -1,4 +1,7 @@
 - content_for :title, @show.name + ' : ' + @episode.name
+= content_for :javascripts do
+  = javascript_include_tag 'favorite'
+
 .container.pt16
   .row
     .col-md-3
@@ -32,8 +35,5 @@
       %b= (I18n.t 'show.about') + ':'
       = @episode.about
       %br
-      .media
-        = render :partial => 'comments/comment', :collection => @episode.comments
 
-
-
+      = render 'comments/comments', { parent: @episode }

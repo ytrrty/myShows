@@ -1,0 +1,10 @@
+.media
+  = form_for Comment.new do |f|
+    .form-group
+      = f.label :body, 'Напишіть відгук'
+      = f.text_area :body, class: 'form-control'
+      = f.hidden_field :commentable_id, value: parent.id
+      = f.hidden_field :commentable_type, value: parent.class
+    %button.btn.btn-primary.submit{type: 'button'} Відправити
+
+= render partial: 'comments/comment', collection: parent.comments

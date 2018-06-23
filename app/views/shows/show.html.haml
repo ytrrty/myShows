@@ -116,13 +116,4 @@
               - count -= 1
 
       .col-md-9
-        .media
-          = form_for Comment.new do |f|
-            .form-group
-              = f.label :body, 'Напишіть відгук'
-              = f.text_area :body, class: 'form-control'
-              = f.hidden_field :commentable_id, value: @show.id
-              = f.hidden_field :commentable_type, value: :Show
-            %button.btn.btn-primary.submit{type: 'button'} Відправити
-
-        = render partial: 'comments/comment', collection: @show.comments
+        = render partial: 'comments/comments', locals: { parent: @show }
