@@ -123,6 +123,6 @@
               = f.text_area :body, class: 'form-control'
               = f.hidden_field :commentable_id, value: @show.id
               = f.hidden_field :commentable_type, value: :Show
-            = f.submit :submit, class: 'btn btn-primary'
+            %button.btn.btn-primary.submit{type: 'button'} Відправити
 
         = render partial: 'comments/comment', collection: @show.comments

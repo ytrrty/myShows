@@ -1,4 +1,4 @@
-.media
+.media{id: "comment-#{comment.id}"}
   = link_to comment.user, class: 'pr-3' do
     = image_tag comment.user.avatar.url(:thumb), class: 'comment-picture-img'
   .media-body
@@ -12,7 +12,7 @@
       = f.text_area :body
       = f.hidden_field :commentable_id, value: comment.id
       = f.hidden_field :commentable_type, value: :Comment
-      = f.submit
+      %button.btn.btn-primary.submit{type: 'button', data: {target: "#comment-#{comment.id}"}} Відправити
     - if comment.comments.present?
       .media.mt-3
         = render partial: 'comments/comment', collection: comment.comments
