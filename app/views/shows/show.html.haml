@@ -116,4 +116,10 @@
               - count -= 1
 
       .media
-        = render :partial => 'comments/comment', :collection => @show.comments
+        = form_for Comment.new do |f|
+          = f.text_area :body
+          = f.hidden_field :commentable_id, value: @show.id
+          = f.hidden_field :commentable_type, value: :Show
+          = f.submit
+
+        = render partial: 'comments/comment', collection: @show.comments

@@ -2,26 +2,24 @@ class CommentsController < ApplicationController
   before_action :get_parent
 
   def new
-    @comment = @parent.comments.build
+    @comment = @parent.comments.new
   end
 
   def create
-    @comment = @parent.comments.build(comment_params)
+    @comment = @parent.comments.new(comment_params)
+    @comment.user = current_user
     if @comment.save
-      redirect_back fallback_location: root_path
+      redirect_back fallback_location: root_path, flash: { success: 'Успішно' }
     else
-      render :new
-      redirect_back fallback_location: root_path
+      redirect_back fallback_location: root_path, flash: { error: 'Помилка' }
     end
   end
 
   protected
 
   def get_parent
-    @parent = Show.find(params[:show_id]) if params[:show_id]
-    @parent = Episode.find(params[:episode_id]) if params[:episode_id]
-    @parent = Comment.find(params[:comment_id]) if params[:comment_id]
-    redirect_to root_path unless defined?(@parent)
+    klass = comment_params[:commentable_type].constantize
+    @parent = klass.find(comment_params[:commentable_id])
   end
 
   def comment_params
