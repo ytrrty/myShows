@@ -29,7 +29,7 @@ $(document).ready(function () {
       id: 'cdn-player',
       src: $(this).data('src'),
       width: 640,
-      height: 360,
+      height: 445,
       frameborder: 0,
       allowfullscreen: '',
       webkitallowfullscreen: '',

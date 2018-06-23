@@ -1,10 +1,8 @@
 class ShowsController < ApplicationController
   before_action :set_show, only: [:show, :change_status]
+  before_action :shows_list, only: [:index, :list]
 
-  def index
-    @shows = ShowSearch.new(params).results.page(params[:page]).per(20).includes(:genres)
-    @genres = Genre.all
-  end
+  def index; end
 
   def show
     @show_genres = @show.genres
@@ -34,9 +32,17 @@ class ShowsController < ApplicationController
     render json: :success
   end
 
+  def list
+    render action: 'index', layout: false
+  end
+
   private
 
   def set_show
     @show = Show.find(params[:id])
+  end
+
+  def shows_list
+    @shows = ShowSearch.new(params).results.page(params[:page]).per(20).includes(:genres)
   end
 end

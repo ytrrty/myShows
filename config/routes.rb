@@ -3,7 +3,13 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'devise_override/registrations' }
 
   root to: 'shows#index'
-  resources :shows
+  resources :shows do
+    get :list, on: :collection
+    get :change_status, on: :member
+    post :to_favorite, on: :member
+    resources :comments
+  end
+
   resources :genres
 
   resources :users do
@@ -12,12 +18,6 @@ Rails.application.routes.draw do
   end
 
   resources :comments do
-    resources :comments
-  end
-
-  resources :shows do
-    get :change_status, on: :member
-    post :to_favorite, on: :member
     resources :comments
   end
 
