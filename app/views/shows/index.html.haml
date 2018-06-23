@@ -27,10 +27,9 @@
               - Genre.all.each do |genre|
                 %option{value: "#{genre.id}", selected: (params[:genre_id].to_i == genre.id)}= genre.name
         .col-lg-3
-          .form-group
-            %input#online{type: 'checkbox', name: 'online', checked: params[:online]}
-            %label{for: 'online'} Перегляд онлайн
-
+          .custom-control.custom-checkbox{style: 'padding-top: 28px'}
+            %input.custom-control-input#online{type: 'checkbox', name: 'online', checked: params[:online]}
+            %label.custom-control-label{for: 'online'} Перегляд онлайн
   #content
     = render partial: 'shows/list'
 

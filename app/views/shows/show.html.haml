@@ -103,8 +103,8 @@
                         %td
                           - if @show.online_link.present? && episode.released.past?
                             %span.toggle-films{'data-src': episode.online_link}
-                        - if current_user.present?
-                          %td
+                        %td
+                          - if current_user.present? && episode.released.past?
                             %label.watched{title: 'Переглянуто', 'data-id': episode.id}
                               %input{type: 'checkbox', checked: @user_episodes.select { |u_e| u_e.episode_id == episode.id }.present? }
                               %span.watched-status
