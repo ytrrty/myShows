@@ -2,6 +2,8 @@ class EpisodesController < ApplicationController
   def show
     @episode = Episode.find(params[:id])
     @show = @episode.show
+    return if current_user.blank?
+    @user_episode = current_user.users_episodes.find_by(episode: @episode)
   end
 
   def mark_as_watched

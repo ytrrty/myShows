@@ -3,19 +3,28 @@
   = javascript_include_tag 'jquery.raty'
   = javascript_include_tag 'ratyrate'
   = javascript_include_tag 'favorite'
+  = javascript_include_tag 'seasons-list'
 
 .container.pt16
   .row
     .col-md-3
       = image_tag @episode.photo, class: 'episode-avatar'
       = link_to (I18n.t 'comment.add'), '#new_comment', class: 'btn-watch-comment btn btn-warning'
-    .col-md-7
-      %b= (I18n.t 'episode.name') + ':'
-      = @episode.name
-      %br
-      %b= (I18n.t 'episode.show') + ':'
-      = link_to @show.name, @show
-      %br
+    .col-lg-9
+      %h1.films-title
+        .films-title-left
+          = "#{@show.name}: #{@episode.name}"
+        - if current_user.present?
+          .films-title-right
+            %label.watched.episode{title: 'Переглянуто', 'data-id': [@episode.id]}
+              %input{type: 'checkbox', checked: @user_episode.present?}
+              %span.watched-status.big
+      -#%b= (I18n.t 'episode.name') + ':'
+      -#= @episode.name
+      -#%br
+      -#%b= (I18n.t 'episode.show') + ':'
+      -#= link_to @show.name, @show
+      -#%br
       %b= (I18n.t 'episode.released') + ':'
       = @episode.released.strftime('%d.%m.%Y')
       %br

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   end
 
   get :what_to_see, to: 'episodes#what_to_see'
+  get :disclaimer, to: 'home#disclaimer'
 
   post '/rate' => 'rater#create', as: 'rate'
 end
