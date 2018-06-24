@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  authenticated :user, ->(user) { user.access } do
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  end
+
   devise_for :users, controllers: { registrations: 'devise_override/registrations' }
 
   root to: 'shows#index'
