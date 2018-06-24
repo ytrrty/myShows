@@ -63,7 +63,7 @@
         = @show.rate_imdb || 'Not rated yet'
         %br
         %b= 'Оцінка сайту:'
-        = rating_for @show, 'rate', enable_half: true, disable_after_rate: false
+        = rating_for @show, 'rate', disable_after_rate: false
         %br
         %b= "#{t 'show.about'}:"
         = @show.about
@@ -83,9 +83,10 @@
               .card-header.card-header-shows
                 %h5.mb-0
                   %button.btn.btn-link{type: 'button', 'data-toggle': 'collapse', 'data-target': "#collapse-#{count}", 'aria-expanded': 'true', 'aria-controls': "collapse-#{count}"}= (I18n.t 'show.season') + ' ' + count.to_s
-                %label.watched.season{title: 'Переглянуто', 'data-id': current_season.map(&:id)}
-                  %input{type: 'checkbox', checked: @user_episodes.select { |u_e| u_e.episode.season == count }.count == current_season.count}
-                  %span.watched-status
+                - if current_user.present? && current_season.select { |e| e.released.past? }.present?  && @user_show && @user_show.show_status != 'dont_watch'
+                  %label.watched.season{title: 'Переглянуто', 'data-id': current_season.map(&:id)}
+                    %input{type: 'checkbox', checked: @user_episodes.select { |u_e| u_e.episode.season == count }.count == current_season.count}
+                    %span.watched-status
               .collapse.show{'aria-labelledby': 'heading-1', 'data-parent': '#accordionSeason', id: "collapse-#{count}"}
                 .card-body
                   %table.table.table-striped
@@ -106,7 +107,7 @@
                           - if @show.online_link.present? && episode.released.past?
                             %span.toggle-films{'data-src': episode.online_link}
                         %td
-                          - if current_user.present? && episode.released.past?
+                          - if current_user.present? && episode.released.past? && @user_show && @user_show.show_status != 'dont_watch'
                             %label.watched.episode{title: 'Переглянуто', 'data-id': [episode.id]}
                               %input{type: 'checkbox', checked: @user_episodes.select { |u_e| u_e.episode_id == episode.id }.present? }
                               %span.watched-status
