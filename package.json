@@ -6,7 +6,6 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
-    "rails-ujs": "^5.2.0",
-    "raty-js": "^2.8.0"
+    "rails-ujs": "^5.2.0"
   }
 }
