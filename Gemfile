@@ -12,7 +12,7 @@ gem 'paperclip', '~> 4.1'
 gem 'kaminari'
 gem 'rails_admin'
 gem 'chartkick'
-gem 'letsrate'
+gem 'ratyrate'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'searchlight'
 

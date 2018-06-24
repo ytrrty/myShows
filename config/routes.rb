@@ -28,5 +28,5 @@ Rails.application.routes.draw do
 
   get :what_to_see, to: 'episodes#what_to_see'
 
-  post '/rate' => 'rater#create', :as => 'rate'
+  post '/rate' => 'rater#create', as: 'rate'
 end

@@ -141,7 +141,6 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
-    letsrate (1.0.9)
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -219,6 +218,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (12.3.1)
+    ratyrate (1.2.2.alpha)
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
@@ -293,12 +293,12 @@ DEPENDENCIES
   devise
   jbuilder
   kaminari
-  letsrate
   paperclip (~> 4.1)
   pg
   puma
   rails (= 5.2.0)
   rails_admin
+  ratyrate
   sass-rails
   searchlight
   selenium-webdriver

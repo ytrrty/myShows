@@ -14,6 +14,7 @@ paths = %w[
   node_modules/jquery/dist
   node_modules/popper.js/dist/umd
   node_modules/rails-ujs/lib/assets/compiled
+  node_modules/raty-js/lib
   node_modules
 ]
 
@@ -23,4 +24,7 @@ Rails.application.config.assets.precompile += %w[
   favorite.js
   filter.js
   seasons-list.js
+
+  jquery.raty.js
+  ratyrate.js
 ]
