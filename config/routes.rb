@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   resources :episodes, only: [:new, :show] do
     resources :comments
-    post :mark_as_watched, on: :member
+    post :mark_as_watched, on: :collection
   end
 
   get :what_to_see, to: 'episodes#what_to_see'

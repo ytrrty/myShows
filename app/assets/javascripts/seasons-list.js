@@ -1,8 +1,17 @@
 var iframe;
 
 $(document).ready(function () {
-  $(".watched").change(function () {
-    $.post('/episodes/' + $(this).data('id') + '/mark_as_watched');
+  $(".watched.episode").change(function () {
+    var watched = $(this).find('input')[0].checked;
+    $.post('/episodes/mark_as_watched', { id: $(this).data('id'), watched: watched });
+  });
+
+  $(".watched.season").change(function () {
+    var episodes = $(this).parent().next().find('input');
+    var watched = $(this).find('input')[0].checked;
+
+    episodes.attr('checked', watched);
+    $.post('/episodes/mark_as_watched', { id: $(this).data('id'), watched: watched });
   });
 
   $('span.toggle-films').on('click', function (e) {

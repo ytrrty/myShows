@@ -5,11 +5,13 @@ class EpisodesController < ApplicationController
   end
 
   def mark_as_watched
-    user_episode = current_user.users_episodes.find_or_initialize_by(episode_id: params[:id])
-    if user_episode.id
-      user_episode.destroy
+    if params[:watched] == 'true'
+      params[:id].each do |episode_id|
+        user_episode = current_user.users_episodes.find_or_initialize_by(episode_id: episode_id)
+        user_episode.save if user_episode.id.blank?
+      end
     else
-      user_episode.save
+      current_user.users_episodes.where(episode_id: params[:id]).delete_all
     end
   end
 

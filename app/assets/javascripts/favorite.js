@@ -6,8 +6,10 @@ $(document).ready(function () {
   });
 
   $(document).on('click', '.comment-feedback-link', function (e) {
+    var reply_form = $('#' + $(this).data('comment'));
     e.preventDefault();
-    $('#' + $(this).data('comment')).slideDown(300);
+    reply_form.slideDown(300);
+    reply_form.css('display', 'flex');
     $(this).slideUp(300);
   });
 
