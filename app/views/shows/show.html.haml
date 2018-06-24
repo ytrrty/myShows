@@ -63,7 +63,7 @@
         = @show.rate_imdb || 'Not rated yet'
         %br
         %b= 'Оцінка сайту:'
-        = rating_for @show, 'rate', disable_after_rate: false
+        = rating_for @show, 'rate', disable_after_rate: false, star_path: '/'
         %br
         %b= "#{t 'show.about'}:"
         = @show.about

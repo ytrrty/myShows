@@ -44,7 +44,7 @@
         = @episode.rate_imdb
       %br
       %b= 'Оцінка сайту:'
-      = rating_for @episode, 'rate', disable_after_rate: false
+      = rating_for @episode, 'rate', disable_after_rate: false, star_path: '/'
       %br
       %b= (I18n.t 'show.about') + ':'
       = @episode.about
