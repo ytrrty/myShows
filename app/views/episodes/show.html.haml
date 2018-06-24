@@ -40,5 +40,7 @@
       %b= (I18n.t 'show.about') + ':'
       = @episode.about
       %br
+      - if @show.online_link.present?
+        %iframe{src: @episode.online_link(false), width: 640, height: 445, frameborder: 0, allowfullscreen: ''}
 
       = render 'comments/comments', { parent: @episode }

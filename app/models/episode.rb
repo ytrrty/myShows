@@ -5,8 +5,8 @@ class Episode < ApplicationRecord
 
   ratyrate_rateable 'rate'
 
-  def online_link
+  def online_link(autoplay = true)
     return if show.online_link.blank?
-    "#{show.online_link}?nocontrols=1&autoplay=1&season=#{season}&episode=#{number}"
+    "#{show.online_link}?nocontrols=1&autoplay=#{autoplay ? 1 : 0}&season=#{season}&episode=#{number}"
   end
 end
