@@ -80,9 +80,12 @@
           - while count > i do
             - current_season = @episodes.select { |episode| episode.season == count }
             .card
-              .card-header
+              .card-header.card-header-shows
                 %h5.mb-0
                   %button.btn.btn-link{type: 'button', 'data-toggle': 'collapse', 'data-target': "#collapse-#{count}", 'aria-expanded': 'true', 'aria-controls': "collapse-#{count}"}= (I18n.t 'show.season') + ' ' + count.to_s
+                %label.watched{title: 'Переглянуто'}
+                  %input{type: 'checkbox'}
+                  %span.watched-status
               .collapse.show{'aria-labelledby': 'heading-1', 'data-parent': '#accordionSeason', id: "collapse-#{count}"}
                 .card-body
                   %table.table.table-striped

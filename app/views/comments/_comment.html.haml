@@ -1,4 +1,4 @@
-.media{id: "comment-#{comment.id}"}
+.media.media-outer{id: "comment-#{comment.id}"}
   = link_to comment.user, class: 'pr-3' do
     = image_tag comment.user.avatar.url(:thumb), class: 'comment-picture-img'
   .media-body
