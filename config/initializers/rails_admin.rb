@@ -1,5 +1,5 @@
 RailsAdmin.config do |config|
-
+  config.excluded_models = ['ActiveStorage::Blob', 'ActiveStorage::Attachment']
   ### Popular gems integration
 
   ## == Devise ==
