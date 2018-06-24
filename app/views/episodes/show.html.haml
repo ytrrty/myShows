@@ -1,5 +1,7 @@
 - content_for :title, @show.name + ' : ' + @episode.name
 = content_for :javascripts do
+  = javascript_include_tag 'jquery.raty'
+  = javascript_include_tag 'ratyrate'
   = javascript_include_tag 'favorite'
 
 .container.pt16
@@ -17,12 +19,6 @@
       %b= (I18n.t 'episode.released') + ':'
       = @episode.released.strftime('%d.%m.%Y')
       %br
-      %b= (I18n.t 'show.rate-imdb') + ':'
-      - if @episode.rate_imdb == nil
-        Not rated yet
-      - else
-        = @episode.rate_imdb
-      %br
       %b= (I18n.t 'episode.season') + ':'
       = @episode.season
       %br
@@ -31,6 +27,15 @@
       %br
       %b= (I18n.t 'show.runtime') + ':'
       = @show.runtime.to_s + ' min.'
+      %br
+      %b= (I18n.t 'show.rate-imdb') + ':'
+      - if @episode.rate_imdb == nil
+        Not rated yet
+      - else
+        = @episode.rate_imdb
+      %br
+      %b= 'Оцінка сайту:'
+      = rating_for @episode, 'rate', enable_half: true, disable_after_rate: false
       %br
       %b= (I18n.t 'show.about') + ':'
       = @episode.about

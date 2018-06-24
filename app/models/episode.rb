@@ -3,6 +3,8 @@ class Episode < ApplicationRecord
   has_many :users_episodes
   has_many :comments, :as => :commentable
 
+  ratyrate_rateable 'rate'
+
   def online_link
     return if show.online_link.blank?
     "#{show.online_link}?nocontrols=1&autoplay=1&season=#{season}&episode=#{number}"
