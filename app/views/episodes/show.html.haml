@@ -8,7 +8,7 @@
   .row
     .col-md-3
       = image_tag @episode.photo, class: 'episode-avatar'
-      = link_to (I18n.t 'comment.add'), new_episode_comment_path(@episode), class: 'btn-watch-comment btn btn-warning'
+      = link_to (I18n.t 'comment.add'), '#new_comment', class: 'btn-watch-comment btn btn-warning'
     .col-md-7
       %b= (I18n.t 'episode.name') + ':'
       = @episode.name

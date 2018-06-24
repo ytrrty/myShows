@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'devise_override/registrations' }
 
   root to: 'shows#index'
+
   resources :shows do
     get :list, on: :collection
     get :change_status, on: :member
@@ -17,10 +18,7 @@ Rails.application.routes.draw do
     get :rates, on: :member
   end
 
-  resources :comments do
-    resources :comments
-  end
-
+  resources :comments, only: [:create]
   resources :episodes, only: [:new, :show] do
     resources :comments
     post :mark_as_watched, on: :collection

@@ -27,7 +27,7 @@
             = link_to (I18n.t 'user.watching'), change_status_show_path(@show, status: :watching), class: 'dropdown-item'
             = link_to (I18n.t 'user.stopped-watch'), change_status_show_path(@show, status: :stopped_watch), class: 'dropdown-item'
 
-          = link_to (I18n.t 'comment.add'), new_show_comment_path(@show), class: 'btn-watch-comment btn btn-warning'
+          = link_to (I18n.t 'comment.add'), '#new_comment', class: 'btn-watch-comment btn btn-warning'
 
       .col-lg-9
         %h1.films-title

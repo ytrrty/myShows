@@ -1,10 +1,6 @@
 class CommentsController < ApplicationController
   before_action :get_parent
 
-  def new
-    @comment = @parent.comments.new
-  end
-
   def create
     @comment = @parent.comments.new(comment_params)
     @comment.user = current_user
