@@ -4,7 +4,7 @@
   %p.watching-current &nbsp;
 %ul.serials-list
   - shows.each do |show|
-    - episodes_count = show.episodes.count
+    - episodes_count = show.episodes.size
     - watched_count = @user.users_episodes.joins(episode: :show).where(shows: { id: show.id }).count
     %li.serials-list-item
       .serials-link

@@ -53,7 +53,7 @@
         %li.nav-item
           %a.nav-link{'data-toggle': 'tab', href: '#favorites', 'role': 'tab'}
             = t('user.favorites')
-            = "(#{current_user.users_shows.where(favorite: true).count})"
+            = "(#{@favorites.count})"
       .tab-content
         .tab-pane.fade.show.active#watching
           = render partial: 'shows_list', locals: { shows: @watching.map(&:show), title: t('user.watching') }
@@ -62,4 +62,4 @@
         .tab-pane.fade#stopped_watch
           = render partial: 'shows_list', locals: { shows: @stopped_watch.map(&:show), title: t('user.stopped-watch') }
         .tab-pane.fade#favorites
-          = render partial: 'shows_list', locals: { shows: @user_shows.where(favorite: true).map(&:show), title: t('user.favorites') }
+          = render partial: 'shows_list', locals: { shows: @favorites.map(&:show), title: t('user.favorites') }

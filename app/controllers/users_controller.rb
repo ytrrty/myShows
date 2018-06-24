@@ -6,11 +6,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user_shows = @user.users_shows.includes(show: :episodes)
+    @user_shows = @user.users_shows.includes(show: [:episodes, :rate_average])
     @user_episodes = @user.users_episodes.includes(episode: :show)
     @watching =      @user_shows.select_by_status('watching')
     @will_watch =    @user_shows.select_by_status('will_watch')
     @stopped_watch = @user_shows.select_by_status('stopped_watch')
+    @favorites     = @user_shows.select(&:favorite?)
     @stats = {
       episodes: {
         count: @user_shows.sum {|u_s| u_s.show.episodes.size },
