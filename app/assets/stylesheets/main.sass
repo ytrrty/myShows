@@ -262,3 +262,102 @@ label
   justify-content: space-between
   .watched
     padding-right: 20px
+.box-ct
+  display: flex
+  margin-bottom: 16px
+  flex-wrap: wrap
+  .box-item
+    padding: 60px 0
+    color: white
+    flex: 0 0 25%
+    border-radius: 3px
+    text-align: center
+    &:not(:first-child)
+      margin-left: 24px
+    p
+      margin: 0
+      &:first-child
+        font-weight: bold
+        font-size: 32px
+        text-transform: uppercase
+      &:last-child
+        font-size: 18px
+        text-transform: uppercase
+    &.box-red
+      background: #D7263D
+    &.box-green
+      background: #4CB963
+    &.box-blue
+      background: #00A5CF
+.watching-time
+  display: flex
+  padding: 16px 0
+  align-items: center
+  .dots
+    position: relative
+    margin: 0 8px
+    bottom: 7px
+    align-self: flex-end
+    flex: 1
+    border-bottom: 1px dotted #000
+  p
+    margin: 0
+    &.watching-name
+      font-weight: bold
+      font-size: 18px
+    &.watching-current
+      font-size: 14px
+.serials-list
+  margin: 0
+  padding: 8px
+  list-style-type: none
+  background: white
+  border-radius: 3px
+.serials-list-item
+  display: flex
+  align-items: flex-end
+  padding: 12px 0
+  border-bottom: 1px solid #d8d8d8
+.nav-history
+  sup
+    padding: 0 4px
+    background: #4CB963
+    color: white
+    border-radius: 3px
+.serials-link
+  flex: 1
+  a
+    sup
+      background: #4CB963
+      padding: 0 8px
+      color: white
+.serials-stars
+  flex: 1
+.serials-progress
+  flex: 2
+
+.serials-progress-outer
+  position: relative
+  background: #d8d8d8
+  height: 6px
+  border-radius: 3px
+.serials-progress-inner
+  position: absolute
+  left: 0
+  top: 0
+  bottom: 0
+  width: 50%
+  background: #D7263D
+  span
+    position: absolute
+    bottom: 100%
+    right: 0
+    font-size: 12px
+    color: #D7263D
+.serials-progress-header
+  display: flex
+  justify-content: space-between
+  font-size: 12px
+  color: #4a4a4a
+.tab-content
+  padding-bottom: 40px

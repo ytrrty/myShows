@@ -48,3 +48,58 @@
           %h6
             %b= @user.login
             = I18n.t 'interface.user.other-user'
+
+  .row
+    .col-md-12
+      .box-ct
+        .box-item.box-red
+          %p 6 000
+          %p episodes
+        .box-item.box-green
+          %p 2 000
+          %p hours
+        .box-item.box-blue
+          %p 6 000
+          %p days
+    .col-md-12
+      %ul.nav.nav-tabs.nav-history{role: 'tablist'}
+        %li.nav-item
+          %a.nav-link.active{'data-toggle': 'tab', href: '#watching', 'role': 'tab'}
+            watching
+            %sup 32
+        %li.nav-item
+          %a.nav-link{'data-toggle': 'tab', href: '#going_to_watch', 'role': 'tab'}
+            going_to_watch
+            %sup 2
+        %li.nav-item
+          %a.nav-link{'data-toggle': 'tab', href: '#stopped_watch', 'role': 'tab'}
+            stopped_watch
+            %sup 6
+        %li.nav-item
+          %a.nav-link{'data-toggle': 'tab', href: '#watched_all', 'role': 'tab'}
+            watched_all
+            %sup 23
+      .tab-content
+        .tab-pane.fade.show.active#watching
+          .watching-time
+            %p.watching-name Watching
+            %span.dots
+            %p.watching-current 1 month 32 days 5 hiurs 32 minutes
+          %ul.serials-list
+            %li.serials-list-item
+              .serials-link
+                %a{href: '#'}
+                  Adveture times
+                  %sup Some thing
+              .serials-stars
+                Serials stars
+              .serials-progress
+                .serials-progress-header
+                  %span Episodes watched
+                  %span 154
+                .serials-progress-outer
+                  .serials-progress-inner{style: 'width: 30%'}
+                    %span 45
+        .tab-pane.fade#going_to_watch going_to_watch
+        .tab-pane.fade#stopped_watch stopped_watch
+        .tab-pane.fade#watched_all watched_all
