@@ -7,7 +7,7 @@ $(document).ready(function () {
   });
 
   $(".watched.season").change(function () {
-    var episodes = $(this).parent().next().find('input');
+    var episodes = $(this).parent().parent().parent().find('tr').find('input');
     var watched = $(this).find('input')[0].checked;
 
     episodes.attr('checked', watched);

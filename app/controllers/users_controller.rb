@@ -6,16 +6,25 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user_shows = @user.users_shows
+    @user_shows = @user.users_shows.includes(show: :episodes)
+    @user_episodes = @user.users_episodes.includes(episode: :show)
     @watching =      @user_shows.select_by_status('watching')
     @will_watch =    @user_shows.select_by_status('will_watch')
     @stopped_watch = @user_shows.select_by_status('stopped_watch')
-
-    @ord = Genre.joins(shows_genres: [show: [users_shows: :user]])
-                .where(users_shows: { user_id: @user.id })
-                .where.not(users_shows: { show_status: :dont_watch})
-                .group('genres.name')
-                .count
+    @stats = {
+      episodes: {
+        count: @user_shows.sum {|u_s| u_s.show.episodes.size },
+        watched: @user_episodes.count
+      },
+      hours: {
+        count: @user_shows.sum { |u_s| u_s.show.episodes.size * u_s.show.runtime } / 60.0,
+        watched: @user_episodes.sum { |u_e| u_e.episode.show.runtime } / 60.0
+      },
+      days: {
+        count: @user_shows.sum { |u_s| u_s.show.episodes.size * u_s.show.runtime } / 60.0 / 24,
+        watched: @user_episodes.sum { |u_e| u_e.episode.show.runtime } / 60.0 / 24
+      }
+    }
   end
 
   def favorites

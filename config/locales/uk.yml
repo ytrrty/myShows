@@ -12,7 +12,7 @@ uk:
     sign-in: Увійти
     search: Пошук
   user:
-    favorites: Мої закладки
+    favorites: Улюблені
     watching: В процесі
     will-watch: На майбутнє
     stopped-watch: Перестав дивитись
@@ -23,6 +23,7 @@ uk:
     add-shows: та додайте їх до свого списку
     other-user: поки що нічого не дивиться
     edit-profile: Редагувати профіль
+    parse: Оновити базу даних
     parse-shows: Парсинг серіалів
     parse-genres: Парсинг жанрів
     parse-episodes: Парсинг серій
@@ -30,6 +31,9 @@ uk:
     rates: Оцінені мною
     mark: Оцінка
     site-control: Керування сайтом
+    episodes: Серій
+    hours: Годин
+    days: Днів
   reg:
     edit: Редагувати
     delete: Видалити

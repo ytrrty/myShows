@@ -11,7 +11,8 @@
         -#    %span.sr-only (current)
         %li.nav-item= link_to (I18n.t 'header.shows-list'), shows_path, class: 'nav-link'
         -#%li.nav-item= link_to (I18n.t 'header.genres-list'), genres_path, class: 'nav-link'
-        %li.nav-item= link_to 'Що подивитись?', what_to_see_path, class: 'nav-link'
+        - if user_signed_in?
+          %li.nav-item= link_to 'Що подивитись?', what_to_see_path, class: 'nav-link'
         -#%li.nav-item= link_to (I18n.t 'header.users-list'), users_path, class: 'nav-link'
         -#%li.nav-item
         -#  %a.nav-link.disabled{:href => "#"} Disabled

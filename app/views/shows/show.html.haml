@@ -83,10 +83,6 @@
               .card-header.card-header-shows
                 %h5.mb-0
                   %button.btn.btn-link{type: 'button', 'data-toggle': 'collapse', 'data-target': "#collapse-#{count}", 'aria-expanded': 'true', 'aria-controls': "collapse-#{count}"}= (I18n.t 'show.season') + ' ' + count.to_s
-                - if current_user.present? && current_season.select { |e| e.released.past? }.present?  && @user_show && @user_show.show_status != 'dont_watch'
-                  %label.watched.season{title: 'Переглянуто', 'data-id': current_season.map(&:id)}
-                    %input{type: 'checkbox', checked: @user_episodes.select { |u_e| u_e.episode.season == count }.count == current_season.count}
-                    %span.watched-status
               .collapse.show{'aria-labelledby': 'heading-1', 'data-parent': '#accordionSeason', id: "collapse-#{count}"}
                 .card-body
                   %table.table.table-striped
@@ -96,6 +92,10 @@
                       %th{width: '50px'}= I18n.t 'show.date'
                       %th
                       %th
+                        - if current_user.present? && current_season.select { |e| e.released.past? }.present?  && @user_show && @user_show.show_status != 'dont_watch'
+                          %label.watched.season{title: 'Переглянуто', 'data-id': current_season.map(&:id)}
+                            %input{type: 'checkbox', checked: @user_episodes.select { |u_e| u_e.episode.season == count }.count == current_season.count}
+                            %span.watched-status
                     - current_season.each do |episode|
                       %tr
                         %td= episode.season.to_s + 'x' + episode.number.to_s

@@ -1,4 +1,6 @@
 class EpisodesController < ApplicationController
+  before_action :authenticate_user!
+
   def show
     @episode = Episode.find(params[:id])
     @show = @episode.show

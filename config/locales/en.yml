@@ -23,10 +23,14 @@ en:
     add-shows: and add shows to your profile
     other-user: dont watch anything yet
     edit-profile: Edit profile
+    parse: Update database
     parse-shows: Parse shows
     parse-genres: Parse genres
     parse-episodes: Parse episodes
     admin-panel: Admin panel
+    episodes: Episodes
+    hours: Hours
+    days: Days
   reg:
     edit: Edit
     delete: Delete
