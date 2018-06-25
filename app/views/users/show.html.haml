@@ -63,3 +63,8 @@
           = render partial: 'shows_list', locals: { shows: @stopped_watch.map(&:show), title: t('user.stopped-watch') }
         .tab-pane.fade#favorites
           = render partial: 'shows_list', locals: { shows: @favorites.map(&:show), title: t('user.favorites') }
+
+    - if @shows.present?
+      .col-md-12
+        %h3 Рекомендації
+        = render 'shows/list'

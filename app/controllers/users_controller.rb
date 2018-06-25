@@ -26,6 +26,13 @@ class UsersController < ApplicationController
         watched: @user_episodes.sum { |u_e| u_e.episode.show.runtime } / 60.0 / 24
       }
     }
+
+    @shows = Show.left_joins(:users_shows, :genres)
+                 .where('shows.id NOT IN (?)', @user_shows.map(&:show_id))
+                 .where('genres.id IN (?)', @user_shows.map(&:show).map(&:genres).flatten.map(&:id).uniq)
+                 .order('rate_imdb DESC')
+                 .distinct
+                 .limit(6)
   end
 
   def favorites
