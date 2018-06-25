@@ -10,8 +10,7 @@
     = render partial: 'layouts/header'
     .wrapper
       = yield
-      -#= render 'layouts/footer'
+    = render 'layouts/footer'
 
   = javascript_include_tag 'application'
-  = javascript_include_tag '//www.google.com/jsapi', 'chartkick'
   = yield :javascripts
