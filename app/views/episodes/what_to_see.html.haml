@@ -30,7 +30,7 @@
                               - if show.online_link.present? && episode.released.past?
                                 %span.toggle-films{'data-src': episode.online_link}
                             %td
-                              %label.watched.episode{title: 'Переглянуто', 'data-id': episode.id}
+                              %label.watched.episode{title: 'Переглянуто', 'data-id': [episode.id]}
                                 %input{type: 'checkbox', checked: false }
                                 %span.watched-status
                           - if show.online_link.present? && episode.released.past?
