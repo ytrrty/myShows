@@ -1,0 +1,39 @@
+= content_for :javascripts do
+  = javascript_include_tag 'seasons-list'
+
+.container.pt16
+  .row.justify-content-center
+    .col-md-9
+      %h2.text-center Нові епізоди
+      .accordion#newEpisode
+        - @shows.group_by(&:show).each_pair do |show, seasons|
+          .new-episode
+            .new-episode-item
+              %h4
+                = link_to show.name, show
+              - seasons.group_by(&:season).each_pair do |season, episodes|
+                .card
+                  .card-header
+                    %button.btn.btn-link{type: 'button', 'data-toggle': 'collapse', 'data-target': "#collapse-#{show.id}#{season}"}= "Season #{season}"
+                  .collapse.show{'data-parent': '#newEpisode', id: "collapse-#{show.id}#{season}"}
+                    .card-body
+                      %table.table.table-striped
+                        %tr
+                        - episodes.each do |episode|
+                          %tr
+                            %td{width: '50px'}= episode.season.to_s + 'x' + episode.number.to_s
+                            %td{width: '530px'}= link_to episode.name, episode
+                            %td{width: '50px'}
+                              %span.badge{class: "badge-#{episode.released.past? ? 'success' : 'secondary'}"}
+                                = episode.released.strftime('%d.%m.%Y')
+                            %td{width: '50px'}
+                              - if show.online_link.present? && episode.released.past?
+                                %span.toggle-films{'data-src': episode.online_link}
+                            %td
+                              %label.watched.episode{title: 'Переглянуто', 'data-id': [episode.id]}
+                                %input{type: 'checkbox', checked: false }
+                                %span.watched-status
+                          - if show.online_link.present? && episode.released.past?
+                            %tr.film-ct
+                              %td{colspan: 5}
+                                .films-inner-ct

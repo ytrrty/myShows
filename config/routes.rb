@@ -1,89 +1,34 @@
 Rails.application.routes.draw do
-
-  post '/rate' => 'rater#create', :as => 'rate'
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  devise_for :users, controllers: { registrations: 'registrations' }
-
-  resources :users
-  resources :shows
-  resources :genres
-  resources :episodes
-
-  resources :comments do
-    resources :comments
+  authenticated :user, ->(user) { user.access } do
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   end
 
-  resources :shows do
-    resources :comments
-  end
+  devise_for :users, controllers: { registrations: 'devise_override/registrations' }
 
-  resources :episodes do
-    resources :comments
-  end
-
-  #root to: 'users#welcome'
   root to: 'shows#index'
 
+  resources :shows do
+    get :list, on: :collection
+    get :change_status, on: :member
+    post :to_favorite, on: :member
+    resources :comments
+  end
 
-  get 'users/:id/favorites', to: 'users#favorites', as: :users_favorites
-  get 'users/:id/rates', to: 'users#rates', as: :users_rates
-  get 'shows/:id/change_status', to: 'shows#change_status', as: :change_status
-  post 'shows/:id/favorite', to: 'shows#favorite', as: :favorite
-  get 'genres/:id', to: 'genres#show', as: :find_genres
+  resources :genres
 
+  resources :users do
+    get :favorites, on: :member
+    get :rates, on: :member
+  end
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  resources :comments, only: [:create]
+  resources :episodes, only: [:new, :show] do
+    resources :comments
+    post :mark_as_watched, on: :collection
+  end
 
-  # You can have the root of your site routed with "root"
-  # root 'welcome#show'
+  get :what_to_see, to: 'episodes#what_to_see'
+  get :disclaimer, to: 'home#disclaimer'
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  post '/rate' => 'rater#create', as: 'rate'
 end

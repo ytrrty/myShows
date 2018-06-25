@@ -1,16 +1,14 @@
-#shows
-  %ul.large-block-grid-4
-    - @all_shows.each do |show|
-      %li
-        .cuadro_intro_hover
-          = link_to image_tag(show.photo_orig, class: 'show-list'), show
-          .caption
-            .blur
-              .caption-text
-                .blocks-names= link_to show.name, show
-                = show.about[0..450] + '...'
-                %br
-                %br
-                = link_to (I18n.t 'read-more'), show, class: 'button success tiny', style: 'align: center;'
-
-  = paginate @all_shows
+.container.pt16
+  .row
+    - @shows.each do |show|
+      .col-md-6
+        .card.flex-md-row.mb-4.box-shadow.h-md-250
+          = link_to show do
+            = image_tag show.photo, class: 'card-img-left flex-auto d-none d-md-block'
+          .card-body.d-flex.flex-column.align-items-start
+            -#%strong.d-inline-block.mb-2.text-primary World
+            %h3.mb-0
+              = link_to show.name, show, class: 'text-dark'
+            .mb-1.text-muted= show.genres.map(&:name).join(', ')
+            %p.card-text.mb-auto= show.about[0..200] + (show.about.length > 300 ? '...' : '')
+            = link_to (I18n.t 'read-more'), show

@@ -1,119 +1,122 @@
-- content_for :title, @show.name + @show_years
-.page
-  .row
+= content_for :title, @show.name + (@show.start_date ? "(#{@show.start_date&.year})" : '')
+= content_for :javascripts do
+  = javascript_include_tag 'jquery.raty'
+  = javascript_include_tag 'ratyrate'
+  = javascript_include_tag 'seasons-list'
+  = javascript_include_tag 'favorite'
 
-    .show-info.large-9.medium-8.columns
-      .row
-        .large-4.columns
-          .show-avatar= image_tag @show.photo_orig
-          -if user_signed_in?
-            %button.tiny.button.dropdown.show-status{'data-dropdown' => 'drop1', 'aria-controls' => 'drop1', 'aria-expanded' => 'false'}
-              - unless @current_fav.blank?
-                - case @current_fav.show_status
-                  - when 'dont_watch'
-                    = I18n.t 'user.dont-watch'
-                  - when 'watching'
-                    = I18n.t 'user.watching'
-                  - when 'will_watch'
-                    = I18n.t 'user.will-watch'
-                  - when 'stopped_watch'
-                    = I18n.t 'user.stopped-watch'
+.container-fluid{style: 'background: #333; color: white; padding: 30px 0;'}
+  .container
+    .row
+      .col-md-3
+        = image_tag @show.photo, style: 'width: 100%'
+        - if user_signed_in?
+          %button.btn-watch-status.btn.btn-info.dropdown-toggle{type: :button, 'data-toggle': :dropdown, 'aria-haspopup': true, 'aria-expanded': false}
+            - case @user_show&.show_status&.to_sym
+              - when :watching
+                = I18n.t 'user.watching'
+              - when :will_watch
+                = I18n.t 'user.will-watch'
+              - when :stopped_watch
+                = I18n.t 'user.stopped-watch'
               - else
                 = I18n.t 'user.dont-watch'
-            %br
-            %ul.f-dropdown#drop1{'aria-hidden'=>'true', tabindex: '-1'}
-              %li= link_to (I18n.t 'user.dont-watch'), change_status_path(id: @show.id, status: 'dont_watch')
-              %li= link_to (I18n.t 'user.will-watch'), change_status_path(id: @show.id, status: 'will_watch')
-              %li= link_to (I18n.t 'user.watching'), change_status_path(id: @show.id, status: 'watching')
-              %li= link_to (I18n.t 'user.stopped-watch'), change_status_path(id: @show.id, status: 'stopped_watch')
-        .large-8.columns
-          - if user_signed_in?
-            .favorite-button
-              .switch.tiny
-                - unless @current_fav.blank?
-                  - if @current_fav.favorite == true
-                    %input#switch{:type => 'checkbox', :checked => true}
-                  - else
-                    %input#switch{:type => 'checkbox', :checked => false}
-                - else
-                  %input#switch{:type => 'checkbox', :checked => false}
-                %label{:for=>'switch'}
-                %br
-                = I18n.t 'show.add-to-favorite'
+          .dropdown-menu
+            = link_to (I18n.t 'user.dont-watch'), change_status_show_path(@show, status: :dont_watch), class: 'dropdown-item'
+            = link_to (I18n.t 'user.will-watch'), change_status_show_path(@show, status: :will_watch), class: 'dropdown-item'
+            = link_to (I18n.t 'user.watching'), change_status_show_path(@show, status: :watching), class: 'dropdown-item'
+            = link_to (I18n.t 'user.stopped-watch'), change_status_show_path(@show, status: :stopped_watch), class: 'dropdown-item'
 
-          %b= (I18n.t 'show.status') + ':'
-          - if @show.status == 'Run'
-            %span.success.label.radius= @show.status
-          - else
-            %span.alert.label.radius= @show.status
-          %br
-          %b= (I18n.t 'show.start-date') + ':'
-          = @show.start_date.strftime('%d.%m.%Y')
-          %br
-          %b= (I18n.t 'show.finish-date') + ':'
-          - if @show.finish_date.nil?
-            = '...'
-          - else
-            = @show.finish_date.strftime('%d.%m.%Y')
-          %br
-          %b= (I18n.t 'show.genres') + ':'
+          = link_to (I18n.t 'comment.add'), '#new_comment', class: 'btn-watch-comment btn btn-warning'
+
+      .col-lg-9
+        %h1.films-title
+          .films-title-left
+            = @show.name
+            - if @show.start_date.present?
+              %span.text-muted= "(#{@show.start_date.year})"
+          - if current_user.present?
+            .films-title-right
+              %label.bookmarks{title: 'Мені подобається!', 'data-id': @show.id}
+                %input{type: 'checkbox', checked: @user_show&.favorite}
+                %span.bookmarks-status
+        %h5
           - @show_genres.each do |genre|
-            = link_to genre.name, genre
-          %br
-          %b= (I18n.t 'show.seasons') + ':'
-          = @show.seasons_count
-          %br
-          %b= (I18n.t 'show.runtime') + ':'
-          = @show.runtime.to_s + ' min.'
-          %br
-          %b= (I18n.t 'show.rate-imdb') + ':'
-          - if @show.rate_imdb == nil
-            = 'Not rated yet'
-          - else
-            = @show.rate_imdb
-          %br
-          %b= 'Загальна оцінка:'
-          = rating_for @show, 'rate'
-          - if user_signed_in?
-            %b= 'Ваша оцінка:'
-            = rating_for_user @show, current_user, 'rate', :star => 7
-          %b= (I18n.t 'show.about') + ':'
-          = @show.about
-          %br
+            = link_to genre.name, shows_path(genre_id: genre.id), class: 'badge badge-info'
+
+        %b= "#{t 'show.status'}:"
+        %span.badge{class: "badge-#{@show.status == 'Run' ? 'success' : 'danger'}"}= @show.status
+        %br
+        %b= "#{t 'show.start-date'}:"
+        = @show.start_date&.strftime('%d.%m.%Y')
+        %br
+        %b= "#{t 'show.finish-date'}:"
+        = @show.finish_date&.strftime('%d.%m.%Y') || '...'
+        %br
+        %b= "#{t 'show.seasons'}:"
+        = @show.seasons_count
+        %br
+        %b= "#{t 'show.runtime'}:"
+        = "#{@show.runtime.to_s} min."
+        %br
+        %b= "#{t 'show.rate-imdb'}:"
+        = @show.rate_imdb || 'Not rated yet'
+        %br
+        %b= 'Оцінка сайту:'
+        = rating_for @show, 'rate', disable_after_rate: false, star_path: '/'
+        %br
+        %b= "#{t 'show.about'}:"
+        = @show.about
+        %br
 
 
-      %ul.seasons
-        - count = @show.episodes.last.season
-        - i = 0
-        - while count > i do
-          - current_season = @show_episodes.where(:season => count)
-          %li.closeable.close
-            %h6= (I18n.t 'show.season') + ' ' + count.to_s
-            %table
-              %tr
-                %th{width: '50px'}= '#'
-                %th{width: '530px'}= I18n.t 'show.name'
-                %th{width: '50px'}= I18n.t 'show.date'
-              - current_season.each do |episode|
-                %tr
-                  %td= episode.season.to_s + 'x' + episode.number.to_s
-                  %td= link_to episode.name, episode
-                  - if episode.released <= DateTime.now
-                    %td
-                      %span.success.label.radius= episode.released.strftime('%d.%m.%Y')
-                  - else
-                    %td
-                      %span.secondary.label.radius= episode.released.strftime('%d.%m.%Y')
-          - count -= 1
+- if @episodes.present?
+  .container.pt16
+    .row.justify-content-center
+      .col-md-9
+        .accordion#accordionSeason
+          - count = @episodes.first.season
+          - i = 0
+          - while count > i do
+            - current_season = @episodes.select { |episode| episode.season == count }
+            .card
+              .card-header.card-header-shows
+                %h5.mb-0
+                  %button.btn.btn-link{type: 'button', 'data-toggle': 'collapse', 'data-target': "#collapse-#{count}", 'aria-expanded': 'true', 'aria-controls': "collapse-#{count}"}= (I18n.t 'show.season') + ' ' + count.to_s
+              .collapse.show{'aria-labelledby': 'heading-1', 'data-parent': '#accordionSeason', id: "collapse-#{count}"}
+                .card-body
+                  %table.table.table-striped
+                    %tr
+                      %th{width: '50px'}= '#'
+                      %th{width: '530px'}= I18n.t 'show.name'
+                      %th{width: '50px'}= I18n.t 'show.date'
+                      %th
+                      %th
+                        - if current_user.present? && current_season.select { |e| e.released.past? }.present?  && @user_show && @user_show.show_status != 'dont_watch'
+                          %label.watched.season{title: 'Переглянуто', 'data-id': current_season.map(&:id)}
+                            %input{type: 'checkbox', checked: @user_episodes.select { |u_e| u_e.episode.season == count }.count == current_season.count}
+                            %span.watched-status
+                    - current_season.each do |episode|
+                      %tr
+                        %td= episode.season.to_s + 'x' + episode.number.to_s
+                        %td= link_to episode.name, episode
+                        %td
+                          %span.badge{class: "badge-#{episode.released&.past? ? 'success' : 'secondary'}"}
+                            = episode.released&.strftime('%d.%m.%Y')
+                        %td
+                          - if @show.online_link.present? && episode.released.past?
+                            %span.toggle-films{'data-src': episode.online_link}
+                        %td
+                          - if current_user.present? && episode.released.past? && @user_show && @user_show.show_status != 'dont_watch'
+                            %label.watched.episode{title: 'Переглянуто', 'data-id': [episode.id]}
+                              %input{type: 'checkbox', checked: @user_episodes.select { |u_e| u_e.episode_id == episode.id }.present? }
+                              %span.watched-status
+                      - if @show.online_link.present? && episode.released.past?
+                        %tr.film-ct
+                          %td{colspan: 5}
+                            .films-inner-ct
 
-      %p= link_to (I18n.t 'comment.add'), new_show_comment_path(@show)
+              - count -= 1
 
-      %ul.comment_list
-        = render :partial => 'comments/comment', :collection => @show.comments
-
-    .large-3.medium-4.small-12.columns.closeable.recommendation
-      %h6= I18n.t 'show.recommend'
-      - @recommendation.each do |item|
-        - if @show != item
-          = link_to (image_tag item.photo), item
-          = link_to item.name, item
+      .col-md-9
+        = render partial: 'comments/comments', locals: { parent: @show }

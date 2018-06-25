@@ -1,57 +1,70 @@
-- content_for :title, @user_profile.login
-.page
+- content_for :title, @user.login
+= content_for :javascripts do
+  = javascript_include_tag 'jquery.raty'
+  = javascript_include_tag 'ratyrate'
+
+.container.pt16
   .row
-    .large-9.medium-9.columns
-      .row
-        .large-4.medium-4.small-12.columns
-          .user-avatar
-            = image_tag @user_profile.avatar.url(:medium)
-          - if user_signed_in?
-            - if current_user.access == 1 && @user_profile == current_user
-              %button.tiny.button.dropdown.show-status.success{'aria-controls' => 'drop1', 'aria-expanded' => 'false', 'data-dropdown' => 'drop1'}
-                = I18n.t 'user.site-control'
-              %ul.f-dropdown#drop1
-                %li= link_to (I18n.t 'user.parse-genres'), new_genre_path
-                %li= link_to (I18n.t 'user.parse-shows'), new_show_path
-                %li= link_to (I18n.t 'user.parse-episodes'), new_episode_path
-                %li= link_to (I18n.t 'user.admin-panel'), rails_admin_path
+    .col-md-3
+      .user-avatar
+        = image_tag @user.avatar.url(:medium)
+      - if user_signed_in?
+        - if current_user.access == 1 && @user == current_user
+          .user-drop
+            %button{type: 'button', class: 'btn btn-info dropdown-toggle', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false'}
+              = I18n.t 'user.site-control'
+            .dropdown-menu
+              = link_to (I18n.t 'user.parse'), new_show_path, class: 'dropdown-item'
+              -#= link_to (I18n.t 'user.parse-genres'), new_genre_path, class: 'dropdown-item'
+              -#= link_to (I18n.t 'user.parse-episodes'), new_episode_path, class: 'dropdown-item'
+              = link_to (I18n.t 'user.admin-panel'), rails_admin_path, class: 'dropdown-item'
 
-              - if current_user == @user_profile
+    .col-md-9
+      .box-ct
+        .box-item.box-red
+          .stats
+            %p= @stats[:episodes][:watched]
+            %p= t('user.episodes')
+          %b{style: "height: #{@stats[:episodes][:watched] * 100.0 / @stats[:episodes][:count]}%"}
+        .box-item.box-green
+          .stats
+            %p= @stats[:hours][:watched].round(1)
+            %p= t('user.hours')
+          %b{style: "height: #{@stats[:hours][:watched] * 100.0 / @stats[:hours][:count]}%"}
+        .box-item.box-blue
+          .stats
+            %p= @stats[:days][:watched].round(1)
+            %p= t('user.days')
+          %b{style: "height: #{@stats[:days][:watched] * 100.0 / @stats[:days][:count]}%"}
+    .col-md-12.pt16
+      %ul.nav.nav-tabs.nav-history{role: 'tablist'}
+        %li.nav-item
+          %a.nav-link.active{'data-toggle': 'tab', href: '#watching', 'role': 'tab'}
+            = t('user.watching')
+            = "(#{@watching.count})"
+        %li.nav-item
+          %a.nav-link{'data-toggle': 'tab', href: '#going_to_watch', 'role': 'tab'}
+            = t('user.will-watch')
+            = "(#{@will_watch.count})"
+        %li.nav-item
+          %a.nav-link{'data-toggle': 'tab', href: '#stopped_watch', 'role': 'tab'}
+            = t('user.stopped-watch')
+            = "(#{@stopped_watch.count})"
+        %li.nav-item
+          %a.nav-link{'data-toggle': 'tab', href: '#favorites', 'role': 'tab'}
+            = t('user.favorites')
+            = "(#{@favorites.count})"
+      .tab-content
+        .tab-pane.fade.show.active#watching
+          = render partial: 'shows_list', locals: { shows: @watching.map(&:show), title: t('user.watching') }
+        .tab-pane.fade#going_to_watch
+          = render partial: 'shows_list', locals: { shows: @will_watch.map(&:show), title: t('user.will-watch') }
+        .tab-pane.fade#stopped_watch
+          = render partial: 'shows_list', locals: { shows: @stopped_watch.map(&:show), title: t('user.stopped-watch') }
+        .tab-pane.fade#favorites
+          = render partial: 'shows_list', locals: { shows: @favorites.map(&:show), title: t('user.favorites') }
 
-                %ul.user-panel.full-width
-                  %li{style: 'margin-bottom: -15px'}
-                    = link_to (I18n.t 'user.favorites'), users_favorites_path, class: 'button success tiny full-width'
-                  %li{style: 'margin-bottom: -15px'}
-                    = link_to (I18n.t 'user.rates'), users_rates_path, class: 'button success tiny full-width'
-                  %li{style: 'margin-bottom: -15px'}
-                    = link_to (I18n.t 'user.edit-profile'), edit_user_registration_path(current_user), class: 'button success tiny full-width'
-        .large-8.medium-8.small-12.columns{style: 'margin-top: 5px'}
-          = bar_chart @ord
-
-    .user-right.large-3.medium-3.columns
-      - unless @watching.empty?
-        %h5= I18n.t 'user.watching'
-        - @watching.each do |item|
-          %h6= link_to item.show.name, item.show
-
-      - unless @will_watch.empty?
-        %h5= I18n.t 'user.will-watch'
-        - @will_watch.each do |item|
-          %h6= link_to item.show.name, item.show
-
-
-      - unless @stopped_watch.empty?
-        %h5= I18n.t 'user.stopped-watch'
-        - @stopped_watch.each do |item|
-          %h6= link_to item.show.name, item.show
-
-      - if @watching.empty? && @will_watch.empty? && @stopped_watch.empty?
-        - if @user_profile == current_user
-          %h6= I18n.t 'user.dont-watch-yet'
-          %i= I18n.t 'user.go-to'
-          = (link_to (I18n.t 'user.shows-list'), shows_path)
-          = I18n.t 'user.add-shows'
-        - else
-          %h6
-            %b= @user_profile.login
-            = I18n.t 'interface.user.other-user'
+    - if @shows.present?
+      .col-md-12
+        %h3 Рекомендації
+        = render 'shows/list'

@@ -1,29 +1,42 @@
 class UsersController < ApplicationController
-
-  def show
-    @user_profile = User.find(params[:id])
-    @watching = UsersShow.where(:user_id => @user_profile.id, :show_status => 'watching')
-    @will_watch = UsersShow.where(:user_id =>  @user_profile.id, :show_status => 'will_watch')
-    @stopped_watch = UsersShow.where(:user_id =>  @user_profile.id, :show_status => 'stopped_watch')
-
-    @ord = Genre.group('genres.name').joins('
-          INNER JOIN shows_genres ON shows_genres.genre_id = genres.id
-          INNER JOIN shows ON shows.id = shows_genres.show_id
-          INNER JOIN users_shows ON users_shows.show_id = shows.id
-          INNER JOIN users ON users.id = users_shows.user_id').
-          where('users.id = ' + params[:id].to_s + " AND users_shows.show_status != 'dont_watch'").count
-  end
-
-  def welcome
-    redirect_to current_user if user_signed_in?
-  end
+  before_action :set_user, only: :show
 
   def index
-    @all_users = User.all
+    @users = User.all
+  end
+
+  def show
+    @user_shows = @user.users_shows.includes(show: [:episodes, :rate_average])
+    @user_episodes = @user.users_episodes.includes(episode: :show)
+    @watching =      @user_shows.select_by_status('watching')
+    @will_watch =    @user_shows.select_by_status('will_watch')
+    @stopped_watch = @user_shows.select_by_status('stopped_watch')
+    @favorites     = @user_shows.select(&:favorite?)
+    @stats = {
+      episodes: {
+        count: @user_shows.sum {|u_s| u_s.show.episodes.size },
+        watched: @user_episodes.count
+      },
+      hours: {
+        count: @user_shows.sum { |u_s| u_s.show.episodes.size * u_s.show.runtime } / 60.0,
+        watched: @user_episodes.sum { |u_e| u_e.episode.show.runtime } / 60.0
+      },
+      days: {
+        count: @user_shows.sum { |u_s| u_s.show.episodes.size * u_s.show.runtime } / 60.0 / 24,
+        watched: @user_episodes.sum { |u_e| u_e.episode.show.runtime } / 60.0 / 24
+      }
+    }
+
+    @shows = Show.left_joins(:users_shows, :genres)
+                 .where('shows.id NOT IN (?)', @user_shows.map(&:show_id))
+                 .where('genres.id IN (?)', @user_shows.map(&:show).map(&:genres).flatten.map(&:id).uniq)
+                 .order('rate_imdb DESC')
+                 .distinct
+                 .limit(6)
   end
 
   def favorites
-    @user_favorite = UsersShow.where(:user_id => current_user.id, :favorite => 1)
+    @shows = current_user.users_shows.where(favorite: true).map(&:show)
   end
 
   def rates
@@ -38,5 +51,8 @@ class UsersController < ApplicationController
   end
 
   private
-end
 
+  def set_user
+    @user = User.find(params[:id])
+  end
+end

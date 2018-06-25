@@ -1,28 +1,29 @@
 <% content_for :title, (I18n.t 'header.sign-in') %>
-<div class="page">
-<form method="post">
 
-<div class="reg">
+<div class="account-page">
+  <form method="post">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-group">
+        <label>Email</label>
+        <%= f.email_field :email, autofocus: true, placeholder: 'Email', class: 'form-control' %>
+      </div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.email_field :email, autofocus: true, placeholder: 'Email' %>
-  </div>
+      <div class="form-group">
+        <label>Пароль</label>
+        <%= f.password_field :password, autocomplete: "off", placeholder: (I18n.t 'reg.password'), class: 'form-control' %>
+      </div>
 
-  <div class="field">
-    <%= f.password_field :password, autocomplete: "off", placeholder: (I18n.t 'reg.password') %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label (I18n.t 'reg.remember-me') %>
-    </div>
-  <% end -%>
-
-      <button type="submit" class="button radius expand success small"><%= I18n.t 'header.sign-in' %></button>
-<% end %>
-
+      <% if devise_mapping.rememberable? -%>
+        <div class="form-group form-check">
+          <%= f.check_box :remember_me, class: "form-check-input" %>
+          <%= f.label (I18n.t 'reg.remember-me'), class: "form-check-label" %>
+        </div>
+      <% end -%>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary"><%= I18n.t 'header.sign-in' %></button>
+      </div>
+    <% end %>
+  </form>
 </div>
-</form>
-</div>
+
+

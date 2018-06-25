@@ -1,0 +1,22 @@
+.watching-time
+  %p.watching-name= title
+  %span.dots
+  %p.watching-current &nbsp;
+%ul.serials-list
+  - shows.each do |show|
+    - episodes_count = show.episodes.size
+    - watched_count = @user.users_episodes.joins(episode: :show).where(shows: { id: show.id }).count
+    %li.serials-list-item
+      .serials-link
+        = link_to show do
+          = show.name
+          %span.badge{class: "badge-#{show.status == 'Run' ? 'success' : 'danger'}"}= show.status
+      .serials-stars
+        = rating_for show, 'rate', disable_after_rate: false, star_path: '/'
+      .serials-progress
+        .serials-progress-header
+          %span &nbsp;
+          %span= episodes_count
+        .serials-progress-outer
+          .serials-progress-inner{style: "width: #{watched_count * 100 / episodes_count.to_f}%"}
+            %span= watched_count

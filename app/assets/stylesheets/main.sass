@@ -1,0 +1,386 @@
+html
+  font-size: 14px
+
+body
+  background: #f8f9fa
+
+nav.navbar
+  padding: 0
+
+.wrapper
+  padding-top: 54px
+.fixed-top
+  min-height: 54px
+.account-toggle
+  display: flex
+  //min-width: 220px
+  //max-width: 220px
+  padding: 0.5rem 1rem
+  align-items: center
+  color: $white
+  cursor: pointer
+  overflow: hidden
+  text-transform: none
+  transition: background 0.3s ease
+  &:after
+    display: none
+  .header-avatar
+    position: relative
+    flex: 0 0 40px
+    width: 40px
+    height: 40px
+    border-radius: 50%
+    border: none
+    overflow: hidden
+    img
+      position: absolute
+      left: 50%
+      top: 50%
+      width: 100%
+      transform: translate(-50%, -50%)
+      height: auto
+  .account-info
+    width: 100%
+    padding: 0 1rem
+    p
+      margin: 0
+      font-weight: bold
+.nav-link:hover,
+.nav-link:focus
+  color: #f93703
+.pt16
+  padding-top: 16px
+.btn-watch-status
+  width: 100%
+  margin: 8px 0 0
+  text-transform: uppercase
+  &+.dropdown-menu
+      right: 30px
+.btn-watch-comment
+  display: block
+  margin: 8px 0 0
+  text-transform: uppercase
+.comment-header
+  display: flex
+  align-items: center
+  justify-content: space-between
+.media
+  flex-wrap: wrap
+  padding: 16px 0
+  img
+    width: 80px
+  h6
+    a
+      font-size: 16px
+      font-weight: bold
+      color: #000
+      &:hover
+        color: #f93703
+
+.media-footer
+  display: flex
+  justify-content: flex-end
+  padding-top: 16px
+.comment-feedback-link
+  color: #606983
+  border-bottom: 1px dashed #606983
+  text-decoration: none
+  &:hover
+    color: #f93703
+    border-bottom-color: #f93703
+    text-decoration: none
+.comment-replay
+  display: none
+
+.films-title
+  display: flex
+  align-items: center
+  justify-content: space-between
+.bookmarks
+  cursor: pointer
+  margin: 0
+  input
+    display: none
+    &:checked
+      &+.bookmarks-status
+        &:after
+          content: "\f004"
+          color: #f93703
+
+.bookmarks-status
+  position: relative
+  &:after
+    content: "\f08a"
+    font-family: FontAwesome
+    font-style: normal
+    font-weight: normal
+    text-decoration: inherit
+    color: #fff
+    font-size: 35px
+
+.star
+  display: inline-block
+
+.episode-avatar
+  width: 100%
+
+.account-page
+  min-height: calc(100vh - 54px)
+  display: flex
+  &>form
+    padding: 16px
+    width: 100%
+    max-width: 360px
+    margin: auto
+    border-radius: 3px
+    background: white
+    border: 1px solid #ccc
+
+label
+  margin-bottom: 0
+
+.user-avatar
+  img
+    width: 100%
+.user-drop
+  margin: 8px 0 8px
+  button
+    width: 100%
+    display: block
+    &+.dropdown-menu
+      right: 30px
+
+.user-page-nav
+  display: flex
+  flex-direction: column
+  .btn
+    margin: 8px 0
+
+.watched
+  cursor: pointer
+  margin: 0
+  input
+    display: none
+    &:checked
+      &+.watched-status
+        &:after
+          content: "\f070"
+          color: #50c878
+
+.watched-status
+  position: relative
+  cursor: pointer
+  &:after
+    content: "\f06e"
+    font-family: FontAwesome
+    font-style: normal
+    font-weight: normal
+    text-decoration: inherit
+    color: #000
+    font-size: 18px
+  &.big
+    &:after
+      font-size: 30px
+.new-episode
+  margin-top: 16px
+  .card
+    border:  none
+  .card-body
+    padding: 0
+    table
+      border: none
+      margin: 0
+      td
+        border:  none
+  .card-header
+    padding: 0
+    border: none
+    border-bottom: 1px solid #f0f0f0
+    &:hover
+      border-color: #ccc
+    button
+      display: block
+      width: 100%
+      text-align: left
+      color: #000
+      font-weight:  bold
+.film-ct
+  td
+    padding: 0
+    border: 0
+.films-inner-ct
+  height: 445px
+  display: none
+  iframe
+    width: 100% !important
+.toggle-films
+  position: relative
+  cursor: pointer
+  &.opened
+    &:after
+      content: "\f144"
+  &:after
+    content: "\f01d"
+    font-family: FontAwesome
+    font-style: normal
+    font-weight: normal
+    text-decoration: inherit
+    color: #000
+    font-size: 18px
+.comment-form
+  display: block
+  width: 100%
+  form
+    width: 100%
+  textarea
+    width: 100%
+    min-height: 80px
+    border-radius: 3px
+    border: 1px solid #d8d8d8
+.media-outer
+  width: 100%
+  margin-bottom: 16px
+  background: white
+  flex: 0 0 100%
+  padding: 8px
+  border: 1px solid #d8d8d8
+  border-radius: 3px
+.comment-replay
+  //display: flex
+  padding-top: 16px
+  flex-direction: column
+  textarea
+    min-height: 80px
+    margin-bottom: 16px
+    border-radius: 3px
+    border: 1px solid #d8d8d8
+  .submit
+    align-self: center
+.card-header-shows
+  padding: 5px
+  display: flex
+  align-items: center
+  justify-content: space-between
+  .watched
+    padding-right: 20px
+.box-ct
+  display: flex
+  margin-bottom: 16px
+  flex-wrap: wrap
+  .box-item
+    padding: 60px 0
+    height: 200px
+    color: white
+    flex: 0 0 30%
+    border-radius: 3px
+    text-align: center
+    position: relative
+    &:not(:first-child)
+      margin-left: 24px
+    .stats
+      position: absolute
+      z-index: 1
+      left: 0
+      right: 0
+      top: 50%
+      transform: translateY(-50%)
+    p
+      margin: 0
+      &:first-child
+        font-weight: bold
+        font-size: 32px
+        text-transform: uppercase
+      &:last-child
+        font-size: 18px
+        text-transform: uppercase
+    b
+      position: absolute
+      bottom: 0
+      left: 0
+      right: 0
+    &.box-red
+      background: #df5163
+      b
+        background: #b2404f
+    &.box-green
+      background: #4CB963
+      b
+        background: #3c944f
+    &.box-blue
+      background: #00A5CF
+      b
+        background: #0084a5
+.watching-time
+  display: flex
+  padding: 16px 0
+  align-items: center
+  .dots
+    position: relative
+    margin: 0 8px
+    bottom: 7px
+    align-self: flex-end
+    flex: 1
+    border-bottom: 1px dotted #000
+  p
+    margin: 0
+    &.watching-name
+      font-weight: bold
+      font-size: 18px
+    &.watching-current
+      font-size: 14px
+.serials-list
+  margin: 0
+  padding: 8px
+  list-style-type: none
+  background: white
+  border-radius: 3px
+.serials-list-item
+  display: flex
+  align-items: flex-end
+  padding: 12px 0
+  border-bottom: 1px solid #d8d8d8
+.nav-history
+  sup
+    padding: 0 4px
+    background: #4CB963
+    color: white
+    border-radius: 3px
+.serials-link
+  flex: 1
+  a
+    sup
+      background: #4CB963
+      padding: 0 8px
+      color: white
+.serials-stars
+  flex: 1
+.serials-progress
+  flex: 2
+
+.serials-progress-outer
+  position: relative
+  background: #d8d8d8
+  height: 6px
+  border-radius: 3px
+.serials-progress-inner
+  position: absolute
+  left: 0
+  top: 0
+  bottom: 0
+  width: 50%
+  background: #D7263D
+  span
+    position: absolute
+    bottom: 100%
+    right: 0
+    font-size: 12px
+    color: #D7263D
+.serials-progress-header
+  display: flex
+  justify-content: space-between
+  font-size: 12px
+  color: #4a4a4a
+.tab-content
+  padding-bottom: 40px
+.raty-cancel
+  display: none

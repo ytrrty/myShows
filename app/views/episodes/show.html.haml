@@ -1,38 +1,55 @@
 - content_for :title, @show.name + ' : ' + @episode.name
-.page
-  .show-info
-    .row
-      .avatar.large-7.medium-7.columns
-        = image_tag @episode.photo_orig, class: 'episode-avatar'
-      .show-text.large-5.medium-5.columns
-        %b= (I18n.t 'episode.name') + ':'
-        = @episode.name
-        %br
-        %b= (I18n.t 'episode.show') + ':'
-        = link_to @show.name, @show
-        %br
-        %b= (I18n.t 'episode.released') + ':'
-        = @episode.released.strftime('%d.%m.%Y')
-        %br
-        %b= (I18n.t 'show.rate-imdb') + ':'
-        - if @episode.rate_imdb == nil
-          Not rated yet
-        - else
-          = @episode.rate_imdb
-        %br
-        %b= (I18n.t 'episode.season') + ':'
-        = @episode.season
-        %br
-        %b= (I18n.t 'episode.episode') + ':'
-        = @episode.number
-        %br
-        %b= (I18n.t 'show.runtime') + ':'
-        = @show.runtime.to_s + ' min.'
-        %br
-        %b= (I18n.t 'show.about') + ':'
-        = @episode.about
-        %br
-    %p= link_to (I18n.t 'comment.add'), new_episode_comment_path(@episode)
+= content_for :javascripts do
+  = javascript_include_tag 'jquery.raty'
+  = javascript_include_tag 'ratyrate'
+  = javascript_include_tag 'favorite'
+  = javascript_include_tag 'seasons-list'
 
-    %ul.comment_list
-      = render :partial => 'comments/comment', :collection => @episode.comments
+.container.pt16
+  .row
+    .col-md-3
+      = image_tag @episode.photo, class: 'episode-avatar'
+      = link_to (I18n.t 'comment.add'), '#new_comment', class: 'btn-watch-comment btn btn-warning'
+    .col-lg-9
+      %h1.films-title
+        .films-title-left
+          = "#{@show.name}: #{@episode.name}"
+        - if current_user.present?
+          .films-title-right
+            %label.watched.episode{title: 'Переглянуто', 'data-id': [@episode.id]}
+              %input{type: 'checkbox', checked: @user_episode.present?}
+              %span.watched-status.big
+      -#%b= (I18n.t 'episode.name') + ':'
+      -#= @episode.name
+      -#%br
+      -#%b= (I18n.t 'episode.show') + ':'
+      -#= link_to @show.name, @show
+      -#%br
+      %b= (I18n.t 'episode.released') + ':'
+      = @episode.released.strftime('%d.%m.%Y')
+      %br
+      %b= (I18n.t 'episode.season') + ':'
+      = @episode.season
+      %br
+      %b= (I18n.t 'episode.episode') + ':'
+      = @episode.number
+      %br
+      %b= (I18n.t 'show.runtime') + ':'
+      = @show.runtime.to_s + ' min.'
+      %br
+      %b= (I18n.t 'show.rate-imdb') + ':'
+      - if @episode.rate_imdb == nil
+        Not rated yet
+      - else
+        = @episode.rate_imdb
+      %br
+      %b= 'Оцінка сайту:'
+      = rating_for @episode, 'rate', disable_after_rate: false, star_path: '/'
+      %br
+      %b= (I18n.t 'show.about') + ':'
+      = @episode.about
+      %br
+      - if @show.online_link.present?
+        %iframe{src: @episode.online_link(false), width: 640, height: 445, frameborder: 0, allowfullscreen: ''}
+
+      = render 'comments/comments', { parent: @episode }

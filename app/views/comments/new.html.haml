@@ -1,6 +1,0 @@
-- content_for :title, (I18n.t 'comment.new')
-.new-comment
-  = form_for [@parent, @comment] do |f|
-    = f.text_area :body, placeholder: :body, rows: '6'
-    = f.hidden_field :user_id, value: current_user.id
-    = f.submit (I18n.t 'comment.add'), class: 'button success tiny '
