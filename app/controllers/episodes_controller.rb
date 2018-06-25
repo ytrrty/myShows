@@ -21,7 +21,7 @@ class EpisodesController < ApplicationController
 
   def what_to_see
     @shows = Episode.left_joins(:users_episodes, show: :users_shows)
-                    .where(users_shows: { show_status: 'watching' })
+                    .where(users_shows: { show_status: 'watching', user_id: current_user.id })
                     .where.not(users_shows: { id: nil })
                     .where(users_episodes: { id: nil })
                     .where('episodes.released < ?', Time.zone.now)
